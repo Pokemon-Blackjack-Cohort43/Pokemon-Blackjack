@@ -60,6 +60,33 @@ const GameContainer = () => {
       })
   }, []);
 
+  // https://www.deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1
+  
+  
+  useEffect(() => {
+    
+
+
+    //axios API call
+    axios({
+      url: 'https://www.deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1',
+      method: `get`,
+      dataResponse: `json`
+    }).then((response)=> {
+      axios({
+          url:`https://www.deckofcardsapi.com/api/deck/${response.data.deck_id}/draw/?count=2`,
+          method: `get`,
+          dataResponse: `json`
+        }).then((response)=>{
+          console.log(response.data.cards);
+          
+          
+        });
+    })
+
+
+  })
+
   return(
     <>
       <Player/>
