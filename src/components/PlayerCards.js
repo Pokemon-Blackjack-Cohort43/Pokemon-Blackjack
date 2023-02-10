@@ -1,10 +1,8 @@
 const PlayerCards = () => {
+    // shows value of cards
+    // card images
   return (
     <>
-      {/* 
-      - shows value of cards
-      - card images
-      */}
 
     </>
   )

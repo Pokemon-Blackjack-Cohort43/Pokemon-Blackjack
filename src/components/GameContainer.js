@@ -1,10 +1,22 @@
 import axios from "axios";
 import Player from "./Player";
-import Results from "./Results";
-import { useEffect } from 'react';
 import Controller from "./Controller";
+import Instructions from "./Instructions";
+import Results from "./Results";
+import { useState , useEffect } from 'react';
+
 
 const GameContainer = () => {
+
+  // PUESDDO CODE:
+
+  // API calls wrapped in useEffect to request data and save the response into state that will be passed down to corresponding components as props
+
+  // handleClick functions that will be passed to our Controller.js buttons as props
+
+  // function for determining the total of PlayerCards array and comparing them
+    // when there is a winner render Results.js component of corresponding player
+    // updates piece of state {winningPokemonId} adds 1 and calls the pokemon API with that id in the params 
 
   console.log('GameContainer has mounted');
 
@@ -63,7 +75,14 @@ const GameContainer = () => {
 
   // https://www.deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1
   
-  
+
+  // Deck id state - gets updated by deck api deal call and then used in hit api call to ensure playing cards from the same virtual deck
+  const [deck, setDeck] = useState('');
+
+
+
+
+  // Dealing api call
   useEffect(() => {
     
 
@@ -75,23 +94,38 @@ const GameContainer = () => {
       dataResponse: `json`
     }).then((response)=> {
       axios({
-          url:`https://www.deckofcardsapi.com/api/deck/${response.data.deck_id}/draw/?count=2`,
+          url:`https://www.deckofcardsapi.com/api/deck/${response.data.deck_id}/draw/?count=52`,
           method: `get`,
           dataResponse: `json`
         }).then((response)=>{
           console.log(response.data.cards);
-          
+          setDeck(response.data.deck_id);
           
         });
     })
 
 
+  }, [])
+
+  // Hit api call
+  useEffect((deckId, numOfCards)=>{
+    axios({
+      url: `https://www.deckofcardsapi.com/api/deck/${deckId}/draw/?count=${numOfCards}`,
+      method:'get',
+      dataResponse:'json'
+    }).then((res)=>{
+      console.log(res);
+    })
   })
+
+
 
   return(
     <>
-      <Player/>
+      <Instructions />
+      <Player />
       <Controller />
+      <Results />
     </>
   )
 }

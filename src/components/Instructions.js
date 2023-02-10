@@ -1,11 +1,13 @@
 const Instructions = () => {
+
+   // contains instructions on how to play
+
+  // start/deal button that starts game / deals 2 cards and displays GameContainer (ternary operator or routing)
+  
   return (
     <>
-    
-    {/* 
-    - instructions on how to play
-    - have a start/deal button that closes modal & starts game
-    - use ternary operator or routing to either display this or GameContainer */}
+
+      
 
     </>
   )
