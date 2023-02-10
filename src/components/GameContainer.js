@@ -2,6 +2,7 @@ import axios from "axios";
 import Player from "./Player";
 import Results from "./Results";
 import { useEffect } from 'react';
+import Controller from "./Controller";
 
 const GameContainer = () => {
 
@@ -90,6 +91,7 @@ const GameContainer = () => {
   return(
     <>
       <Player/>
+      <Controller />
     </>
   )
 }
