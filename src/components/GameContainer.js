@@ -24,7 +24,7 @@ const GameContainer = () => {
   console.log('GameContainer has mounted');
 
   // array of available pokemon selection
-  const pokemonPool = [
+const pokemonPool = [
     [1, 2, 3],
     [4, 5, 6],
     [7, 8, 9],
@@ -40,40 +40,56 @@ const GameContainer = () => {
     [69, 70, 71],
     [74, 75, 76],
     [92, 93, 94]
-  ]
+]
 
-  // random generator to select random pokemon set
-  const randomizer = (randomPokemon) => {
-    // select random index
-    const randomIndex = Math.floor(Math.random() * randomPokemon.length);
+const randomizer = (arrayOfPoke) => {
+  const currentIndex = Math.floor(Math.random() * arrayOfPoke.length);
+  return arrayOfPoke[currentIndex]
+}
 
-    const item = randomPokemon[randomIndex]
-
-    return item
-  }
-  console.log(pokemonPool.length)
-
-  // randomly generates from available Pokemon Pool
-  const randomPokemonSelection = randomizer(pokemonPool);
-  console.log('random', randomPokemonSelection);
+const pokeFam = randomizer(pokemonPool);
 
 
-  // when random pokemon ID is generated, put in API to get info;
-  useEffect(() => {
+// state for saving poke data to pass to player component as props
 
-    // axios API call
-    axios({
-      url: `https://pokeapi.co/api/v2/pokemon/${randomPokemonSelection[0]}`,
-      method: `get`,
-      dataResponse: `json`
+const [pokemonPlayerOne, setPokemonPlayerOne] = useState([]);
+const [pokemonPlayerTwo, setPokemonPlayerTwo] = useState([]);
+
+
+const startGameHandler = () => {
+        setGameStart(!gameStart);
+    }
+
+useEffect (() => {
+
+      axios({
+        url: `https://pokeapi.co/api/v2/pokemon/${pokeFam[0]}`,
+        method: `get`,
+        dataResponse: `json`
     }).then((res) => {
-      console.log(res.data.sprites.front_default,
-        res.data.name);
-    })
-      .catch((err) => {
+        setPokemonPlayerOne(res.data);
+    }).catch((err) => {
         console.log("error", err.message);
-      })
+    })
   }, []);
+
+useEffect (() => {
+
+
+  axios({
+        url: `https://pokeapi.co/api/v2/pokemon/${pokeFam[0]}`,
+        method: `get`,
+        dataResponse: `json`
+    }).then((res) => {
+        setPokemonPlayerTwo(res.data);
+    })
+        .catch((err) => {
+        console.log("error", err.message);
+    })
+
+}, [gameStart]);
+
+
 
 
 
@@ -150,18 +166,30 @@ const GameContainer = () => {
 
 
 
-  return(
-    <>
-      <Instructions setGameStart={ setGameStart } gameStart= { gameStart }/>
+    return (
+        <>
+        {/* if game state is false, display 'start game'. else, display 'quit' */}
+        <button onClick={startGameHandler} className={gameStart ? 'howToPlayBtn' : null}>
+            {
+                gameStart
+                    ? 'quit'
+                    : 'start game'}</button>
 
-      {/* need separate container to show when game state is true */}
-      <Player />
-      <Controller />
-      <Results />
-      <button onClick={drawOneCardHandler}>add one</button>
-      <button onClick={drawTwoCardHandler}>add two</button>
-    </>
-  )
+            {
+                gameStart
+                    ? <>
+                        <Player pokeData={pokemonPlayerOne} />
+                        <Player pokeData={pokemonPlayerTwo} />
+                    </>
+                    : <Instructions />
+            }
+
+            {/* need separate container to show when game state is true */}
+
+            <button onClick={drawOneCardHandler}>add one</button>
+            <button onClick={drawTwoCardHandler}>add two</button>
+        </>
+    )
 }
 
 export default GameContainer;
