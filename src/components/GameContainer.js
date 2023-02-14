@@ -8,6 +8,9 @@ import { useState , useEffect } from 'react';
 
 const GameContainer = () => {
 
+  // state to track game start
+  const [ gameStart, setGameStart] = useState(false);
+
   // PUESDDO CODE:
 
   // API calls wrapped in useEffect to request data and save the response into state that will be passed down to corresponding components as props
@@ -56,9 +59,6 @@ const GameContainer = () => {
 
 
   // when random pokemon ID is generated, put in API to get info;
-
-
-  const [pOnePokeData, setPOnePokeData] = useState({});
   useEffect(() => {
     // axios API call
     axios({
@@ -76,109 +76,61 @@ const GameContainer = () => {
         console.log("error", err.message);
       })
   }, []);
-  console.log(pOnePokeData);
-
-  const [pTwoPokeData, setPTwoPokeData] = useState({});
-  useEffect(() => {
-    // axios API call
-    axios({
-      url: `https://pokeapi.co/api/v2/pokemon/${randomPokemonSelection[0]}`,
-      method: `get`,
-      dataResponse: `json`
-    }).then((res) => {
-      console.log(res.data);
-      console.log(res.data.sprites.front_default,
-        res.data.name, res.data.id);
-      setPTwoPokeData(res.data);
-      // pokeData = res.data
-    })
-      .catch((err) => {
-        console.log("error", err.message);
-      })
-  }, [pOnePokeData]);
-  console.log(pTwoPokeData);
-
-// STATE FOR ACTIVE PLAYER
-  // const [activePlayer, setActivePlayer] = useState(['playerOne'])
-
 
   // https://www.deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1
   
 
   // Deck id state - gets updated by deck api deal call and then used in hit api call to ensure playing cards from the same virtual deck
-  // const [deck, setDeck] = useState([]);
+  const [deck, setDeck] = useState('');
 
-  // const [cardValue, setCardValue] = useState('')
 
-  // Dealing api call
+
+
   useEffect(() => {
+    
+
+
     //axios API call
     axios({
-      url: 'https://www.deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1',
+      url: `https://www.deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1`,
       method: `get`,
       dataResponse: `json`
-    }).then((response)=> {
+    }).then((res) => {
       axios({
-        url:`https://www.deckofcardsapi.com/api/deck/${response.data.deck_id}/draw/?count=52`,
-        method: `get`,
-        dataResponse: `json`
-      }).then((response)=>{
-        console.log(response.data.cards);
-        // setDeck(response.data.cards);     
-        // const deck = response.data.cards
-        // console.log(deck[1].value);
-        // setCardValue(deck[1].value);
-        // console.log(cardValue);
-
-        //  CONVERTING FACE CARD VALUES TO NUMERIC
-        // if (deck[0].value = "ACE") {
-        //   cardValue = 1 & 11;
-        // } else 
-        // cardValue ? "JACK" | "QUEEN" | "KING" : setCardValue(10);
-          // console.log(cardValue);
-        // } else if (cardValue = num)
-
-      });
+          url:`https://www.deckofcardsapi.com/api/deck/${response.data.deck_id}/draw/?count=52`,
+          method: `get`,
+          dataResponse: `json`
+        }).then((response)=>{
+          console.log(response.data.cards);
+          setDeck(response.data.deck_id);
+          
+        });
     })
-    
-    
+
+
   }, [])
 
-    // console.log(deck);
-
-  // const [playerHand, setPlayerHand] = useState([]);
-  // setPlayerHand(deck[0]);
-  // console.log(playerHand);
-
-  // // Hit api call
-  // useEffect((deckId, numOfCards)=>{
-  //   axios({
-  //     url: `https://www.deckofcardsapi.com/api/deck/${deckId}/draw/?count=${numOfCards}`,
-  //     method:'get',
-  //     dataResponse:'json'
-  //   }).then((res)=>{
-  //     console.log(res);
-  //   })
-  // })
+  // Hit api call
+  useEffect((deckId, numOfCards)=>{
+    axios({
+      url: `https://www.deckofcardsapi.com/api/deck/${deckId}/draw/?count=${numOfCards}`,
+      method:'get',
+      dataResponse:'json'
+    }).then((res)=>{
+      console.log(res);
+    })
+  })
 
 
 
   return(
     <>
       <Instructions />
-      {pOnePokeData && 
-        <Player pokeName={pOnePokeData.name} pokeId={pOnePokeData.id} pokeImg={pOnePokeData.sprites.front_default} />
-        // : null
-      }
-
-      {pTwoPokeData == true
-        ? <Player pokeName={pTwoPokeData.name} pokeId={pTwoPokeData.id} pokeImg={pTwoPokeData.sprites.front_default} />
-        : null
-      }
-
-
+      <Player />
       <Controller />
       <Results />
+      <button onClick={drawOneCardHandler}>add one</button>
+      <button onClick={drawTwoCardHandler}>add two</button>
     </>
   )
 }
