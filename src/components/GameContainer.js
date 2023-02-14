@@ -55,23 +55,6 @@ const pokeFam = randomizer(pokemonPool);
 const [pokemonPlayerOne, setPokemonPlayerOne] = useState([]);
 const [pokemonPlayerTwo, setPokemonPlayerTwo] = useState([]);
 
-<<<<<<< HEAD
-  // when random pokemon ID is generated, put in API to get info;
-  useEffect(() => {
-    // axios API call
-    axios({
-      url: `https://pokeapi.co/api/v2/pokemon/${randomPokemonSelection[0]}`,
-      method: `get`,
-      dataResponse: `json`
-    }).then((res) => {
-      console.log(res.data);
-      console.log(res.data.sprites.front_default,
-        res.data.name, res.data.id);
-      setPOnePokeData(res.data);
-      // pokeData = res.data
-    })
-      .catch((err) => {
-=======
 
 const startGameHandler = () => {
         setGameStart(!gameStart);
@@ -86,13 +69,10 @@ useEffect (() => {
     }).then((res) => {
         setPokemonPlayerOne(res.data);
     }).catch((err) => {
->>>>>>> dd524e7c61fb15ea3f66e381e3cb9b23baab5161
         console.log("error", err.message);
     })
   }, []);
 
-<<<<<<< HEAD
-=======
 useEffect (() => {
 
 
@@ -113,7 +93,6 @@ useEffect (() => {
 
 
 
->>>>>>> dd524e7c61fb15ea3f66e381e3cb9b23baab5161
   // https://www.deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1
   
 
@@ -193,20 +172,6 @@ useEffect (() => {
 
 
 
-<<<<<<< HEAD
-  return(
-    <>
-      <Instructions setGameStart={ setGameStart } gameStart= { gameStart }/>
-
-      {/* need separate container to show when game state is true */}
-      <Player />
-      <Controller />
-      <Results />
-      <button onClick={drawOneCardHandler}>add one</button>
-      <button onClick={drawTwoCardHandler}>add two</button>
-    </>
-  )
-=======
     return (
         <>
         {/* if game state is false, display 'start game'. else, display 'quit' */}
@@ -231,7 +196,6 @@ useEffect (() => {
             <button onClick={drawTwoCardHandler}>add two</button>
         </>
     )
->>>>>>> dd524e7c61fb15ea3f66e381e3cb9b23baab5161
 }
 
 export default GameContainer;
