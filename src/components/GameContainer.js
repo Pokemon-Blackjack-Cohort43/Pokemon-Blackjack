@@ -24,7 +24,7 @@ const GameContainer = () => {
   console.log('GameContainer has mounted');
 
   // array of available pokemon selection
-  const pokemonPool = [
+const pokemonPool = [
     [1, 2, 3],
     [4, 5, 6],
     [7, 8, 9],
@@ -40,24 +40,22 @@ const GameContainer = () => {
     [69, 70, 71],
     [74, 75, 76],
     [92, 93, 94]
-  ]
+]
 
-  // random generator to select random pokemon set
-  const randomizer = (randomPokemon) => {
-    // select random index
-    const randomIndex = Math.floor(Math.random() * randomPokemon.length);
+const randomizer = (arrayOfPoke) => {
+  const currentIndex = Math.floor(Math.random() * arrayOfPoke.length);
+  return arrayOfPoke[currentIndex]
+}
 
-    const item = randomPokemon[randomIndex]
-
-    return item
-  }
-  console.log(pokemonPool.length)
-
-  // randomly generates from available Pokemon Pool
-  const randomPokemonSelection = randomizer(pokemonPool);
-  console.log('random', randomPokemonSelection);
+const pokeFam = randomizer(pokemonPool);
 
 
+// state for saving poke data to pass to player component as props
+
+const [pokemonPlayerOne, setPokemonPlayerOne] = useState([]);
+const [pokemonPlayerTwo, setPokemonPlayerTwo] = useState([]);
+
+<<<<<<< HEAD
   // when random pokemon ID is generated, put in API to get info;
   useEffect(() => {
     // axios API call
@@ -73,10 +71,49 @@ const GameContainer = () => {
       // pokeData = res.data
     })
       .catch((err) => {
+=======
+
+const startGameHandler = () => {
+        setGameStart(!gameStart);
+    }
+
+useEffect (() => {
+
+      axios({
+        url: `https://pokeapi.co/api/v2/pokemon/${pokeFam[0]}`,
+        method: `get`,
+        dataResponse: `json`
+    }).then((res) => {
+        setPokemonPlayerOne(res.data);
+    }).catch((err) => {
+>>>>>>> dd524e7c61fb15ea3f66e381e3cb9b23baab5161
         console.log("error", err.message);
-      })
+    })
   }, []);
 
+<<<<<<< HEAD
+=======
+useEffect (() => {
+
+
+  axios({
+        url: `https://pokeapi.co/api/v2/pokemon/${pokeFam[0]}`,
+        method: `get`,
+        dataResponse: `json`
+    }).then((res) => {
+        setPokemonPlayerTwo(res.data);
+    })
+        .catch((err) => {
+        console.log("error", err.message);
+    })
+
+}, [gameStart]);
+
+
+
+
+
+>>>>>>> dd524e7c61fb15ea3f66e381e3cb9b23baab5161
   // https://www.deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1
   
 
@@ -97,35 +134,71 @@ const GameContainer = () => {
       dataResponse: `json`
     }).then((res) => {
       axios({
-          url:`https://www.deckofcardsapi.com/api/deck/${response.data.deck_id}/draw/?count=52`,
-          method: `get`,
-          dataResponse: `json`
-        }).then((response)=>{
-          console.log(response.data.cards);
-          setDeck(response.data.deck_id);
-          
-        });
+        url: `https://www.deckofcardsapi.com/api/deck/${res.data.deck_id}/draw/`,
+        method: `get`,
+        dataResponse: `json`,
+        params: {
+          count: cardDraw
+        }
+      }).then((response) => {
+        console.log('response', response.data.cards);
+        // add new drawn card to current cards array in playerHand
+        setPlayerHand(hand => [...hand, response.data.cards]);
+      }).catch((err) => {
+        console.log("error", err.message);
+      })
     })
+  }, [cardDraw]);
+
+  const drawOneCardHandler = () => {
+    setCardDraw(1);
+  }
+
+  console.log('PLAYERHAND', playerHand);
+
+  const drawTwoCardHandler = () => {
+    setCardDraw(2);
+  }
+
+  // flatten array by one level
+  const cardsInHand = playerHand.flatMap(item => item);
+  console.log(cardsInHand);
+
+  // calculate score of cards in hand
+  const cardScore = () => {
+    let score = 0;
+
+    const faceCards = ['QUEEN', 'KING', 'JACK'];
+
+    // provided numerical values to face cards
+    for (let cards of cardsInHand) {
+      console.log('cards', cards.value);
+      const cardsInt = parseInt(cards.value);
+
+      if (faceCards.includes(cards.value)) {
+        score = score + 10;
+      }
+      else if (cards.value.includes('ACE')) {
+        if (score <= 10) {
+          score = score + 11
+        } else (score++)
+      }
+      else (score += cardsInt);
+    }
+    return score
+  }
+
+  const scoreValue = cardScore();
+  console.log('score', scoreValue);
 
 
-  }, [])
 
-  // Hit api call
-  useEffect((deckId, numOfCards)=>{
-    axios({
-      url: `https://www.deckofcardsapi.com/api/deck/${deckId}/draw/?count=${numOfCards}`,
-      method:'get',
-      dataResponse:'json'
-    }).then((res)=>{
-      console.log(res);
-    })
-  })
-
-
-
+<<<<<<< HEAD
   return(
     <>
-      <Instructions />
+      <Instructions setGameStart={ setGameStart } gameStart= { gameStart }/>
+
+      {/* need separate container to show when game state is true */}
       <Player />
       <Controller />
       <Results />
@@ -133,6 +206,32 @@ const GameContainer = () => {
       <button onClick={drawTwoCardHandler}>add two</button>
     </>
   )
+=======
+    return (
+        <>
+        {/* if game state is false, display 'start game'. else, display 'quit' */}
+        <button onClick={startGameHandler} className={gameStart ? 'howToPlayBtn' : null}>
+            {
+                gameStart
+                    ? 'quit'
+                    : 'start game'}</button>
+
+            {
+                gameStart
+                    ? <>
+                        <Player pokeData={pokemonPlayerOne} />
+                        <Player pokeData={pokemonPlayerTwo} />
+                    </>
+                    : <Instructions />
+            }
+
+            {/* need separate container to show when game state is true */}
+
+            <button onClick={drawOneCardHandler}>add one</button>
+            <button onClick={drawTwoCardHandler}>add two</button>
+        </>
+    )
+>>>>>>> dd524e7c61fb15ea3f66e381e3cb9b23baab5161
 }
 
 export default GameContainer;

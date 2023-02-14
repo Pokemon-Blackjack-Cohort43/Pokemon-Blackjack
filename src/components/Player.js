@@ -1,4 +1,5 @@
-// import { useState } from "react";
+// import GameContainer from "./GameContainer";
+// import PlayerCards from "./PlayerCards";
 
 const Player = (props) => {
 
@@ -18,10 +19,14 @@ const Player = (props) => {
 
   return (
     <>
-      <img src={props.pokeImg}/>
-      <p>{props.pokeName}</p>
-      <p>{props.pokeId}</p>
+      <>
+    <div className="playerContainer">
+        <img src={props.pokeData.sprites.front_default} alt="" />
+        <span>{props.pokeData.name}</span>
+        <span>0</span>
+    </div>
 
+    </>
     </>
   )
 }
