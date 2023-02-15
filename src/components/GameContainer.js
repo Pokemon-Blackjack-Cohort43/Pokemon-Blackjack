@@ -1,15 +1,15 @@
 import axios from "axios";
 import Player from "./Player";
 import Controller from "./Controller";
-// import Instructions from "./Instructions";
+import Instructions from "./Instructions";
 import Results from "./Results";
-import { useState, useEffect } from 'react';
+import { useState , useEffect } from 'react';
 
 
 const GameContainer = () => {
 
   // state to track game start
-  const [gameStart, setGameStart] = useState(false);
+  const [ gameStart, setGameStart] = useState(false);
 
   // PUESDDO CODE:
 
@@ -18,13 +18,13 @@ const GameContainer = () => {
   // handleClick functions that will be passed to our Controller.js buttons as props
 
   // function for determining the total of PlayerCards array and comparing them
-  // when there is a winner render Results.js component of corresponding player
-  // updates piece of state {winningPokemonId} adds 1 and calls the pokemon API with that id in the params 
+    // when there is a winner render Results.js component of corresponding player
+    // updates piece of state {winningPokemonId} adds 1 and calls the pokemon API with that id in the params 
 
   console.log('GameContainer has mounted');
 
   // array of available pokemon selection
-  const pokemonPool = [
+const pokemonPool = [
     [1, 2, 3],
     [4, 5, 6],
     [7, 8, 9],
@@ -40,59 +40,58 @@ const GameContainer = () => {
     [69, 70, 71],
     [74, 75, 76],
     [92, 93, 94]
-  ]
+]
 
-  const randomizer = (arrayOfPoke) => {
-    const currentIndex = Math.floor(Math.random() * arrayOfPoke.length);
-    return arrayOfPoke[currentIndex]
-  }
+const randomizer = (arrayOfPoke) => {
+  const currentIndex = Math.floor(Math.random() * arrayOfPoke.length);
+  return arrayOfPoke[currentIndex]
+}
 
-  const pokeFam = randomizer(pokemonPool);
-  const pokeFam2 = randomizer(pokemonPool);
+// state for saving poke data to pass to player component as props
+
+const [pokemonPlayerOne, setPokemonPlayerOne] = useState([]);
+const [pokemonPlayerTwo, setPokemonPlayerTwo] = useState([]);
+
+const startGameHandler = () => {
+  setGameStart(!gameStart);
+}
+const pokeFam = randomizer(pokemonPool);
+const pokeFam2 = randomizer(pokemonPool);
 
 
-  // state for saving poke data to pass to player component as props
+useEffect (() => {
 
-  const [pokemonPlayerOne, setPokemonPlayerOne] = useState([]);
-  const [pokemonPlayerTwo, setPokemonPlayerTwo] = useState([]);
+      axios({
+        url: `https://pokeapi.co/api/v2/pokemon/${pokeFam[0]}`,
+        method: `get`,
+        dataResponse: `json`
+        }).then((res) => {
+            setPokemonPlayerOne(res.data);
+        }).catch((err) => {
+            console.log("error", err.message);
+        })
 
-
-  const startGameHandler = () => {
-    setGameStart(!gameStart);
-  }
-
-  // API call for both Pokemon players
-  useEffect(() => {
-
-    axios({
-      url: `https://pokeapi.co/api/v2/pokemon/${pokeFam[0]}`,
-      method: `get`,
-      dataResponse: `json`
-    }).then((res) => {
-      setPokemonPlayerOne(res.data);
-    }).catch((err) => {
-      console.log("error", err.message);
-    })
-
-    axios({
-      url: `https://pokeapi.co/api/v2/pokemon/${pokeFam2[0]}`,
-      method: `get`,
-      dataResponse: `json`
-    }).then((res) => {
-      setPokemonPlayerTwo(res.data);
-    })
-      .catch((err) => {
-        console.log("error", err.message);
-      })
+      axios({
+            url: `https://pokeapi.co/api/v2/pokemon/${pokeFam2[0]}`,
+            method: `get`,
+            dataResponse: `json`
+        }).then((res) => {
+            setPokemonPlayerTwo(res.data);
+        })
+            .catch((err) => {
+            console.log("error", err.message);
+        })
   }, []);
 
-
   // https://www.deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1
-
+  
   // state to track card draw and player hand
-  const [cardDraw, setCardDraw] = useState('');
-  const [playerHand, setPlayerHand] = useState([]);
+  const [deck, setDeck] = useState([]);
+  const [playerOneHand, setPlayerOneHand] = useState([]);
+  const [playerTwoHand, setPlayerTwoHand] = useState([]);
+  const [currentPlayer, setCurrentPlayer] = useState('player one');
 
+  // deck of cards api call
   useEffect(() => {
 
     axios({
@@ -101,34 +100,55 @@ const GameContainer = () => {
       dataResponse: `json`
     }).then((res) => {
       axios({
-        url: `https://www.deckofcardsapi.com/api/deck/${res.data.deck_id}/draw/`,
+        url: `https://www.deckofcardsapi.com/api/deck/${res.data.deck_id}/draw/?count=52`,
         method: `get`,
-        dataResponse: `json`,
-        params: {
-          count: cardDraw
-        }
+        dataResponse: `json`
       }).then((response) => {
-        console.log('response', response.data.cards);
-        // add new drawn card to current cards array in playerHand
-        setPlayerHand(hand => [...hand, response.data.cards]);
+        setDeck(response.data.cards);
       }).catch((err) => {
         console.log("error", err.message);
       })
     })
-  }, [cardDraw]);
+  }, []);
 
-  const drawOneCardHandler = () => {
-    setCardDraw(1);
+  // initalize current deck
+  const currentDeck = deck;
+
+  // on click, add card to player's hand, based on current player 
+  const addOneCard = () => {
+    const check = currentDeck.splice(0, 1);
+
+    // setPlayerOneHand(hand => [...hand, check]);
+
+    if (currentPlayer === "player one") {
+      setPlayerOneHand(hand => [...hand, check]);
+    } else if (currentPlayer === "player two") {
+      setPlayerTwoHand(hand => [...hand, check]);
+    }
   }
 
-  console.log('PLAYERHAND', playerHand);
+  // on click, add two cards to player's hand, based on current player 
+  const addTwoCards = () => {
+    const check = currentDeck.splice(0, 2);
 
-  const drawTwoCardHandler = () => {
-    setCardDraw(2);
+    if (currentPlayer === "player one") {
+      setPlayerOneHand(hand => [...hand, check]);
+    } else if (currentPlayer === "player two") {
+      setPlayerTwoHand(hand => [...hand, check]);
+    }
   }
+
+  // on [hit] click, switch turns
+  const hitHandler = () => {
+    setCurrentPlayer(currentPlayer === "player one" ? "player two" : "player one");
+  }
+
+  console.log('PLAYERHAND ONE', playerOneHand);
+  console.log('PLAYERHAND TWO', playerTwoHand);
+
 
   // flatten array by one level
-  const cardsInHand = playerHand.flatMap(item => item);
+  const cardsInHand = playerOneHand.flatMap(item => item);
   console.log(cardsInHand);
 
   // calculate score of cards in hand
@@ -160,32 +180,31 @@ const GameContainer = () => {
 
 
 
-  return (
-    <>
-      {/* if game state is false, display 'start game'. else, display 'quit' */}
-      <button onClick={startGameHandler} className={gameStart ? 'howToPlayBtn' : null}>
-        {
-          gameStart
-            ? 'quit'
-            : 'start game'}</button>
+    return (
+        <>
+        {/* if game state is false, display 'start game'. else, display 'quit' */}
+        <button onClick={startGameHandler} className={gameStart ? 'howToPlayBtn' : null}>
+            {
+                gameStart
+                    ? 'quit'
+                    : 'start game'}</button>
 
-      {
-        gameStart
-          ? <>
-            <Player pokeData={pokemonPlayerOne} />
-            <Player pokeData={pokemonPlayerTwo} />
-          </>
-          // : <Instructions />
-          : null
-      }
+            {
+                gameStart
+                    ? <>
+                        <Player pokeData={pokemonPlayerOne} />
+                        <Player pokeData={pokemonPlayerTwo} />
+                    </>
+                    : <Instructions />
+            }
 
-      {/* need separate container to show when game state is true */}
+            {/* need separate container to show when game state is true */}
 
-      <button onClick={drawOneCardHandler}>add one</button>
-      <button onClick={drawTwoCardHandler}>add two</button>
-    </>
-  )
+            <button onClick={addOneCard}>add one</button>
+            <button onClick={addTwoCards}>add two</button>
+            <button onClick={hitHandler}>hit</button>
+        </>
+    )
 }
 
 export default GameContainer;
-
