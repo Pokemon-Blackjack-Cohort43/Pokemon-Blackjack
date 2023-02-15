@@ -71,13 +71,9 @@ const GameContainer = () => {
     }).catch((err) => {
       console.log("error", err.message);
     })
-  }, []);
-
-  useEffect(() => {
-
 
     axios({
-      url: `https://pokeapi.co/api/v2/pokemon/${pokeFam[0]}`,
+      url: `https://pokeapi.co/api/v2/pokemon/${pokeFam2[0]}`,
       method: `get`,
       dataResponse: `json`
     }).then((res) => {
@@ -86,11 +82,7 @@ const GameContainer = () => {
       .catch((err) => {
         console.log("error", err.message);
       })
-
-  }, [gameStart]);
-
-
-
+  }, []);
 
 
   // https://www.deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1
