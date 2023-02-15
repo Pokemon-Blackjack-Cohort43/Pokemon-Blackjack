@@ -1,7 +1,7 @@
 import axios from "axios";
 import Player from "./Player";
 import Controller from "./Controller";
-import Instructions from "./Instructions";
+// import Instructions from "./Instructions";
 import Results from "./Results";
 import { useState, useEffect } from 'react';
 
@@ -181,7 +181,8 @@ const GameContainer = () => {
             <Player pokeData={pokemonPlayerOne} />
             <Player pokeData={pokemonPlayerTwo} />
           </>
-          : <Instructions />
+          // : <Instructions />
+          : null
       }
 
       {/* need separate container to show when game state is true */}
