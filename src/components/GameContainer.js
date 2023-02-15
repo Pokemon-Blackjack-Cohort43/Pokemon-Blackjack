@@ -15,7 +15,6 @@ const GameContainer = () => {
 
   // API calls wrapped in useEffect to request data and save the response into state that will be passed down to corresponding components as props
 
-  // handleClick functions that will be passed to our Controller.js buttons as props
 
   // function for determining the total of PlayerCards array and comparing them
     // when there is a winner render Results.js component of corresponding player
@@ -23,6 +22,7 @@ const GameContainer = () => {
 
   console.log('GameContainer has mounted');
 
+// FILTERING FOR POKEMON THAT MEET THE CRITERIA OF 1ST OF 3 EVOLVED STATES
   // array of available pokemon selection
 const pokemonPool = [
     [1, 2, 3],
@@ -49,18 +49,14 @@ const randomizer = (arrayOfPoke) => {
 
 // state for saving poke data to pass to player component as props
 
+// INITIAL POKEMON API CALL
 const [pokemonPlayerOne, setPokemonPlayerOne] = useState([]);
 const [pokemonPlayerTwo, setPokemonPlayerTwo] = useState([]);
 
-const startGameHandler = () => {
-  setGameStart(!gameStart);
-}
 const pokeFam = randomizer(pokemonPool);
 const pokeFam2 = randomizer(pokemonPool);
 
-
 useEffect (() => {
-
       axios({
         url: `https://pokeapi.co/api/v2/pokemon/${pokeFam[0]}`,
         method: `get`,
@@ -84,7 +80,8 @@ useEffect (() => {
   }, []);
 
   // https://www.deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1
-  
+
+// API CALL TO GET THE DECK OF CARDS FOR THE HAND
   // state to track card draw and player hand
   const [deck, setDeck] = useState([]);
   const [playerOneHand, setPlayerOneHand] = useState([]);
@@ -111,11 +108,46 @@ useEffect (() => {
     })
   }, []);
 
+
+  // handleClick functions that will be passed to our Controller.js buttons as props
+
   // initalize current deck
   const currentDeck = deck;
 
-  // on click, add card to player's hand, based on current player 
-  const addOneCard = () => {
+  const startGameHandler = () => {
+    setGameStart(!gameStart);
+
+    const check = currentDeck.splice(0, 2);
+
+    setPlayerOneHand(hand => [...hand, check]);
+    setPlayerTwoHand(hand => [...hand, check]);
+
+  }
+  // const addOneCard = () => {
+  //   const check = currentDeck.splice(0, 1);
+
+  //   // setPlayerOneHand(hand => [...hand, check]);
+
+  //   if (currentPlayer === "player one") {
+  //     setPlayerOneHand(hand => [...hand, check]);
+  //   } else if (currentPlayer === "player two") {
+  //     setPlayerTwoHand(hand => [...hand, check]);
+  //   }
+  // }
+
+  // on click, add two cards to player's hand, based on current player 
+  // const addTwoCards = () => {
+  //   const check = currentDeck.splice(0, 2);
+
+  //   if (currentPlayer === "player one") {
+  //     setPlayerOneHand(hand => [...hand, check]);
+  //   } else if (currentPlayer === "player two") {
+  //     setPlayerTwoHand(hand => [...hand, check]);
+  //   }
+  // }
+
+  // on click, add card to player's hand, based on current player
+  const hitHandler = () => {
     const check = currentDeck.splice(0, 1);
 
     // setPlayerOneHand(hand => [...hand, check]);
@@ -125,22 +157,6 @@ useEffect (() => {
     } else if (currentPlayer === "player two") {
       setPlayerTwoHand(hand => [...hand, check]);
     }
-  }
-
-  // on click, add two cards to player's hand, based on current player 
-  const addTwoCards = () => {
-    const check = currentDeck.splice(0, 2);
-
-    if (currentPlayer === "player one") {
-      setPlayerOneHand(hand => [...hand, check]);
-    } else if (currentPlayer === "player two") {
-      setPlayerTwoHand(hand => [...hand, check]);
-    }
-  }
-
-  // on [hit] click, switch turns
-  const hitHandler = () => {
-    setCurrentPlayer(currentPlayer === "player one" ? "player two" : "player one");
   }
 
   console.log('PLAYERHAND ONE', playerOneHand);
@@ -179,6 +195,13 @@ useEffect (() => {
   console.log('score', scoreValue);
 
 
+  const stayHandler = () => {
+    //if pressed by playerOne, setCurrentPlayer(playerTwo)
+    //if pressed by playerTwo, compare player scores and pass winner to results for results to display the evolving pokemon
+    if (currentPlayer === "player one") {
+      setCurrentPlayer('player two')
+    }
+  }
 
     return (
         <>
@@ -195,14 +218,15 @@ useEffect (() => {
                         <Player pokeData={pokemonPlayerOne} />
                         <Player pokeData={pokemonPlayerTwo} />
                     </>
-                    : <Instructions />
+                    : null
             }
 
-            {/* need separate container to show when game state is true */}
-
-            <button onClick={addOneCard}>add one</button>
-            <button onClick={addTwoCards}>add two</button>
-            <button onClick={hitHandler}>hit</button>
+            {/* need separate container to show when game state is true  when it is, render Controller component*/}
+            {
+              gameStart 
+                ? <Controller hitButton={hitHandler} stayButton={stayHandler}/>
+                : null
+            }
         </>
     )
 }
