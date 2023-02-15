@@ -1,15 +1,15 @@
 import axios from "axios";
 import Player from "./Player";
 import Controller from "./Controller";
-import Instructions from "./Instructions";
+// import Instructions from "./Instructions";
 import Results from "./Results";
-import { useState , useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 
 const GameContainer = () => {
 
   // state to track game start
-  const [ gameStart, setGameStart] = useState(false);
+  const [gameStart, setGameStart] = useState(false);
 
   // PUESDDO CODE:
 
@@ -18,13 +18,13 @@ const GameContainer = () => {
   // handleClick functions that will be passed to our Controller.js buttons as props
 
   // function for determining the total of PlayerCards array and comparing them
-    // when there is a winner render Results.js component of corresponding player
-    // updates piece of state {winningPokemonId} adds 1 and calls the pokemon API with that id in the params 
+  // when there is a winner render Results.js component of corresponding player
+  // updates piece of state {winningPokemonId} adds 1 and calls the pokemon API with that id in the params 
 
   console.log('GameContainer has mounted');
 
   // array of available pokemon selection
-const pokemonPool = [
+  const pokemonPool = [
     [1, 2, 3],
     [4, 5, 6],
     [7, 8, 9],
@@ -40,63 +40,55 @@ const pokemonPool = [
     [69, 70, 71],
     [74, 75, 76],
     [92, 93, 94]
-]
+  ]
 
-// randomizer function to select random pokemon from pool of poke families
-const randomizer = (arrayOfPoke) => {
-  const currentIndex = Math.floor(Math.random() * arrayOfPoke.length);
-  return arrayOfPoke[currentIndex]
-}
+  const randomizer = (arrayOfPoke) => {
+    const currentIndex = Math.floor(Math.random() * arrayOfPoke.length);
+    return arrayOfPoke[currentIndex]
+  }
 
-const pokeFam = randomizer(pokemonPool);
-const pokeFamTwo = randomizer(pokemonPool);
-
-
-// state for saving poke data to pass to player component as props
-const [pokemonPlayerOne, setPokemonPlayerOne] = useState([]);
-const [pokemonPlayerTwo, setPokemonPlayerTwo] = useState([]);
+  const pokeFam = randomizer(pokemonPool);
+  const pokeFam2 = randomizer(pokemonPool);
 
 
-const startGameHandler = () => {
-        setGameStart(!gameStart);
-    }
+  // state for saving poke data to pass to player component as props
+
+  const [pokemonPlayerOne, setPokemonPlayerOne] = useState([]);
+  const [pokemonPlayerTwo, setPokemonPlayerTwo] = useState([]);
 
 
-// API call for Pokemon player one
-useEffect (() => {
+  const startGameHandler = () => {
+    setGameStart(!gameStart);
+  }
 
-      axios({
-        url: `https://pokeapi.co/api/v2/pokemon/${pokeFam[0]}`,
-        method: `get`,
-        dataResponse: `json`
+  // API call for both Pokemon players
+  useEffect(() => {
+
+    axios({
+      url: `https://pokeapi.co/api/v2/pokemon/${pokeFam[0]}`,
+      method: `get`,
+      dataResponse: `json`
     }).then((res) => {
-        setPokemonPlayerOne(res.data);
+      setPokemonPlayerOne(res.data);
     }).catch((err) => {
-        console.log("error", err.message);
+      console.log("error", err.message);
     })
+
+    axios({
+      url: `https://pokeapi.co/api/v2/pokemon/${pokeFam2[0]}`,
+      method: `get`,
+      dataResponse: `json`
+    }).then((res) => {
+      setPokemonPlayerTwo(res.data);
+    })
+      .catch((err) => {
+        console.log("error", err.message);
+      })
   }, []);
 
 
-// API call for Pokemon player two
-useEffect (() => {
-
-  axios({
-        url: `https://pokeapi.co/api/v2/pokemon/${pokeFamTwo[0]}`,
-        method: `get`,
-        dataResponse: `json`
-    }).then((res) => {
-        setPokemonPlayerTwo(res.data);
-    })
-        .catch((err) => {
-        console.log("error", err.message);
-    })
-  } , []);
-
-
-
-
   // https://www.deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1
-  
+
   // state to track card draw and player hand
   const [cardDraw, setCardDraw] = useState('');
   const [playerHand, setPlayerHand] = useState([]);
@@ -168,30 +160,32 @@ useEffect (() => {
 
 
 
-    return (
-        <>
-        {/* if game state is false, display 'start game'. else, display 'quit' */}
-        <button onClick={startGameHandler} className={gameStart ? 'howToPlayBtn' : null}>
-            {
-                gameStart
-                    ? 'quit'
-                    : 'start game'}</button>
+  return (
+    <>
+      {/* if game state is false, display 'start game'. else, display 'quit' */}
+      <button onClick={startGameHandler} className={gameStart ? 'howToPlayBtn' : null}>
+        {
+          gameStart
+            ? 'quit'
+            : 'start game'}</button>
 
-            {
-                gameStart
-                    ? <>
-                        <Player pokeData={pokemonPlayerOne} />
-                        <Player pokeData={pokemonPlayerTwo} />
-                    </>
-                    : <Instructions />
-            }
+      {
+        gameStart
+          ? <>
+            <Player pokeData={pokemonPlayerOne} />
+            <Player pokeData={pokemonPlayerTwo} />
+          </>
+          // : <Instructions />
+          : null
+      }
 
-            {/* need separate container to show when game state is true */}
+      {/* need separate container to show when game state is true */}
 
-            <button onClick={drawOneCardHandler}>add one</button>
-            <button onClick={drawTwoCardHandler}>add two</button>
-        </>
-    )
+      <button onClick={drawOneCardHandler}>add one</button>
+      <button onClick={drawTwoCardHandler}>add two</button>
+    </>
+  )
 }
 
 export default GameContainer;
+
