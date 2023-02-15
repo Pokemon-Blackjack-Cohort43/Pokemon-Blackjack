@@ -48,6 +48,7 @@ const GameContainer = () => {
   }
 
   const pokeFam = randomizer(pokemonPool);
+  const pokeFam2 = randomizer(pokemonPool);
 
 
   // state for saving poke data to pass to player component as props
