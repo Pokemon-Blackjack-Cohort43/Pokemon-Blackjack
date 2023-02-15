@@ -42,16 +42,17 @@ const pokemonPool = [
     [92, 93, 94]
 ]
 
+// randomizer function to select random pokemon from pool of poke families
 const randomizer = (arrayOfPoke) => {
   const currentIndex = Math.floor(Math.random() * arrayOfPoke.length);
   return arrayOfPoke[currentIndex]
 }
 
 const pokeFam = randomizer(pokemonPool);
+const pokeFamTwo = randomizer(pokemonPool);
 
 
 // state for saving poke data to pass to player component as props
-
 const [pokemonPlayerOne, setPokemonPlayerOne] = useState([]);
 const [pokemonPlayerTwo, setPokemonPlayerTwo] = useState([]);
 
@@ -60,6 +61,8 @@ const startGameHandler = () => {
         setGameStart(!gameStart);
     }
 
+
+// API call for Pokemon player one
 useEffect (() => {
 
       axios({
@@ -73,11 +76,12 @@ useEffect (() => {
     })
   }, []);
 
+
+// API call for Pokemon player two
 useEffect (() => {
 
-
   axios({
-        url: `https://pokeapi.co/api/v2/pokemon/${pokeFam[0]}`,
+        url: `https://pokeapi.co/api/v2/pokemon/${pokeFamTwo[0]}`,
         method: `get`,
         dataResponse: `json`
     }).then((res) => {
@@ -86,9 +90,7 @@ useEffect (() => {
         .catch((err) => {
         console.log("error", err.message);
     })
-
-}, [gameStart]);
-
+  } , []);
 
 
 
