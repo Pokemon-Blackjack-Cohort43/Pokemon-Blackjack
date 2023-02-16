@@ -79,7 +79,7 @@ useEffect (() => {
             .catch((err) => {
             console.log("error", err.message);
         })
-  }, []);
+  }, [gameStart]);
 
   // https://www.deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1
 
@@ -88,7 +88,7 @@ useEffect (() => {
   const [deck, setDeck] = useState([]);
   const [playerOneHand, setPlayerOneHand] = useState([]);
   const [playerTwoHand, setPlayerTwoHand] = useState([]);
-  const [currentPlayer, setCurrentPlayer] = useState('player one');
+  const [currentPlayer, setCurrentPlayer] = useState('none');
 
   // deck of cards api call
   useEffect(() => {
@@ -133,14 +133,14 @@ useEffect (() => {
 
   const startGameHandler = () => {
     setGameStart(!gameStart);
-
+    setCurrentPlayer('player one');
+    
     const check = currentDeck.splice(0, 2);
     const check2 = currentDeck.splice(0, 2);
 
     setPlayerOneHand(hand => [...hand, check]);
     setPlayerTwoHand(hand => [...hand, check2]);
     console.log(deck);
-    
   }
 
   // on click, add card to player's hand, based on current player
@@ -158,17 +158,22 @@ useEffect (() => {
   console.log('PLAYERHAND TWO', playerTwoHand);
 
   // flatten array by one level
-  const cardsInHand = playerOneHand.flatMap(item => item);
-  console.log(cardsInHand);
+  const cardsInHandOne = playerOneHand.flatMap(item => item);
+  console.log(cardsInHandOne);
+  const cardsInHandTwo = playerTwoHand.flatMap(item => item);
+  console.log(cardsInHandTwo);
 
-  // function for tallying the score of each player's hand
-  const cardScore = () => {
-    let score = 0;
+  //state for keeping track of player scores
+  // const [playerScore, setPlayerScore] = useState(0);
 
-    }
+  // useEffect function for tallying the score of each player's hand
+  // useEffect(()=>{
+  //   playerOneHand.flatMap();
+  //   playerTwoHand.flatMap();
+  // },[playerOneHand, playerTwoHand])
 
-  const scoreValue = cardScore();
-  console.log('score', scoreValue);
+  // const scoreValue = cardScore();
+  // console.log('score', scoreValue);
 
 
   const stayHandler = () => {
@@ -177,12 +182,19 @@ useEffect (() => {
     setCurrentPlayer(currentPlayer === "player one" ? "player two" : "player one");
   }
 
-  return (
+  const quitHandler = () => {
+    setPlayerOneHand([]);
+    setPlayerTwoHand([]);
+    setGameStart(false);
+    setCurrentPlayer('none');
+  }
+
+    return (
         <>
         <Instructions gameState={gameStart}/>
 
         {/* if game state is false, display 'start game'. else, display 'quit' */}
-        <button onClick={startGameHandler} className={gameStart ? 'howToPlayBtn' : null}>
+        <button onClick={gameStart ? quitHandler : startGameHandler} className={gameStart ? 'howToPlayBtn' : null}>
           
             {
                 gameStart
