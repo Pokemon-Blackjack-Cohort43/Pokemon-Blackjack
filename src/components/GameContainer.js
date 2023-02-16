@@ -198,37 +198,36 @@ useEffect (() => {
   const stayHandler = () => {
     //if pressed by playerOne, setCurrentPlayer(playerTwo)
     //if pressed by playerTwo, compare player scores and pass winner to results for results to display the evolving pokemon
-    if (currentPlayer === "player one") {
+    if (currentPlayer === 'player one') {
       setCurrentPlayer('player two')
     }
   }
 
-    return (
-        <>
-        {/* if game state is false, display 'start game'. else, display 'quit' */}
-        <button onClick={startGameHandler} className={gameStart ? 'howToPlayBtn' : null}>
-            {
-                gameStart
-                    ? 'quit'
-                    : 'start game'}</button>
+  return (
+    <>
+    {/* if game state is false, display 'start game'. else, display 'quit' */}
+      <button onClick={startGameHandler} className={gameStart ? 'howToPlayBtn' : null}>
+      {
+        gameStart
+          ? 'quit'
+          : 'start game'}</button>
+      {
+        gameStart
+          ? <>
+              <Player pokeData={pokemonPlayerOne} />
+              <Player pokeData={pokemonPlayerTwo} />
+            </>
+          : null
+      }
 
-            {
-                gameStart
-                    ? <>
-                        <Player pokeData={pokemonPlayerOne} />
-                        <Player pokeData={pokemonPlayerTwo} />
-                    </>
-                    : null
-            }
-
-            {/* need separate container to show when game state is true  when it is, render Controller component*/}
-            {
-              gameStart 
-                ? <Controller hitButton={hitHandler} stayButton={stayHandler}/>
-                : null
-            }
-        </>
-    )
+      {/* need separate container to show when game state is true  when it is, render Controller component*/}
+      {
+        gameStart 
+          ? <Controller hitButton={hitHandler} stayButton={stayHandler}/>
+          : null
+      }
+    </>
+  )
 }
 
 export default GameContainer;

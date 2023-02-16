@@ -24,6 +24,7 @@ const Player = ({pokeData}) => {
           <p>{pokeData.name}</p>
         </div>
         <div className="displayHand">
+        {/* shows value of player's hand and images of their cards */}
           <div className="playerCards">
             {
               // map through the array of cards in the player's hand and display an <img/> for it
