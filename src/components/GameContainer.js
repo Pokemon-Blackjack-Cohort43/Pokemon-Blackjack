@@ -78,7 +78,7 @@ useEffect (() => {
             .catch((err) => {
             console.log("error", err.message);
         })
-  }, []);
+  }, [gameStart]);
 
   // https://www.deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1
 
@@ -87,7 +87,7 @@ useEffect (() => {
   const [deck, setDeck] = useState([]);
   const [playerOneHand, setPlayerOneHand] = useState([]);
   const [playerTwoHand, setPlayerTwoHand] = useState([]);
-  const [currentPlayer, setCurrentPlayer] = useState('player one');
+  const [currentPlayer, setCurrentPlayer] = useState('none');
 
   // deck of cards api call
   useEffect(() => {
@@ -118,7 +118,8 @@ useEffect (() => {
 
   const startGameHandler = () => {
     setGameStart(!gameStart);
-
+    setCurrentPlayer('player one');
+    
     const check = currentDeck.splice(0, 2);
     const check2 = currentDeck.splice(0, 2);
 
@@ -205,12 +206,19 @@ useEffect (() => {
     setCurrentPlayer(currentPlayer === "player one" ? "player two" : "player one");
   }
 
+  const quitHandler = () => {
+    setPlayerOneHand([]);
+    setPlayerTwoHand([]);
+    setGameStart(false);
+    setCurrentPlayer('none');
+  }
+
     return (
         <>
         <Instructions gameState={gameStart}/>
 
         {/* if game state is false, display 'start game'. else, display 'quit' */}
-        <button onClick={startGameHandler} className={gameStart ? 'howToPlayBtn' : null}>
+        <button onClick={gameStart ? quitHandler : startGameHandler} className={gameStart ? 'howToPlayBtn' : null}>
           
             {
                 gameStart
