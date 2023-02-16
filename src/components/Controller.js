@@ -1,4 +1,4 @@
-const Controller = ({hitHandler, stayHandler}) => {
+const Controller = (props) => {
 
         // functions for onClick are located in GameContainer.js and passed down by props
 
@@ -8,9 +8,8 @@ const Controller = ({hitHandler, stayHandler}) => {
         
     return (
         <>
-          <button onClick={hitHandler}>Hit</button>
-          {/* <button onClick={addOne}>add 1</button> */}
-          <button onClick={stayHandler}>Stay</button>
+          <button onClick={props.hitButton}>Hit</button>
+          <button onClick={props.stayButton}>Stay</button>
         </>
     )
 }
