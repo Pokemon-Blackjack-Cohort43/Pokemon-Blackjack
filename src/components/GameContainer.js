@@ -2,8 +2,10 @@ import axios from "axios";
 import Player from "./Player";
 import Controller from "./Controller";
 import Instructions from "./Instructions";
+import InstructionsContent from "./InstructionsContent";
 import Results from "./Results";
 import { useState , useEffect } from 'react';
+import { logDOM } from "@testing-library/react";
 
 
 const GameContainer = () => {
@@ -111,46 +113,39 @@ useEffect (() => {
 
   // handleClick functions that will be passed to our Controller.js buttons as props
 
-  // initalize current deck
-  const currentDeck = deck;
+  console.log(deck);
+  
+  // create a new deck that has the numeric value of each card as a property of eack card object
+  const numericDeck = deck
+  numericDeck.forEach((card) => {
+    if (card.value === "KING" || card.value === "QUEEN" || card.value === "JACK") {
+      return card.numValue = 10;  
+    } else if (card.value === "ACE") {
+      return card.numValue = 11;
+    } else {
+      return card.numValue = card.value;
+    }
+  });
+  console.log(numericDeck);
+  
+  
+  const currentDeck = numericDeck;
 
   const startGameHandler = () => {
     setGameStart(!gameStart);
 
     const check = currentDeck.splice(0, 2);
+    const check2 = currentDeck.splice(0, 2);
 
     setPlayerOneHand(hand => [...hand, check]);
-    setPlayerTwoHand(hand => [...hand, check]);
-
+    setPlayerTwoHand(hand => [...hand, check2]);
+    console.log(deck);
+    
   }
-  // const addOneCard = () => {
-  //   const check = currentDeck.splice(0, 1);
-
-  //   // setPlayerOneHand(hand => [...hand, check]);
-
-  //   if (currentPlayer === "player one") {
-  //     setPlayerOneHand(hand => [...hand, check]);
-  //   } else if (currentPlayer === "player two") {
-  //     setPlayerTwoHand(hand => [...hand, check]);
-  //   }
-  // }
-
-  // on click, add two cards to player's hand, based on current player 
-  // const addTwoCards = () => {
-  //   const check = currentDeck.splice(0, 2);
-
-  //   if (currentPlayer === "player one") {
-  //     setPlayerOneHand(hand => [...hand, check]);
-  //   } else if (currentPlayer === "player two") {
-  //     setPlayerTwoHand(hand => [...hand, check]);
-  //   }
-  // }
 
   // on click, add card to player's hand, based on current player
   const hitHandler = () => {
     const check = currentDeck.splice(0, 1);
-
-    // setPlayerOneHand(hand => [...hand, check]);
 
     if (currentPlayer === "player one") {
       setPlayerOneHand(hand => [...hand, check]);
@@ -162,34 +157,15 @@ useEffect (() => {
   console.log('PLAYERHAND ONE', playerOneHand);
   console.log('PLAYERHAND TWO', playerTwoHand);
 
-
   // flatten array by one level
   const cardsInHand = playerOneHand.flatMap(item => item);
   console.log(cardsInHand);
 
-  // calculate score of cards in hand
+  // function for tallying the score of each player's hand
   const cardScore = () => {
     let score = 0;
 
-    const faceCards = ['QUEEN', 'KING', 'JACK'];
-
-    // provided numerical values to face cards
-    for (let cards of cardsInHand) {
-      console.log('cards', cards.value);
-      const cardsInt = parseInt(cards.value);
-
-      if (faceCards.includes(cards.value)) {
-        score = score + 10;
-      }
-      else if (cards.value.includes('ACE')) {
-        if (score <= 10) {
-          score = score + 11
-        } else (score++)
-      }
-      else (score += cardsInt);
     }
-    return score
-  }
 
   const scoreValue = cardScore();
   console.log('score', scoreValue);
@@ -198,36 +174,39 @@ useEffect (() => {
   const stayHandler = () => {
     //if pressed by playerOne, setCurrentPlayer(playerTwo)
     //if pressed by playerTwo, compare player scores and pass winner to results for results to display the evolving pokemon
-    if (currentPlayer === 'player one') {
-      setCurrentPlayer('player two')
-    }
+    setCurrentPlayer(currentPlayer === "player one" ? "player two" : "player one");
   }
 
   return (
-    <>
-    {/* if game state is false, display 'start game'. else, display 'quit' */}
-      <button onClick={startGameHandler} className={gameStart ? 'howToPlayBtn' : null}>
-      {
-        gameStart
-          ? 'quit'
-          : 'start game'}</button>
-      {
-        gameStart
-          ? <>
-              <Player pokeData={pokemonPlayerOne} />
-              <Player pokeData={pokemonPlayerTwo} />
-            </>
-          : null
-      }
+        <>
+        <Instructions gameState={gameStart}/>
 
-      {/* need separate container to show when game state is true  when it is, render Controller component*/}
-      {
-        gameStart 
-          ? <Controller hitButton={hitHandler} stayButton={stayHandler}/>
-          : null
-      }
-    </>
-  )
+        {/* if game state is false, display 'start game'. else, display 'quit' */}
+        <button onClick={startGameHandler} className={gameStart ? 'howToPlayBtn' : null}>
+          
+            {
+                gameStart
+                    ? 'quit'
+                    : 'start game'}</button>
+
+            {/* display instructions on default. on game start, remove instructions display and display players*/}
+            {
+                gameStart
+                    ? <>
+                        <Player pokeData={pokemonPlayerOne} cardData={playerOneHand}/>
+                        <Player pokeData={pokemonPlayerTwo} cardData={playerTwoHand}/>
+                    </>
+                    : <InstructionsContent />
+            }
+
+            {/* when game state is true, render Controller component*/}
+            {
+              gameStart 
+                ? <Controller hitButton={hitHandler} stayButton={stayHandler}/>
+                : null
+            }
+        </>
+    )
 }
 
 export default GameContainer;
