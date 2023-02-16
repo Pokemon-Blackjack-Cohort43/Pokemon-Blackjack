@@ -113,15 +113,18 @@ useEffect (() => {
 
   // initalize current deck
   const currentDeck = deck;
+  console.log(deck);
 
   const startGameHandler = () => {
     setGameStart(!gameStart);
 
     const check = currentDeck.splice(0, 2);
+    const check2 = currentDeck.splice(0, 2);
 
     setPlayerOneHand(hand => [...hand, check]);
-    setPlayerTwoHand(hand => [...hand, check]);
-
+    setPlayerTwoHand(hand => [...hand, check2]);
+    console.log(deck);
+    
   }
   // const addOneCard = () => {
   //   const check = currentDeck.splice(0, 1);
