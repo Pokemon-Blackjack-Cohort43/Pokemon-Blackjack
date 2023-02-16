@@ -2,6 +2,7 @@ import axios from "axios";
 import Player from "./Player";
 import Controller from "./Controller";
 import Instructions from "./Instructions";
+import InstructionsContent from "./InstructionsContent";
 import Results from "./Results";
 import { useState , useEffect } from 'react';
 
@@ -146,7 +147,7 @@ useEffect (() => {
   //   }
   // }
 
-  // on click, add card to player's hand, based on current player
+  // // on click, add card to player's hand, based on current player
   const hitHandler = () => {
     const check = currentDeck.splice(0, 1);
 
@@ -198,30 +199,32 @@ useEffect (() => {
   const stayHandler = () => {
     //if pressed by playerOne, setCurrentPlayer(playerTwo)
     //if pressed by playerTwo, compare player scores and pass winner to results for results to display the evolving pokemon
-    if (currentPlayer === "player one") {
-      setCurrentPlayer('player two')
-    }
+    setCurrentPlayer(currentPlayer === "player one" ? "player two" : "player one");
   }
 
     return (
         <>
+        <Instructions gameState={gameStart}/>
+
         {/* if game state is false, display 'start game'. else, display 'quit' */}
         <button onClick={startGameHandler} className={gameStart ? 'howToPlayBtn' : null}>
+          
             {
                 gameStart
                     ? 'quit'
                     : 'start game'}</button>
 
+            {/* display instructions on default. on game start, remove instructions display and display players*/}
             {
                 gameStart
                     ? <>
                         <Player pokeData={pokemonPlayerOne} cardData={playerOneHand}/>
                         <Player pokeData={pokemonPlayerTwo} cardData={playerTwoHand}/>
                     </>
-                    : null
+                    : <InstructionsContent />
             }
 
-            {/* need separate container to show when game state is true  when it is, render Controller component*/}
+            {/* when game state is true, render Controller component*/}
             {
               gameStart 
                 ? <Controller hitButton={hitHandler} stayButton={stayHandler}/>
