@@ -215,8 +215,8 @@ useEffect (() => {
             {
                 gameStart
                     ? <>
-                        <Player pokeData={pokemonPlayerOne} />
-                        <Player pokeData={pokemonPlayerTwo} />
+                        <Player pokeData={pokemonPlayerOne} cardData={playerOneHand}/>
+                        <Player pokeData={pokemonPlayerTwo} cardData={playerTwoHand}/>
                     </>
                     : null
             }
