@@ -6,12 +6,10 @@ const Instructions = () => {
   // default setting to display an i card
   // initialize state for displaying of instruactions set to false  
     // when ? button is clicked, change to true and display game instructions 
-  const [displayInstructions, setDisplayInstructions] = useState(false);
+  const [displayInstructions, setDisplayInstructions] = useState(true);
 
   const handleClick = () => {
-    displayInstructions
-      ? setDisplayInstructions(false) 
-      : setDisplayInstructions(true)
+    setDisplayInstructions(!displayInstructions);
   }
 
     return (

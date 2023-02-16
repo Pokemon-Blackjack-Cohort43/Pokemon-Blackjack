@@ -1,8 +1,9 @@
 // import GameContainer from "./GameContainer";
 // import PlayerCards from "./PlayerCards";
 
-const Player = (props) => {
+const Player = ({pokeData,cardData}) => {
 
+  
   // Data that is stored in state within GameContainer is passed down with props which renders:
   // img for player sprite
   // ul for [playerCards] (peice of state that gets pushed to with each hit)
@@ -17,17 +18,32 @@ const Player = (props) => {
   // setPokeId(pokeData.id);
   // setPokeImage(pokeData.sprites.front_default)
 
+  const flattenedCardData = cardData.flatMap(card => card)
+  
   return (
-    <>
-      <>
-    <div className="playerContainer">
-        <img src={props.pokeData.sprites.front_default} alt="" />
-        <span>{props.pokeData.name}</span>
-        <span>0</span>
-    </div>
+      <section className="playerContainer">
+        <div className="displayPoke">
+          <img src={pokeData.sprites.front_default} alt={`image of ${pokeData.name}`} />
+          <p>{pokeData.name}</p>
+        </div>
+        <div className="displayHand">
+          <div className="playerCards">
+            <ul>
+              {
+                flattenedCardData.map((item) => {
+                  return (
+                    <li key={item.code}>
+                      <img src={item.image} alt={item.code}></img>
+                    </li>
+                  )
+                })
+              }
+            </ul>
+          </div>
+          <p className="playerScore"></p>
+        </div>
+      </section>
 
-    </>
-    </>
   )
 }
 
