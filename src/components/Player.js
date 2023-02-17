@@ -1,7 +1,7 @@
 // import GameContainer from "./GameContainer";
 // import PlayerCards from "./PlayerCards";
 
-const Player = ({ pokeData, cardData }) => {
+const Player = ({ pokeData, cardData, cardScore }) => {
 
   
   // Data that is stored in state within GameContainer is passed down with props which renders:
@@ -40,7 +40,11 @@ const Player = ({ pokeData, cardData }) => {
               }
             </ul>
           </div>
-          <p className="playerScore"></p>
+          <div className="playerScore">
+            <h4>{cardScore}</h4>
+
+
+          </div>
         </div>
       </section>
 

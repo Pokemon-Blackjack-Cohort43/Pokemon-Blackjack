@@ -173,13 +173,14 @@ useEffect (() => {
   console.log(cardsInHand);
 
   // calculate score of cards in hand
-  const cardScore = () => {
+  const cardScore = (cardSum) => {
     let score = 0;
 
     const faceCards = ['QUEEN', 'KING', 'JACK'];
+    const updatedDeck = cardSum.flatMap(item => item)
 
     // provided numerical values to face cards
-    for (let cards of cardsInHand) {
+    for (let cards of updatedDeck) {
       console.log('cards', cards.value);
       const cardsInt = parseInt(cards.value);
 
@@ -196,9 +197,10 @@ useEffect (() => {
     return score
   }
 
-  const scoreValue = cardScore();
-  console.log('score', scoreValue);
-
+  const scoreValue = cardScore(playerOneHand);
+  const scoreTwoValue = cardScore(playerTwoHand)
+  console.log('score ONE', scoreValue);
+  console.log('score TWO', scoreTwoValue);
 
   const stayHandler = () => {
     //if pressed by playerOne, setCurrentPlayer(playerTwo)
