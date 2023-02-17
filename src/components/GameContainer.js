@@ -197,7 +197,9 @@ useEffect (() => {
   }
 
   const scoreValue = cardScore();
-  console.log('score', scoreValue);
+  const scoreTwoValue = cardScore(playerTwoHand);
+  console.log('score 1', scoreValue);
+  console.log('score 2', scoreTwoValue);
 
 
   const stayHandler = () => {
