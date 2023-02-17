@@ -122,11 +122,10 @@ useEffect (() => {
     
     const check = currentDeck.splice(0, 2);
     const check2 = currentDeck.splice(0, 2);
-
+    
     setPlayerOneHand(hand => [...hand, check]);
     setPlayerTwoHand(hand => [...hand, check2]);
     console.log(deck);
-    
   }
   // const addOneCard = () => {
   //   const check = currentDeck.splice(0, 1);
@@ -152,37 +151,27 @@ useEffect (() => {
   // }
 
   // // on click, add card to player's hand, based on current player
-  const hitHandler = () => {
-    const check = currentDeck.splice(0, 1);
-
-    // setPlayerOneHand(hand => [...hand, check]);
-
-    if (currentPlayer === "player one") {
-      setPlayerOneHand(hand => [...hand, check]);
-    } else if (currentPlayer === "player two") {
-      setPlayerTwoHand(hand => [...hand, check]);
-    }
-  }
-
+  
   console.log('PLAYERHAND ONE', playerOneHand);
   console.log('PLAYERHAND TWO', playerTwoHand);
-
-
+  
+  
   // flatten array by one level
   const cardsInHand = playerOneHand.flatMap(item => item);
   console.log(cardsInHand);
-
+  
   // calculate score of cards in hand
-  const cardScore = () => {
+  const cardScore = (cardTest) => {
     let score = 0;
 
     const faceCards = ['QUEEN', 'KING', 'JACK'];
-
+    const updatedDesk = cardTest.flatMap(item => item)
+    
     // provided numerical values to face cards
-    for (let cards of cardsInHand) {
+    for (let cards of updatedDesk) {
       console.log('cards', cards.value);
       const cardsInt = parseInt(cards.value);
-
+      
       if (faceCards.includes(cards.value)) {
         score = score + 10;
       }
@@ -195,42 +184,128 @@ useEffect (() => {
     }
     return score
   }
+  
+  const scoreValue = cardScore(playerOneHand);
+  const scoreTwoValue = cardScore(playerTwoHand)
+  console.log('score ONE', scoreValue);
+  console.log('score TWO', scoreTwoValue);
+  
+  // if (scoreTwoValue > 21) {
+    
+    //   //cardWinner(!currentPlayer)
+    //   //`${currentPlayer}`
+    //   console.log('P2 bust')
+    // }
+    // if (scoreValue === scoreTwoValue) {
+      //   // Its a tie pops up play again
+    //   console.log('tie');
+    // }
+    // if (scoreValue > scoreTwoValue) {
+    //   //`${pokemonPlayerOne}`
+    //   console.log('p1 win')
+    // }
+    // if (scoreValue < scoreTwoValue); {
+    //   //`${pokemonPlayerTwo}`
+    //   console.log('p2 win')
+    // } 
+    // else (setCardWinner('none'));
 
-  const scoreValue = cardScore();
-  console.log('score', scoreValue);
+    // return cardWinner;
+    
+
+
+    //logic when cards are dealt
+    //if score is 21 auto stay
+        //if p1 gets
+            //setCurrentPlayer(currentPlayer === "player one" ? "player two" : "player one");
+    //logic when hit
+        //if score is 21 auto stay
+        //if score is over 21 auto lose
+        //if score
+    //Logic when stay
+    //P1 score closer to 21 win
+        //P2 score closer to 21 win
+        //P1 and P2 score same = play again
+    //set winner useState -
+  
+    const [ winner, setWinner ] = useState('none');
+
+    useEffect(() => {
+      const test = () => {
+
+        if (scoreValue === 21 ) {
+          setCurrentPlayer("player two");
+        } else if (scoreTwoValue === 21) {
+          setCurrentPlayer("player one");
+        }
+
+        if (scoreValue > 21) {
+          setWinner("player two");
+          alert(`p2 wins. p1 busted`);
+        }
+
+        if (scoreTwoValue > 21) {
+          setWinner("player one");
+          alert(`p1 wins. p2 busted`);
+      }
+    }
+    test();
+    }, [playerOneHand, playerTwoHand]);
 
 
   const stayHandler = () => {
-    //if pressed by playerOne, setCurrentPlayer(playerTwo)
-    //if pressed by playerTwo, compare player scores and pass winner to results for results to display the evolving pokemon
-    setCurrentPlayer(currentPlayer === "player one" ? "player two" : "player one");
+    if (currentPlayer === "player two") {
+      if (scoreValue < scoreTwoValue) {
+        setWinner("player two");
+        alert(`p2 wins. closer to 21`)
+      } else if (scoreValue > scoreTwoValue) { 
+          setWinner("player one"); 
+          alert(`p1 wins. closer to 21.`) 
+        }
+      else if (scoreTwoValue === scoreValue) { 
+          setWinner("tie"); 
+          alert(`tie`);
+      }
+    } else {setCurrentPlayer(currentPlayer === "player one" ? "player two" : "player one");}
   }
-
+  
+  const hitHandler = () => {
+    const check = currentDeck.splice(0, 1);
+    // setPlayerOneHand(hand => [...hand, check]);
+    
+    if (currentPlayer === "player one") {
+      setPlayerOneHand(hand => [...hand, check]);
+    } else if (currentPlayer === "player two") {
+      setPlayerTwoHand(hand => [...hand, check]);
+    }
+  }
+  
   const quitHandler = () => {
     setPlayerOneHand([]);
     setPlayerTwoHand([]);
     setGameStart(false);
     setCurrentPlayer('none');
   }
+  
 
-    return (
-        <>
+  return (
+    <>
         <Instructions gameState={gameStart}/>
 
         {/* if game state is false, display 'start game'. else, display 'quit' */}
         <button onClick={gameStart ? quitHandler : startGameHandler} className={gameStart ? 'howToPlayBtn' : null}>
           
             {
-                gameStart
-                    ? 'quit'
+              gameStart
+              ? 'quit'
                     : 'start game'}</button>
 
             {/* display instructions on default. on game start, remove instructions display and display players*/}
             {
                 gameStart
                     ? <>
-                        <Player pokeData={pokemonPlayerOne} cardData={playerOneHand}/>
-                        <Player pokeData={pokemonPlayerTwo} cardData={playerTwoHand}/>
+                        <Player pokeData={pokemonPlayerOne} cardData={playerOneHand} cardScore={scoreValue} />
+                        <Player pokeData={pokemonPlayerTwo} cardData={playerTwoHand} cardScore={scoreTwoValue} />
                     </>
                     : <InstructionsContent />
             }

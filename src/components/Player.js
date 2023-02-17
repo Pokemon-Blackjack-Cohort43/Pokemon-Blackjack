@@ -1,7 +1,7 @@
 // import GameContainer from "./GameContainer";
 // import PlayerCards from "./PlayerCards";
 
-const Player = ({ pokeData, cardData }) => {
+const Player = ({ pokeData, cardData, cardScore, cardScoreTwo }) => {
 
   
   // Data that is stored in state within GameContainer is passed down with props which renders:
@@ -32,15 +32,19 @@ const Player = ({ pokeData, cardData }) => {
               {
                 flattenedCardData.map((item) => {
                   return (
+                    <>
                     <li key={item.code}>
                       <img src={item.image} alt={item.code}></img>
                     </li>
+                    </>
                   )
                 })
               }
             </ul>
           </div>
-          <p className="playerScore"></p>
+          <p className="playerScore">
+            {cardScore}
+          </p>
         </div>
       </section>
 
