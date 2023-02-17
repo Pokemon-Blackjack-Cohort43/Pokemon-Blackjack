@@ -109,7 +109,7 @@ useEffect (() => {
     })
   }, []);
 
-
+//   
   // handleClick functions that will be passed to our Controller.js buttons as props
 
   // initalize current deck
@@ -246,3 +246,42 @@ useEffect (() => {
 }
 
 export default GameContainer;
+
+
+
+// const [cardWinner, setCardWinner] = useState('none');
+  
+// useEffect(() => {
+
+//       const scoreComparison = () => {
+
+//         if (scoreValueOne === 21 ) {
+//           setCardWinner('player 1')
+//           console.log('player 1')
+
+//         } else if (scoreValueTwo === 21) {
+//           setCardWinner('player 2')
+//           console.log('player 2')
+//         }
+
+//         if (scoreValueOne > 21) {
+//           console.log('busted')
+//           alert(`Player 2 wins, Player 1 busted`);
+//         }
+
+//         if (scoreValueTwo > 21) {
+//           setCurrentPlayer("player one")
+//           setCardWinner('player one ');
+//           alert(`Player 1 wins. Player 2 busted.`);
+//         }
+        
+//         if (scoreValueOne === scoreValueTwo || scoreValueOne > 21 && scoreValueTwo > 21) {
+//           setCardWinner("tie")
+//           console.log('tie');
+//         }
+//     }
+
+//     scoreComparison();
+//     }, [playerOneHand, playerTwoHand]);
+
+//     console.log(cardWinner);
