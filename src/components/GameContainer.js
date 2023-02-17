@@ -202,6 +202,152 @@ useEffect (() => {
   console.log('score ONE', scoreValue);
   console.log('score TWO', scoreTwoValue);
 
+
+  //********CARD WINNER LOGIC */
+  const [winner, setWinner] = useState('none');
+
+  useEffect(() => {
+    //*************Fourth */
+    //     const test = () => {
+
+    //         if (scoreValue === 21) {
+    //             setCurrentPlayer("player two");
+    //         } else if (scoreTwoValue === 21) {
+    //             setCurrentPlayer("player one");
+    //         }
+
+    //         if (scoreValue > 21) {
+    //             setWinner("player two");
+    //             alert(`p2 wins. p1 busted`);
+    //         }
+
+    //         if (scoreTwoValue > 21) {
+    //             setWinner("player one");
+    //             alert(`p1 wins. p2 busted`);
+    //         }
+    //     }
+    //     test();
+    // }, [playerOneHand, playerTwoHand]);
+
+
+    // const stayHandler = () => {
+    //     if (currentPlayer === "player two") {
+    //         if (scoreValue < scoreTwoValue) {
+    //             setWinner("player two");
+    //             alert(`p2 wins. closer to 21`)
+    //         } else if (scoreValue > scoreTwoValue) {
+    //             setWinner("player one");
+    //             alert(`p1 wins. closer to 21.`)
+    //         }
+    //         else if (scoreTwoValue === scoreValue) {
+    //             setWinner("tie");
+    //             alert(`tie`);
+    //         }
+    //     } else { setCurrentPlayer(currentPlayer === "player one" ? "player two" : "player one"); }
+    // }
+
+    //     const [cardWinner, setCardWinner] = useState('');
+    //     const [player1status, setplayer1status] = useState(false);
+    //     const [player2status, setplayer2status] = useState(false);
+
+    //     const player1Bust = scoreValue > 21;
+    //     const player2Bust = scoreTwoValue > 21;
+
+    //     useEffect (() => {
+    //     // const cardLogic = () => {
+    // //*********Third */
+    //         // const test = () => {
+
+    //         //     if (scoreValue === 21) {
+    //         //         setCurrentPlayer("player two");
+    //         //     } else if (scoreTwoValue === 21) {
+    //         //         setCurrentPlayer("player one");
+    //         //     }
+
+    //         //     if (scoreValue > 21) {
+    //         //         console.log('busted')
+    //         //         alert(`player 1 busted`);
+    //         //     }
+
+    //         //     if (scoreTwoValue > 21) {
+    //         //         setCurrentPlayer("player one")
+    //         //         setCardWinner(currentPlayer);
+    //         //         alert(`Player 1 wins. Player 2 busted.`);
+    //         //     }
+    //         // }
+    // //*********Second */  
+    //         // if (scoreValue > 21) {
+    //         //     setCardWinner(!currentPlayer)
+    //         //     //`${currentPlayer}`
+    //         //     console.log('p1 bust')
+    //         //     setCurrentPlayer(currentPlayer === "player one" ? "player two" : "player one");
+    //         // } else if (scoreValue === 21) {
+    //         //     setCurrentPlayer(currentPlayer === "player one" ? "player two" : "player one");
+    //         //     console.log('p1 BlackJack')
+    //         //     setCardWinner("player one!")
+    //         // }
+    //         // else if (scoreTwoValue > 21) {
+    //         //     cardWinner(!currentPlayer)
+    //         //     //`${currentPlayer}`
+    //         //     console.log('P2 bust')
+    //         //     setCardWinner("player two!")
+    //         // }
+    //         // else if (scoreValue === scoreTwoValue) {
+    //         //     // Its a tie pops up play again
+    //         //     console.log('tie');
+    //         // }
+    //         // else if (scoreValue > scoreTwoValue) {
+    //         //     //`${pokemonPlayerOne}`
+    //         //     console.log('p1 win')
+    //         //     setCardWinner("player one!")
+    //         // }
+    //         // else if (scoreValue < scoreTwoValue); {
+    //         //     //`${pokemonPlayerTwo}`
+    //         //     console.log('p2 win')
+    //         //     setCardWinner("player two!")
+    //         // }
+
+    // //*********First */  
+    if (scoreValue > 21) {
+      //setCardWinner(currentPlayer)
+      //`${currentPlayer}`
+      console.log('P1 bust')
+      setCurrentPlayer(currentPlayer === "player one" ? "player two" : "player one");
+    } else
+      if (scoreValue == 21) {
+        setCurrentPlayer(currentPlayer === "player one" ? "player two" : "player one");
+        console.log('p1 BlackJack')
+      } else
+        if (scoreTwoValue > 21) {
+          //cardWinner(!currentPlayer)
+          //`${currentPlayer}`
+          console.log('P2 bust')
+        } else
+          if (scoreTwoValue == 21) {
+            console.log('p2 Blackjack')
+          } else
+            if (scoreValue === scoreTwoValue) {
+              // Its a tie pops up play again
+              console.log('tie');
+            } else
+              if (scoreValue > scoreTwoValue) {
+                //`${pokemonPlayerOne}`
+                console.log('p1 win')
+              } else
+                if (scoreTwoValue > scoreValue); {
+      //`${pokemonPlayerTwo}`
+      console.log('p2 win')
+    }
+
+
+
+    // }
+    // cardLogic();
+  }, [playerOneHand, playerTwoHand]);
+  console.log(cardWinner);
+
+ //********CARD WINNER LOGIC END*/
+
   const stayHandler = () => {
     //if pressed by playerOne, setCurrentPlayer(playerTwo)
     //if pressed by playerTwo, compare player scores and pass winner to results for results to display the evolving pokemon
