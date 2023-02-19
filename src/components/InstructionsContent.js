@@ -1,8 +1,8 @@
 const InstructionsContent = () => {
   return (
-    <div className="wrapper instructionsCopy">
+    <div className="wrapper">
       <h2>How to play:</h2>
-      <ul>
+      <ul className="instructions">
         <li>Winner will be the player who has the closest sum of cards to 21 without going over</li>
         <li><h3>Moves</h3></li>
         <ul>
