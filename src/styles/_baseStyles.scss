@@ -3,9 +3,12 @@ footer {
   text-align: center;
 }
 
-button,
-select {
+button {
   cursor: pointer;
+  padding: 20px 30px;
+  margin: 5px 10px;
+  @include fontSize(20);
+  font-size: 1.5rem;
 }
 
 ul {

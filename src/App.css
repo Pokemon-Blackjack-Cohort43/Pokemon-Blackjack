@@ -223,6 +223,7 @@ h2,
 h3,
 button {
   font-family: "VT323", monospace;
+  color: rgb(204, 0, 0);
 }
 
 h1 {
@@ -230,14 +231,33 @@ h1 {
   font-size: 2.5rem;
 }
 
+h2 {
+  font-size: 40px;
+  font-size: 2rem;
+}
+
+h3 {
+  font-size: 30px;
+  font-size: 1.5rem;
+}
+
+body {
+  font-size: 20px;
+  font-size: 1rem;
+}
+
 header,
 footer {
   text-align: center;
 }
 
-button,
-select {
+button {
   cursor: pointer;
+  padding: 20px 30px;
+  margin: 5px 10px;
+  font-size: 20px;
+  font-size: 1rem;
+  font-size: 1.5rem;
 }
 
 ul {
