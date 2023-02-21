@@ -5,11 +5,11 @@ const Header = (props) => {
   }
 
   return (
-    <>
-      <header>
+    <header>
+      <div className="wrapper">
         <h1>Pokemon Blackjack</h1>
-      </header>
-    </>
+      </div>
+    </header>
   )
 }
 
