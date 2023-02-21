@@ -228,6 +228,7 @@ useEffect (() => {
         //P1 and P2 score same = play again
     //set winner useState -
   
+    const [ result, setResult ] = useState('Draw a card!');
     const [ winner, setWinner ] = useState('none');
 
     useEffect(() => {
@@ -235,39 +236,46 @@ useEffect (() => {
 
         if (scoreValue === 21 ) {
           setCurrentPlayer("player two");
+          setWinner('none');
+          setResult('Player1 has blackjack. Player2 has a chance to draw to 21.');
         } else if (scoreTwoValue === 21) {
           setCurrentPlayer("player one");
+          setWinner('none')
+          setResult('Player2 has blackjack. Player1 has a chance to draw to 21.')
         }
 
         if (scoreValue > 21) {
-          setWinner("player two");
-          alert(`p2 wins. p1 busted`);
+          setResult(`Player 2 wins. Player 1 busted!`);
+          setWinner('player two');
         }
 
         if (scoreTwoValue > 21) {
-          setWinner("player one");
-          alert(`p1 wins. p2 busted`);
+          setResult(`Player 1 wins. Player 2 busted!`);
+          setWinner('player one');
       }
     }
     test();
     }, [playerOneHand, playerTwoHand]);
 
-
-  const stayHandler = () => {
-    if (currentPlayer === "player two") {
-      if (scoreValue < scoreTwoValue) {
-        setWinner("player two");
-        alert(`p2 wins. closer to 21`)
-      } else if (scoreValue > scoreTwoValue) { 
-          setWinner("player one"); 
-          alert(`p1 wins. closer to 21.`) 
+    const stayHandler = () => {
+      if (currentPlayer === "player two") {
+        if (scoreValue < scoreTwoValue) {
+          setCurrentPlayer('none');
+          setWinner('player two');
+          setResult(`Player 2 wins. Their card score is closer to 21.`)
+        } else if (scoreValue > scoreTwoValue) { 
+          setCurrentPlayer('none');
+          setWinner('player one');
+          setResult(`Player 1 wins. Their card score is closer to 21.`) 
+          }
+        else if (scoreTwoValue === scoreValue) { 
+          setCurrentPlayer('none');
+          setWinner('tie');
+          setResult(`It's a tie!`);
         }
-      else if (scoreTwoValue === scoreValue) { 
-          setWinner("tie"); 
-          alert(`tie`);
-      }
-    } else {setCurrentPlayer(currentPlayer === "player one" ? "player two" : "player one");}
-  }
+      } else {setCurrentPlayer(currentPlayer === "player one" ? "player two" : "player one");}
+    }
+
   
   const hitHandler = () => {
     const check = currentDeck.splice(0, 1);
@@ -285,12 +293,14 @@ useEffect (() => {
     setPlayerTwoHand([]);
     setGameStart(false);
     setCurrentPlayer('none');
+    setResult('Draw a card!')
+    setWinner('none');
   }
   
-
   return (
     <>
         <Instructions gameState={gameStart}/>
+        <Results result={result} winner={winner} playerOnePokemon={pokemonPlayerOne} playerTwoPokemon={pokemonPlayerTwo}/>
 
         {/* if game state is false, display 'start game'. else, display 'quit' */}
         <button onClick={gameStart ? quitHandler : startGameHandler} className={gameStart ? 'howToPlayBtn' : null}>
@@ -298,7 +308,7 @@ useEffect (() => {
             {
               gameStart
               ? 'quit'
-                    : 'start game'}</button>
+              : 'start game'}</button>
 
             {/* display instructions on default. on game start, remove instructions display and display players*/}
             {
@@ -313,7 +323,7 @@ useEffect (() => {
             {/* when game state is true, render Controller component*/}
             {
               gameStart 
-                ? <Controller hitButton={hitHandler} stayButton={stayHandler}/>
+                ? <Controller hitButton={hitHandler} stayButton={stayHandler} winner={winner}/>
                 : null
             }
         </>
