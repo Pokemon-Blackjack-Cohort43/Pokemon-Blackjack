@@ -50,34 +50,69 @@ const GameContainer = () => {
 
 // INITIAL POKEMON API CALL
 // state for saving poke data to pass to player component as props
+  const [pokemonPlayerOneFam, setPokemonPlayerOneFam] = useState([]);
+  const [pokemonPlayerTwoFam, setPokemonPlayerTwoFam] = useState([]);
   const [pokemonPlayerOne, setPokemonPlayerOne] = useState([]);
   const [pokemonPlayerTwo, setPokemonPlayerTwo] = useState([]);
+
 
   const pokeFam = randomizer(pokemonPool);
   const pokeFam2 = randomizer(pokemonPool);
 
-  useEffect (() => {
-    axios({
-      url: `https://pokeapi.co/api/v2/pokemon/${pokeFam[0]}`,
-      method: `get`,
-      dataResponse: `json`
-    }).then((res) => {
-      setPokemonPlayerOne(res.data);
-    }).catch((err) => {
-      console.log("error", err.message);
-    });
+  useEffect(() => {
+    
+// API CALLS FOR PLAYER 2 
+    const urlEndpointsP1 = [
+    `https://pokeapi.co/api/v2/pokemon/${pokeFam[0]}`,
+    `https://pokeapi.co/api/v2/pokemon/${pokeFam[1]}`,
+    `https://pokeapi.co/api/v2/pokemon/${pokeFam[2]}`
+    ];
 
-    axios({
-      url: `https://pokeapi.co/api/v2/pokemon/${pokeFam2[0]}`,
-      method: `get`,
-      dataResponse: `json`
-    }).then((res) => {
-      setPokemonPlayerTwo(res.data);
-    }).catch((err) => {
-      console.log("error", err.message);
-    });
-  }, [gameStart]);
-//
+    const requestsP1 = urlEndpointsP1.map((url) => axios.get(url));
+
+    Promise.all(requestsP1).then((responses) => {
+    const pokemonPlayerOneFam = responses.map((res) => ({
+      name: res.data.name,
+      url: res.data.sprites.front_default,
+    }));
+
+    setPokemonPlayerOneFam(pokemonPlayerOneFam);
+    setPokemonPlayerOne(pokemonPlayerOneFam[0]);
+
+  }).catch((error) => {
+    console.log(error, 'error fetching data')
+  });
+
+
+// API CALLS FOR PLAYER 2 
+  const urlEndpointsP2 = [
+    `https://pokeapi.co/api/v2/pokemon/${pokeFam2[0]}`,
+    `https://pokeapi.co/api/v2/pokemon/${pokeFam2[1]}`,
+    `https://pokeapi.co/api/v2/pokemon/${pokeFam2[2]}`
+  ];
+
+  const requestsP2 = urlEndpointsP2.map((url) => axios.get(url));
+
+    Promise.all(requestsP2).then((responses) => {
+    
+      const pokemonPlayerTwoFam = responses.map((res) => ({
+      name: res.data.name,
+      url: res.data.sprites.front_default,
+    }));
+
+    setPokemonPlayerTwoFam(pokemonPlayerTwoFam);
+    setPokemonPlayerTwo(pokemonPlayerTwoFam[0]);
+
+
+  }).catch((error) => {
+    console.log(error, 'error fetching data')
+  });
+
+  
+}, [gameStart]);
+
+
+
 
 // API CALL TO GET THE DECK OF CARDS FOR THE HAND
 // state to track card draw and player hand
