@@ -61,7 +61,7 @@ const GameContainer = () => {
 
   useEffect(() => {
     
-// API CALLS FOR PLAYER 2 
+// API CALLS FOR PLAYER 1 
     const urlEndpointsP1 = [
     `https://pokeapi.co/api/v2/pokemon/${pokeFam[0]}`,
     `https://pokeapi.co/api/v2/pokemon/${pokeFam[1]}`,
