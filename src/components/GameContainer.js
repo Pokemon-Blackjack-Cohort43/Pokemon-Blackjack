@@ -57,6 +57,8 @@ const [pokemonPlayerTwo, setPokemonPlayerTwo] = useState([]);
 const pokeFam = randomizer(pokemonPool);
 const pokeFam2 = randomizer(pokemonPool);
 
+
+
 useEffect (() => {
       axios({
         url: `https://pokeapi.co/api/v2/pokemon/${pokeFam[0]}`,
@@ -282,6 +284,7 @@ export default GameContainer;
 //     }
 
 //     scoreComparison();
+
 //     }, [playerOneHand, playerTwoHand]);
 
 //     console.log(cardWinner);
