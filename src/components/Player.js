@@ -2,7 +2,6 @@
 // import PlayerCards from "./PlayerCards";
 
 const Player = ({ pokeData, cardData, cardScore }) => {
-
   
   // Data that is stored in state within GameContainer is passed down with props which renders:
   // img for player sprite
@@ -23,7 +22,7 @@ const Player = ({ pokeData, cardData, cardScore }) => {
   return (
     <li className="playerContainer">
       <div className="displayPoke">
-        <img src={pokeData.sprites.front_default} alt={`image of ${pokeData.name}`} />
+        <img src={pokeData.url} alt={`image of ${pokeData.name}`} />
         <h3>{pokeData.name}</h3>
       </div> {/* /.displayPoke */}
       <div className="displayHand">
