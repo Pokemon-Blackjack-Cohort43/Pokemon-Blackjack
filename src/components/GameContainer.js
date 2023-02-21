@@ -8,84 +8,79 @@ import { useState , useEffect } from 'react';
 
 
 const GameContainer = () => {
-
-  // state to track game start
-  const [ gameStart, setGameStart] = useState(false);
-
-  // PUESDDO CODE:
-
-  // API calls wrapped in useEffect to request data and save the response into state that will be passed down to corresponding components as props
-
-
-  // function for determining the total of PlayerCards array and comparing them
-    // when there is a winner render Results.js component of corresponding player
-    // updates piece of state {winningPokemonId} adds 1 and calls the pokemon API with that id in the params 
-
   console.log('GameContainer has mounted');
+
+// state to track game start
+  const [ gameStart, setGameStart] = useState(false);
+//
+
+// PUESDDO CODE:
+  // API calls wrapped in useEffect to request data and save the response into state that will be passed down to corresponding components as props
+  // function for determining the total of PlayerCards array and comparing them
+  // when there is a winner render Results.js component of corresponding player
+  // updates piece of state {winningPokemonId} adds 1 and calls the pokemon API with that id in the params 
+//
 
 // FILTERING FOR POKEMON THAT MEET THE CRITERIA OF 1ST OF 3 EVOLVED STATES
   // array of available pokemon selection
-const pokemonPool = [
-    [1, 2, 3],
-    [4, 5, 6],
-    [7, 8, 9],
-    [10, 11, 12],
-    [13, 14, 15],
-    [16, 17, 18],
-    [29, 30, 31],
-    [32, 33, 34],
-    [43, 44, 45],
-    [60, 61, 62],
-    [63, 64, 65],
-    [66, 67, 68],
-    [69, 70, 71],
-    [74, 75, 76],
-    [92, 93, 94]
-]
+  const pokemonPool = [
+  [1, 2, 3],
+  [4, 5, 6],
+  [7, 8, 9],
+  [10, 11, 12],
+  [13, 14, 15],
+  [16, 17, 18],
+  [29, 30, 31],
+  [32, 33, 34],
+  [43, 44, 45],
+  [60, 61, 62],
+  [63, 64, 65],
+  [66, 67, 68],
+  [69, 70, 71],
+  [74, 75, 76],
+  [92, 93, 94]
+  ]
 
-const randomizer = (arrayOfPoke) => {
+  const randomizer = (arrayOfPoke) => {
   const currentIndex = Math.floor(Math.random() * arrayOfPoke.length);
-  return arrayOfPoke[currentIndex]
-}
+    return arrayOfPoke[currentIndex]
+  }
+//
 
-// state for saving poke data to pass to player component as props
 
 // INITIAL POKEMON API CALL
-const [pokemonPlayerOne, setPokemonPlayerOne] = useState([]);
-const [pokemonPlayerTwo, setPokemonPlayerTwo] = useState([]);
+// state for saving poke data to pass to player component as props
+  const [pokemonPlayerOne, setPokemonPlayerOne] = useState([]);
+  const [pokemonPlayerTwo, setPokemonPlayerTwo] = useState([]);
 
-const pokeFam = randomizer(pokemonPool);
-const pokeFam2 = randomizer(pokemonPool);
+  const pokeFam = randomizer(pokemonPool);
+  const pokeFam2 = randomizer(pokemonPool);
 
+  useEffect (() => {
+    axios({
+      url: `https://pokeapi.co/api/v2/pokemon/${pokeFam[0]}`,
+      method: `get`,
+      dataResponse: `json`
+    }).then((res) => {
+      setPokemonPlayerOne(res.data);
+    }).catch((err) => {
+      console.log("error", err.message);
+    });
 
-
-useEffect (() => {
-      axios({
-        url: `https://pokeapi.co/api/v2/pokemon/${pokeFam[0]}`,
-        method: `get`,
-        dataResponse: `json`
-        }).then((res) => {
-            setPokemonPlayerOne(res.data);
-        }).catch((err) => {
-            console.log("error", err.message);
-        })
-
-      axios({
-            url: `https://pokeapi.co/api/v2/pokemon/${pokeFam2[0]}`,
-            method: `get`,
-            dataResponse: `json`
-        }).then((res) => {
-            setPokemonPlayerTwo(res.data);
-        })
-            .catch((err) => {
-            console.log("error", err.message);
-        })
+    axios({
+      url: `https://pokeapi.co/api/v2/pokemon/${pokeFam2[0]}`,
+      method: `get`,
+      dataResponse: `json`
+    }).then((res) => {
+      setPokemonPlayerTwo(res.data);
+    }).catch((err) => {
+      console.log("error", err.message);
+    });
   }, [gameStart]);
-
-  // https://www.deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1
+//
 
 // API CALL TO GET THE DECK OF CARDS FOR THE HAND
-  // state to track card draw and player hand
+// state to track card draw and player hand
   const [deck, setDeck] = useState([]);
   const [playerOneHand, setPlayerOneHand] = useState([]);
   const [playerTwoHand, setPlayerTwoHand] = useState([]);
@@ -94,25 +89,22 @@ useEffect (() => {
   // deck of cards api call
   useEffect(() => {
 
+  axios({
+    url: `https://www.deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1`,
+    method: `get`,
+    dataResponse: `json`
+  }).then((res) => {
     axios({
-      url: `https://www.deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1`,
+      url: `https://www.deckofcardsapi.com/api/deck/${res.data.deck_id}/draw/?count=52`,
       method: `get`,
       dataResponse: `json`
-    }).then((res) => {
-      axios({
-        url: `https://www.deckofcardsapi.com/api/deck/${res.data.deck_id}/draw/?count=52`,
-        method: `get`,
-        dataResponse: `json`
-      }).then((response) => {
-        setDeck(response.data.cards);
-      }).catch((err) => {
-        console.log("error", err.message);
-      })
+    }).then((response) => {
+      setDeck(response.data.cards);
+    }).catch((err) => {
+      console.log("error", err.message);
     })
+  })
   }, []);
-
-//   
-  // handleClick functions that will be passed to our Controller.js buttons as props
 
   // initalize current deck
   const currentDeck = deck;
@@ -121,43 +113,19 @@ useEffect (() => {
   const startGameHandler = () => {
     setGameStart(!gameStart);
     setCurrentPlayer('player one');
-    
+
     const check = currentDeck.splice(0, 2);
     const check2 = currentDeck.splice(0, 2);
 
     setPlayerOneHand(hand => [...hand, check]);
-    setPlayerTwoHand(hand => [...hand, check2]);
-    console.log(deck);
-    
+    setPlayerTwoHand(hand => [...hand, check2]);  
   }
-  // const addOneCard = () => {
-  //   const check = currentDeck.splice(0, 1);
+//
 
-  //   // setPlayerOneHand(hand => [...hand, check]);
-
-  //   if (currentPlayer === "player one") {
-  //     setPlayerOneHand(hand => [...hand, check]);
-  //   } else if (currentPlayer === "player two") {
-  //     setPlayerTwoHand(hand => [...hand, check]);
-  //   }
-  // }
-
-  // on click, add two cards to player's hand, based on current player 
-  // const addTwoCards = () => {
-  //   const check = currentDeck.splice(0, 2);
-
-  //   if (currentPlayer === "player one") {
-  //     setPlayerOneHand(hand => [...hand, check]);
-  //   } else if (currentPlayer === "player two") {
-  //     setPlayerTwoHand(hand => [...hand, check]);
-  //   }
-  // }
-
-  // // on click, add card to player's hand, based on current player
+// handleClick functions that will be passed to our Controller.js buttons as props
+  // on click, add card to player's hand, based on current player
   const hitHandler = () => {
     const check = currentDeck.splice(0, 1);
-
-    // setPlayerOneHand(hand => [...hand, check]);
 
     if (currentPlayer === "player one") {
       setPlayerOneHand(hand => [...hand, check]);
@@ -166,22 +134,23 @@ useEffect (() => {
     }
   }
 
-  console.log('PLAYERHAND ONE', playerOneHand);
-  console.log('PLAYERHAND TWO', playerTwoHand);
+  // console.log('PLAYERHAND ONE', playerOneHand);
+  // console.log('PLAYERHAND TWO', playerTwoHand);
 
 
-  // flatten array by one level
-  const cardsInHand = playerOneHand.flatMap(item => item);
-  console.log(cardsInHand);
+// flatten array by one level
+// const cardsInHand = playerOneHand.flatMap(item => item);
+// console.log(cardsInHand);
 
-  // calculate score of cards in hand
-  const cardScore = () => {
+// function to calculate score of cards in hand
+  const cardScore = (cardSum) => {
     let score = 0;
 
     const faceCards = ['QUEEN', 'KING', 'JACK'];
+    const updatedDeck = cardSum.flatMap(item => item)
 
     // provided numerical values to face cards
-    for (let cards of cardsInHand) {
+    for (let cards of updatedDeck) {
       console.log('cards', cards.value);
       const cardsInt = parseInt(cards.value);
 
@@ -197,94 +166,75 @@ useEffect (() => {
     }
     return score
   }
+//
 
-  const scoreValue = cardScore();
-  console.log('score', scoreValue);
+// tally the score of each player and pass to player components in the return as props
+  const scoreValue = cardScore(playerOneHand);
+  const scoreTwoValue = cardScore(playerTwoHand)
+  console.log('score ONE', scoreValue);
+  console.log('score TWO', scoreTwoValue);
+//
 
-
+// stay handler
   const stayHandler = () => {
-    //if pressed by playerOne, setCurrentPlayer(playerTwo)
-    //if pressed by playerTwo, compare player scores and pass winner to results for results to display the evolving pokemon
-    setCurrentPlayer(currentPlayer === "player one" ? "player two" : "player one");
+  //if pressed by playerOne, setCurrentPlayer(playerTwo)
+  //if pressed by playerTwo, compare player scores and pass winner to results for results to display the evolving pokemon
+  setCurrentPlayer(currentPlayer === "player one" ? "player two" : "player one");
   }
+//
 
+// quit the current hand - resets player and game play states
   const quitHandler = () => {
     setPlayerOneHand([]);
     setPlayerTwoHand([]);
     setGameStart(false);
     setCurrentPlayer('none');
   }
+//
 
-    return (
-        <>
-        <Instructions gameState={gameStart}/>
+  return (
+    <main>
+      <Instructions gameState={gameStart}/>
 
-        {/* if game state is false, display 'start game'. else, display 'quit' */}
-        <button onClick={gameStart ? quitHandler : startGameHandler} className={gameStart ? 'howToPlayBtn' : null}>
-          
-            {
-                gameStart
-                    ? 'quit'
-                    : 'start game'}</button>
+      {/* if game state is false, display 'start game'. else, display 'quit' */}
+      <button 
+        onClick={gameStart ? quitHandler : startGameHandler} 
+        className={gameStart ? 'howToPlayBtn' : null}
+      >
+        {
+        gameStart
+        ? 'quit'
+        : 'start game'
+        }
+      </button>
 
-            {/* display instructions on default. on game start, remove instructions display and display players*/}
-            {
-                gameStart
-                    ? <>
-                        <Player pokeData={pokemonPlayerOne} cardData={playerOneHand}/>
-                        <Player pokeData={pokemonPlayerTwo} cardData={playerTwoHand}/>
-                    </>
-                    : <InstructionsContent />
-            }
+      {/* display instructions on default. on game start, remove instructions display and display players*/}
+      {
+        gameStart
+          ? <section className="players"> 
+            <div className="wrapper">
+              <ul className="players">
+                <Player pokeData={pokemonPlayerOne} cardData={playerOneHand} cardScore={scoreValue}/>
+                <Player pokeData={pokemonPlayerTwo} cardData={playerTwoHand} cardScore={scoreTwoValue}/>
+              </ul>
+            </div>
+          </section>
+          : <InstructionsContent />
+      }
 
-            {/* when game state is true, render Controller component*/}
-            {
-              gameStart 
-                ? <Controller hitButton={hitHandler} stayButton={stayHandler}/>
-                : null
-            }
-        </>
-    )
+      {/* when game state is true, render Controller component*/}
+      {
+        gameStart 
+          ? <section className="controller">
+            <div className="wrapper">
+              <Controller hitButton={hitHandler} stayButton={stayHandler}/>
+            </div>
+          </section>
+          : null
+      }
+    </main>
+  );
 }
 
 export default GameContainer;
 
-
-
-// const [cardWinner, setCardWinner] = useState('none');
-  
-// useEffect(() => {
-
-//       const scoreComparison = () => {
-
-//         if (scoreValueOne === 21 ) {
-//           setCardWinner('player 1')
-//           console.log('player 1')
-
-//         } else if (scoreValueTwo === 21) {
-//           setCardWinner('player 2')
-//           console.log('player 2')
-//         }
-
-//         if (scoreValueOne > 21) {
-//           console.log('busted')
-//           alert(`Player 2 wins, Player 1 busted`);
-//         }
-
-//         if (scoreValueTwo > 21) {
-//           setCurrentPlayer("player one")
-//           setCardWinner('player one ');
-//           alert(`Player 1 wins. Player 2 busted.`);
-//         }
-        
-//         if (scoreValueOne === scoreValueTwo || scoreValueOne > 21 && scoreValueTwo > 21) {
-//           setCardWinner("tie")
-//           console.log('tie');
-//         }
-//     }
-
-//     scoreComparison();
-
-//     }, [playerOneHand, playerTwoHand]);
-
-//     console.log(cardWinner);
