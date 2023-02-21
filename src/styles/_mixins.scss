@@ -1,0 +1,5 @@
+// for making font sizes responsive
+@mixin fontSize($sizeValue) {
+  font-size: $sizeValue * 1px;
+  font-size: ($sizeValue/20) * 1rem;
+}

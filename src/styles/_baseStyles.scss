@@ -3,6 +3,11 @@ footer {
   text-align: center;
 }
 
+button,
+select {
+  cursor: pointer;
+}
+
 ul {
   list-style: none;
   display: flex;
@@ -30,3 +35,4 @@ img {
   width: 85%;
   margin: 0 auto;
 }
+

@@ -1,0 +1,10 @@
+h1, 
+h2, 
+h3,
+button {
+  font-family: $primaryFont;
+}
+
+h1{
+  @include fontSize(50);
+}
