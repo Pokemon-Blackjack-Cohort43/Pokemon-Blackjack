@@ -47,7 +47,6 @@ const GameContainer = () => {
   }
 //
 
-
 // INITIAL POKEMON API CALL
 // state for saving poke data to pass to player component as props
   const [pokemonPlayerOne, setPokemonPlayerOne] = useState([]);
@@ -110,16 +109,7 @@ const GameContainer = () => {
   const currentDeck = deck;
   console.log(deck);
 
-  const startGameHandler = () => {
-    setGameStart(!gameStart);
-    setCurrentPlayer('player one');
 
-    const check = currentDeck.splice(0, 2);
-    const check2 = currentDeck.splice(0, 2);
-
-    setPlayerOneHand(hand => [...hand, check]);
-    setPlayerTwoHand(hand => [...hand, check2]);  
-  }
 //
 
 // handleClick functions that will be passed to our Controller.js buttons as props
@@ -133,6 +123,26 @@ const GameContainer = () => {
       setPlayerTwoHand(hand => [...hand, check]);
     }
   }
+//
+
+// state to hold hand end - point when final scores should be tallied
+const [handEnd, setHandEnd] = useState(false);
+
+// stay handler
+  const stayHandler = () => {
+    //if pressed by playerOne, setCurrentPlayer(playerTwo)
+    //if pressed by playerTwo, compare player scores and pass winner to results for results to display the evolving pokemon
+    // setCurrentPlayer(currentPlayer === "player one" ? "player two" : "player one");
+    console.log(currentPlayer);
+    if (currentPlayer === 'player one') {
+      setCurrentPlayer('player two');
+    }
+    else if (currentPlayer === 'player two'){
+      setHandEnd(true);
+    };
+    console.log(currentPlayer);
+  }
+//
 
   // console.log('PLAYERHAND ONE', playerOneHand);
   // console.log('PLAYERHAND TWO', playerTwoHand);
@@ -151,7 +161,7 @@ const GameContainer = () => {
 
     // provided numerical values to face cards
     for (let cards of updatedDeck) {
-      console.log('cards', cards.value);
+      // console.log('cards', cards.value);
       const cardsInt = parseInt(cards.value);
 
       if (faceCards.includes(cards.value)) {
@@ -169,19 +179,89 @@ const GameContainer = () => {
 //
 
 // tally the score of each player and pass to player components in the return as props
-  const scoreValue = cardScore(playerOneHand);
-  const scoreTwoValue = cardScore(playerTwoHand)
-  console.log('score ONE', scoreValue);
-  console.log('score TWO', scoreTwoValue);
+  // const scoreValue = cardScore(playerOneHand);
+  // const scoreTwoValue = cardScore(playerTwoHand)
+  // console.log('score ONE', scoreValue);
+  // console.log('score TWO', scoreTwoValue);
 //
 
-// stay handler
-  const stayHandler = () => {
-  //if pressed by playerOne, setCurrentPlayer(playerTwo)
-  //if pressed by playerTwo, compare player scores and pass winner to results for results to display the evolving pokemon
-  setCurrentPlayer(currentPlayer === "player one" ? "player two" : "player one");
+  // set scores of players as state
+  const [playerOneScore, setPlayerOneScore] = useState(0);
+  const [playerTwoScore, setPlayerTwoScore] = useState(0);
+
+
+  const startGameHandler = () => {
+    setGameStart(!gameStart);
+    setCurrentPlayer('player one');
+
+    const check = currentDeck.splice(0, 2);
+    const check2 = currentDeck.splice(0, 2);
+
+    setPlayerOneHand(hand => [...hand, check]);
+    setPlayerTwoHand(hand => [...hand, check2]);
+    
+    console.log(playerOneHand);
+    setPlayerOneScore(cardScore(playerOneHand));
+    setPlayerTwoScore(cardScore(playerTwoHand));
+
+    console.log('game has been dealt', `player one has: ${playerOneScore}`, `player two has: ${playerTwoScore}`)
   }
-//
+
+  //set winner useState
+  // const [cardWinner, setCardWinner] = useState('');
+
+  useEffect(() => {
+    if (gameStart === true || handEnd === true ) {
+      setPlayerOneScore(cardScore(playerOneHand));
+      setPlayerTwoScore(cardScore(playerTwoHand));
+    } 
+      console.log(playerOneScore, playerTwoScore);
+
+
+  },[gameStart, playerOneHand, playerTwoHand, handEnd]);
+
+  // useEffect(()=>{
+  //   setPlayerOneScore(cardScore(playerOneHand));
+  //   setPlayerTwoScore(cardScore(playerTwoHand));
+
+  //   console.log(playerOneScore, playerTwoScore);
+
+  //     // if (scoreValue > scoreTwoValue && scoreValue =< 21) {
+  //     //   setCardWinner('player one');
+  //     // }
+  //   if (playerOneScore > playerTwoScore && playerOneScore <= 21){
+  //     setCardWinner('player one');
+  //     console.log(cardWinner);
+  //   } else if (playerTwoScore > playerOneScore && playerTwoScore <= 21 && playerOneScore > 21){
+  //     setCardWinner('player two');
+  //     console.log(cardWinner);
+  //   }
+    
+
+  //   //logic when cards are dealt
+  //     //if score is 21 auto stay
+  //       //setCurrentPlayer(currentPlayer === "player one" ? "player two" : "player one");
+  //   //logic when hit
+  //     //if score is 21 auto stay
+  //     //if score is over 21 auto lose
+  //     //if score is under 21
+  //   //Logic when stay
+  //     //P1 score closer to 21 win
+  //     //P2 score closer to 21 win
+  //     //P1 and P2 score same = play again
+
+
+
+  
+  // },[playerOneHand, playerTwoHand]);
+  // console.log(cardWinner);
+// ^ is causing an infinite loop of rerenders, so is creating states for scoreValue and scoreTwoValue and setting them to cardscore(player___Hand); 
+// but i think that state and a side effect could be the way to do this
+
+
+
+
+
 
 // quit the current hand - resets player and game play states
   const quitHandler = () => {
@@ -203,8 +283,8 @@ const GameContainer = () => {
       >
         {
         gameStart
-        ? 'quit'
-        : 'start game'
+          ? 'quit'
+          : 'start game'
         }
       </button>
 
@@ -214,8 +294,8 @@ const GameContainer = () => {
           ? <section className="players"> 
             <div className="wrapper">
               <ul className="players">
-                <Player pokeData={pokemonPlayerOne} cardData={playerOneHand} cardScore={scoreValue}/>
-                <Player pokeData={pokemonPlayerTwo} cardData={playerTwoHand} cardScore={scoreTwoValue}/>
+                <Player pokeData={pokemonPlayerOne} cardData={playerOneHand} cardScore={playerOneScore}/>
+                <Player pokeData={pokemonPlayerTwo} cardData={playerTwoHand} cardScore={playerTwoScore}/>
               </ul>
             </div>
           </section>
