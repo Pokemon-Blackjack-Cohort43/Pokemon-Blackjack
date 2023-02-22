@@ -1,31 +1,6 @@
-header,
-footer {
-text-align: center;}
-
-ul {
-  list-style: none;
-  display: flex;
-  justify-content: space-between;
-}
-
-ul.controls {
-  justify-content: center;
-}
-
-ul.instructionsCopy {
-  flex-direction: column;
-}
-
-img {
-  max-height: 200px;
-}
-
-.hidden {
-  display: hidden;
-}
-
-.wrapper {
-  max-width: 1200px;
-  width: 85%;
-  margin: 0 auto;
-}
+@import './styles/setup';
+@import './styles/variables';
+@import './styles/mediaQueries';
+@import './styles/mixins';
+@import './styles/typography';
+@import './styles/baseStyles';
