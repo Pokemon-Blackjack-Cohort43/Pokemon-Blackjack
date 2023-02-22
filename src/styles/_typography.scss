@@ -1,0 +1,23 @@
+h1, 
+h2, 
+h3,
+button {
+  font-family: $primaryFont;
+  color: $red;
+}
+
+h1{
+  @include fontSize(50);
+}
+
+h2 {
+  @include fontSize(40);
+}
+
+h3 {
+  @include fontSize(30);
+}
+
+body {
+  @include fontSize(20);
+}

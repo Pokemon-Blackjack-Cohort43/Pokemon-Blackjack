@@ -1,0 +1,45 @@
+header,
+footer {
+  text-align: center;
+}
+
+button {
+  cursor: pointer;
+  padding: 20px 30px;
+  margin: 5px 10px;
+  @include fontSize(20);
+  font-size: 1.5rem;
+  &:hover,
+  &:focus {
+    border: solid 3px $blue;
+  }
+}
+
+ul {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+}
+
+ul.controls {
+  justify-content: center;
+}
+
+ul.instructionsCopy {
+  flex-direction: column;
+}
+
+img {
+  max-height: 200px;
+}
+
+.hidden {
+  display: hidden;
+}
+
+.wrapper {
+  max-width: 1200px;
+  width: 85%;
+  margin: 0 auto;
+}
+

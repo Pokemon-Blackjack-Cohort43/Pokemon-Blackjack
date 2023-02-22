@@ -25,6 +25,7 @@ const Results = ({ result, winner, playerOnePokemon, playerTwoPokemon, currentPl
           : null
         }
       </p>
+      
     </>
   )
 }

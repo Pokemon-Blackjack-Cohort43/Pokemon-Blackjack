@@ -45,8 +45,14 @@ const GameContainer = () => {
     const currentIndex = Math.floor(Math.random() * arrayOfPoke.length);
     return arrayOfPoke[currentIndex]
   }
-  //
 
+  let pokeFam = randomizer(pokemonPool);
+  let pokeFam2 = randomizer(pokemonPool);
+
+  // check to make sure pokeFam and PokeFam2 have different pokemon if not randomize for pokeFam2 again
+  while (pokeFam2.some(pokemon => pokeFam.includes(pokemon))) {
+    pokeFam2 = randomizer(pokemonPool);
+  }
 
   // INITIAL POKEMON API CALL
   // state for saving poke data to pass to player component as props
@@ -56,12 +62,9 @@ const GameContainer = () => {
   const [pokemonPlayerTwo, setPokemonPlayerTwo] = useState([]);
 
 
-  const pokeFam = randomizer(pokemonPool);
-  const pokeFam2 = randomizer(pokemonPool);
-
   useEffect(() => {
-
-    // API CALLS FOR PLAYER 2 
+    
+// API CALLS FOR PLAYER 1 
     const urlEndpointsP1 = [
       `https://pokeapi.co/api/v2/pokemon/${pokeFam[0]}`,
       `https://pokeapi.co/api/v2/pokemon/${pokeFam[1]}`,
@@ -159,7 +162,7 @@ const GameContainer = () => {
   }
   //
 
-  
+
   // console.log('PLAYERHAND ONE', playerOneHand);
   // console.log('PLAYERHAND TWO', playerTwoHand);
 
@@ -171,15 +174,15 @@ const GameContainer = () => {
   // function to calculate score of cards in hand
   const cardScore = (cardSum) => {
     let score = 0;
-    
+
     const faceCards = ['QUEEN', 'KING', 'JACK'];
     const updatedDeck = cardSum.flatMap(item => item)
-    
+
     // provided numerical values to face cards
     for (let cards of updatedDeck) {
       console.log('cards', cards.value);
       const cardsInt = parseInt(cards.value);
-      
+
       if (faceCards.includes(cards.value)) {
         score = score + 10;
       }
@@ -193,18 +196,18 @@ const GameContainer = () => {
     return score
   }
   //
-  
+
   // tally the score of each player and pass to player components in the return as props
   const scoreValue = cardScore(playerOneHand);
   const scoreTwoValue = cardScore(playerTwoHand)
   console.log('score ONE', scoreValue);
   console.log('score TWO', scoreTwoValue);
-  
+
   // if player1/player2 get 21, pass turn to other player
   // if score is above 21, that player busts and the other player wins
   useEffect(() => {
     const test = () => {
-      
+
       if (scoreValue === 21) {
         setCurrentPlayer("player two");
         setWinner('none');
@@ -214,12 +217,12 @@ const GameContainer = () => {
         setWinner('none')
         setResult('Player2 has blackjack. Player1 has a chance to draw to 21.')
       }
-      
+
       if (scoreValue > 21) {
         setResult(`Player 2 wins. Player 1 busted!`);
         setWinner('player two');
       }
-      
+
       if (scoreTwoValue > 21) {
         setResult(`Player 1 wins. Player 2 busted!`);
         setWinner('player one');
@@ -236,11 +239,12 @@ const GameContainer = () => {
       if (scoreValue < scoreTwoValue) {
         setCurrentPlayer('none');
         setWinner('player two');
-        setResult(`Player 2 wins. Their card score is closer to 21.`)
+        setResult(`Player 2 wins. Their card score is closer to 21.`);
       } else if (scoreValue > scoreTwoValue) {
         setCurrentPlayer('none');
         setWinner('player one');
-        setResult(`Player 1 wins. Their card score is closer to 21.`)
+        setResult(`Player 1 wins. Their card score is closer to 21.`);
+        console.log(pokemonPlayerTwo);
       }
       else if (scoreTwoValue === scoreValue) {
         setCurrentPlayer('none');
@@ -250,7 +254,7 @@ const GameContainer = () => {
     } else { setCurrentPlayer(currentPlayer === "player one" ? "player two" : "player one"); }
   }
   //
-  
+
   // handleClick functions that will be passed to our Controller.js buttons as props
   // on click, add card to player's hand, based on current player
   const hitHandler = () => {
@@ -263,13 +267,44 @@ const GameContainer = () => {
     }
   }
 
+  const evolve = () => {
+    if (winner === 'player one' && pokemonPlayerOneFam.length >= 1) {
+      const newOneFam = pokemonPlayerOneFam.slice(1);
+      setPokemonPlayerOne(newOneFam[0]);
+      setPokemonPlayerOneFam(newOneFam);
+      console.log('new1', newOneFam, pokemonPlayerOne);
+    } else if (winner === 'player two' && pokemonPlayerTwoFam.length >= 1) {
+      const newTwoFam = pokemonPlayerTwoFam.slice(1);
+      setPokemonPlayerTwo(newTwoFam[0]);
+      setPokemonPlayerTwoFam(newTwoFam);
+      console.log('new2', newTwoFam, pokemonPlayerTwo)
+    } 
+    setCurrentPlayer('player one');
+    setWinner('none');
+    setPlayerOneHand([]);
+    setPlayerTwoHand([]);
+    setResult('Draw a card!');
+    const check = currentDeck.splice(0, 2);
+    const check2 = currentDeck.splice(0, 2);
+    setPlayerOneHand(hand => [...hand, check]);
+    setPlayerTwoHand(hand => [...hand, check2]);    
+  }
+
+  useEffect(() => {
+    if (pokemonPlayerOneFam.length === 1) {
+      setResult('player one has fully evolved!');
+    } else if (pokemonPlayerTwoFam.length === 1) {
+      setResult('player two has fully evolved!');
+    }
+  }, [pokemonPlayerOneFam, pokemonPlayerTwoFam]);
+
   // quit the current hand - resets player and game play states
   const quitHandler = () => {
     setPlayerOneHand([]);
     setPlayerTwoHand([]);
     setGameStart(false);
     setCurrentPlayer('none');
-    setResult('Draw a card!')
+    setResult('Draw a card!');
     setWinner('none');
   }
   //
@@ -315,6 +350,17 @@ const GameContainer = () => {
           </section>
           : null
       }
+      {/* <button onClick={evolve}>evolve</button> */}
+      <button
+        onClick={(setResult === ('player one has fully evolved!')) || (setResult === ('player two has fully evolved!'))
+          ? quitHandler
+          : evolve}>
+        {
+          (setResult === ('player one has fully evolved!')) || (setResult === ('player two has fully evolved!'))
+            ? 'play again'
+            : 'evolve'
+        }
+      </button>
     </main>
   );
 }
