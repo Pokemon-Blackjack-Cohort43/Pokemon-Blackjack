@@ -237,20 +237,16 @@ const GameContainer = () => {
         setCurrentPlayer('none');
         setWinner('player two');
         setResult(`Player 2 wins. Their card score is closer to 21.`);
-        setPokemonPlayerTwo(pokemonPlayerTwoFam[1]);
       } else if (scoreValue > scoreTwoValue) {
         setCurrentPlayer('none');
         setWinner('player one');
         setResult(`Player 1 wins. Their card score is closer to 21.`);
-        setPokemonPlayerOne(pokemonPlayerOneFam[1]);
         console.log(pokemonPlayerTwo);
       }
       else if (scoreTwoValue === scoreValue) {
         setCurrentPlayer('none');
         setWinner('tie');
         setResult(`It's a tie!`);
-        setPokemonPlayerOne(pokemonPlayerOneFam[1]);
-        setPokemonPlayerTwo(pokemonPlayerTwoFam[1]);
       }
     } else { setCurrentPlayer(currentPlayer === "player one" ? "player two" : "player one"); }
   }
@@ -268,13 +264,44 @@ const GameContainer = () => {
     }
   }
 
+  const evolve = () => {
+    if (winner === 'player one' && pokemonPlayerOneFam.length >= 1) {
+      const newOneFam = pokemonPlayerOneFam.slice(1);
+      setPokemonPlayerOne(newOneFam[0]);
+      setPokemonPlayerOneFam(newOneFam);
+      console.log('new1', newOneFam, pokemonPlayerOne);
+    } else if (winner === 'player two' && pokemonPlayerTwoFam.length >= 1) {
+      const newTwoFam = pokemonPlayerTwoFam.slice(1);
+      setPokemonPlayerTwo(newTwoFam[0]);
+      setPokemonPlayerTwoFam(newTwoFam);
+      console.log('new2', newTwoFam, pokemonPlayerTwo)
+    } 
+    setCurrentPlayer('player one');
+    setWinner('none');
+    setPlayerOneHand([]);
+    setPlayerTwoHand([]);
+    setResult('Draw a card!');
+    const check = currentDeck.splice(0, 2);
+    const check2 = currentDeck.splice(0, 2);
+    setPlayerOneHand(hand => [...hand, check]);
+    setPlayerTwoHand(hand => [...hand, check2]);    
+  }
+
+  useEffect(() => {
+    if (pokemonPlayerOneFam.length === 1) {
+      setResult('player one has fully evolved!');
+    } else if (pokemonPlayerTwoFam.length === 1) {
+      setResult('player two has fully evolved!');
+    }
+  }, [pokemonPlayerOneFam, pokemonPlayerTwoFam]);
+
   // quit the current hand - resets player and game play states
   const quitHandler = () => {
     setPlayerOneHand([]);
     setPlayerTwoHand([]);
     setGameStart(false);
     setCurrentPlayer('none');
-    setResult('Draw a card!')
+    setResult('Draw a card!');
     setWinner('none');
   }
   //
@@ -320,6 +347,17 @@ const GameContainer = () => {
           </section>
           : null
       }
+      {/* <button onClick={evolve}>evolve</button> */}
+      <button
+        onClick={(setResult === ('player one has fully evolved!')) || (setResult === ('player two has fully evolved!'))
+          ? quitHandler
+          : evolve}>
+        {
+          (setResult === ('player one has fully evolved!')) || (setResult === ('player two has fully evolved!'))
+            ? 'play again'
+            : 'evolve'
+        }
+      </button>
     </main>
   );
 }

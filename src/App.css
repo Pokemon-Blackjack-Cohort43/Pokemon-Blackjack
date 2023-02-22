@@ -259,6 +259,9 @@ button {
   font-size: 1rem;
   font-size: 1.5rem;
 }
+button:hover, button:focus {
+  border: solid 3px rgb(59, 76, 202);
+}
 
 ul {
   list-style: none;
