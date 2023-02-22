@@ -45,8 +45,14 @@ const GameContainer = () => {
     const currentIndex = Math.floor(Math.random() * arrayOfPoke.length);
     return arrayOfPoke[currentIndex]
   }
-  //
 
+  let pokeFam = randomizer(pokemonPool);
+  let pokeFam2 = randomizer(pokemonPool);
+
+  // check to make sure pokeFam and PokeFam2 have different pokemon if not randomize for pokeFam2 again
+  while (pokeFam2.some(pokemon => pokeFam.includes(pokemon))) {
+    pokeFam2 = randomizer(pokemonPool);
+  }
 
   // INITIAL POKEMON API CALL
   // state for saving poke data to pass to player component as props
@@ -56,12 +62,9 @@ const GameContainer = () => {
   const [pokemonPlayerTwo, setPokemonPlayerTwo] = useState([]);
 
 
-  const pokeFam = randomizer(pokemonPool);
-  const pokeFam2 = randomizer(pokemonPool);
-
   useEffect(() => {
-
-    // API CALLS FOR PLAYER 2 
+    
+// API CALLS FOR PLAYER 1 
     const urlEndpointsP1 = [
       `https://pokeapi.co/api/v2/pokemon/${pokeFam[0]}`,
       `https://pokeapi.co/api/v2/pokemon/${pokeFam[1]}`,
