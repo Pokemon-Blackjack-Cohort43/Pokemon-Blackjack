@@ -289,4 +289,64 @@ img {
   max-width: 1200px;
   width: 85%;
   margin: 0 auto;
+}
+
+.playerContainer:first-child .displayPoke img {
+  -webkit-animation-duration: 3s;
+          animation-duration: 3s;
+  -webkit-animation-name: slideFromLeft;
+          animation-name: slideFromLeft;
+}
+
+@-webkit-keyframes slideFromLeft {
+  from {
+    margin-left: -150%;
+    width: 100%;
+  }
+  to {
+    margin-left: 0%;
+    width: 100%;
+  }
+}
+
+@keyframes slideFromLeft {
+  from {
+    margin-left: -150%;
+    width: 100%;
+  }
+  to {
+    margin-left: 0%;
+    width: 100%;
+  }
+}
+.playerContainer:nth-child(2) .displayPoke img {
+  -webkit-animation-duration: 3s;
+          animation-duration: 3s;
+  -webkit-animation-name: slideFromRight;
+          animation-name: slideFromRight;
+}
+
+@-webkit-keyframes slideFromRight {
+  from {
+    margin-left: 150%;
+    width: 100%;
+  }
+  to {
+    margin-left: 0%;
+    width: 100%;
+  }
+}
+
+@keyframes slideFromRight {
+  from {
+    margin-left: 150%;
+    width: 100%;
+  }
+  to {
+    margin-left: 0%;
+    width: 100%;
+  }
+}
+.displayPoke img:hover {
+  transform: translateY(0);
 }/*# sourceMappingURL=App.css.map */
