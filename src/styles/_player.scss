@@ -1,0 +1,53 @@
+
+//Player 1 Pokemon
+.playerContainer:first-child
+    .displayPoke {
+        img {
+            animation-duration: 3s;
+            animation-name: slideFromLeft;
+        }
+    }
+    //Slide in from outside VP
+@keyframes slideFromLeft {
+    from {
+        margin-left: -150%;
+        width: 100%
+    }
+
+    to {
+        margin-left: 0%;
+        width: 100%;
+    }
+}
+
+
+//Player 2 Pokemon
+.playerContainer:nth-child(2) {
+    .displayPoke {
+        img {
+            animation-duration: 3s;
+            animation-name: slideFromRight;
+        }
+
+    }
+}
+    //Slide in from outside VP
+@keyframes slideFromRight {
+    from {
+        margin-left: 150%;
+        width: 100%
+    }
+    to {
+        margin-left: 0%;
+        width: 100%;
+    }
+}
+
+// Pokemon goes up and down 
+.displayPoke {
+    img:hover {
+        transform: translateY(0);
+        
+
+    }
+}
