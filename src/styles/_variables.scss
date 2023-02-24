@@ -1,8 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato&family=VT323&display=swap');
 
+@font-face {
+    font-family: "Pokemon GB";
+    src: url("https://dl.dropboxusercontent.com/u/10822923/Pokemon_GB/Pokemon_GB.eot?") format("eot"),
+        url("https://dl.dropboxusercontent.com/u/10822923/Pokemon_GB/Pokemon_GB.woff") format("woff"),
+        url("https://dl.dropboxusercontent.com/u/10822923/Pokemon_GB/Pokemon_GB.ttf") format("truetype"),
+        url("https://dl.dropboxusercontent.com/u/10822923/Pokemon_GB/Pokemon_GB.svg#PokemonGB") format("svg");
+    font-weight: normal;
+    font-style: normal;
+}
+
 //fonts
 $primaryFont: 'VT323', monospace;
 $secondaryFont: 'Lato', sans-serif;
+$tertiaryFont: "Pokemon GB", Arial, sans-serif; 
 
 //colours
 $red: rgb(204, 0, 0);

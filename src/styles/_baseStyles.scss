@@ -1,3 +1,8 @@
+html{
+  background: url(../assets/pokemon_bg.png);
+  background-size: cover;
+  
+}
 header,
 footer {
   text-align: center;
@@ -9,6 +14,8 @@ button {
   margin: 5px 10px;
   @include fontSize(20);
   font-size: 1.5rem;
+  border: solid 3px transparent;
+
   &:hover,
   &:focus {
     border: solid 3px $blue;
@@ -42,4 +49,3 @@ img {
   width: 85%;
   margin: 0 auto;
 }
-
