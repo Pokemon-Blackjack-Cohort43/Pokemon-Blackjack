@@ -316,6 +316,9 @@ img {
   box-shadow: 0 1px 0 1px black, inset 0 1px 0 1px black, 0 0 0 1px black, inset 0 0 0 1px black;
 }
 
+.playerContainer:first-child .displayPoke {
+  text-align: center;
+}
 .playerContainer:first-child .displayPoke img {
   -webkit-animation-duration: 3s;
           animation-duration: 3s;
@@ -343,6 +346,9 @@ img {
     margin-left: 0%;
     width: 100%;
   }
+}
+.playerContainer:nth-child(2) .displayPoke {
+  text-align: center;
 }
 .playerContainer:nth-child(2) .displayPoke img {
   -webkit-animation-duration: 3s;
