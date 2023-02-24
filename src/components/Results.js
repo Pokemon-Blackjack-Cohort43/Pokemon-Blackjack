@@ -4,40 +4,44 @@ const Results = ({ result, winner, playerOnePokemon, playerTwoPokemon, currentPl
 
   // call to pokemon api for the image of the evolved sprite of the winner is passed down via props from GameContainer and is rendered on the page
   return (
-    <>
-      <p>
-        {
-        (currentPlayer !== 'none') && (winner === 'none')
-        ? `${currentPlayer}'s turn!` 
-        : null}
-      </p>
-      <p>{gameStart 
-          ? result
-          : null}</p>
-      <p>{winner !== 'none'
-          ? (
+    <section className="results">
+      <div className="wrapper">
+        <div className="resultsWording">
+          <p>
+            {
+              (currentPlayer !== 'none') && (winner === 'none')
+                ? `${currentPlayer}'s turn!`
+                : ''}
+          </p>
+          <p>{gameStart
+            ? result
+            : ''}</p>
+          <p>{winner !== 'none'
+            ? (
               (winner === 'player one' && result !== 'player one has fully evolved!')
                 ? `${playerOnePokemon.name} is evolving!`
                 : (
                   (winner === 'player two' && result !== 'player two has fully evolved!')
                     ? `${playerTwoPokemon.name} is evolving!`
-                    : null
+                    : ''
                 )
             )
-          : null
-        }
-      </p>
-      <button
-        onClick={(result === ('player one has fully evolved!')) || (result === ('player two has fully evolved!'))
-          ? quitHandler
-          : evolve} disabled={winner === 'none'}>
-        {
-          (result === ('player one has fully evolved!')) || (result === ('player two has fully evolved!'))
-          ? 'play again'
-          : 'evolve'
-        }
-      </button>
-    </>
+            : ''
+          }
+          </p>
+        </div>
+        <button
+          onClick={(result === ('player one has fully evolved!')) || (result === ('player two has fully evolved!'))
+            ? quitHandler
+            : evolve} disabled={winner === 'none'}>
+          {
+            (result === ('player one has fully evolved!')) || (result === ('player two has fully evolved!'))
+              ? 'play again'
+              : 'evolve'
+          }
+        </button>
+      </div>
+    </section>
   )
 }
 
