@@ -21,3 +21,11 @@ h3 {
 body {
   @include fontSize(20);
 }
+
+.wrapper {
+  .instructions {
+    li {
+      font-family: $tertiaryFont;
+    }
+  }
+}

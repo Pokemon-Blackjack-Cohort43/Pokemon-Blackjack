@@ -220,7 +220,7 @@ template {
 
 @font-face {
   font-family: "Pokemon GB";
-  src: url("https://dl.dropboxusercontent.com/u/10822923/Pokemon_GB/Pokemon_GB.eot?") format("eot"), url("https://dl.dropboxusercontent.com/u/10822923/Pokemon_GB/Pokemon_GB.woff") format("woff"), url("https://dl.dropboxusercontent.com/u/10822923/Pokemon_GB/Pokemon_GB.ttf") format("truetype"), url("https://dl.dropboxusercontent.com/u/10822923/Pokemon_GB/Pokemon_GB.svg#PokemonGB") format("svg");
+  src: url("../fonts/Pokemon_GB.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
@@ -252,9 +252,15 @@ body {
   font-size: 1rem;
 }
 
+.wrapper .instructions li {
+  font-family: "Pokemon GB", Arial, sans-serif;
+}
+
 html {
   background: url(../assets/pokemon_bg.png);
   background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
 }
 
 header,
@@ -268,17 +274,28 @@ button {
   margin: 5px 10px;
   font-size: 20px;
   font-size: 1rem;
+  background-color: white;
+  border-radius: 2px;
+  line-height: 16px;
+  border: 1px solid white;
+  box-shadow: 0 1px 0 1px black, inset 0 1px 0 1px black, 0 0 0 1px black, inset 0 0 0 1px black;
   font-size: 1.5rem;
-  border: solid 3px transparent;
 }
 button:hover, button:focus {
   border: solid 3px rgb(59, 76, 202);
+}
+
+.howToPlayBtn {
+  position: relative;
+  top: 12vh;
+  right: 50%;
 }
 
 ul {
   list-style: none;
   display: flex;
   justify-content: space-between;
+  padding: 0;
 }
 
 ul.controls {
@@ -303,17 +320,23 @@ img {
   margin: 0 auto;
 }
 
-.instructions li {
-  font-family: "Pokemon GB", Arial, sans-serif;
-  margin: auto;
-  background: white;
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+.resultsWording {
+  background-color: white;
   border-radius: 2px;
-  padding: 8px;
-  width: 250px;
-  height: 28px;
   line-height: 16px;
   border: 1px solid white;
   box-shadow: 0 1px 0 1px black, inset 0 1px 0 1px black, 0 0 0 1px black, inset 0 0 0 1px black;
+  font-family: "Pokemon GB", Arial, sans-serif;
+  padding: 8px;
+  width: 40%;
+  height: 100%;
+  margin: 0 auto;
 }
 
 .playerContainer:first-child .displayPoke {
@@ -329,22 +352,18 @@ img {
 @-webkit-keyframes slideFromLeft {
   from {
     margin-left: -150%;
-    width: 100%;
   }
   to {
     margin-left: 0%;
-    width: 100%;
   }
 }
 
 @keyframes slideFromLeft {
   from {
     margin-left: -150%;
-    width: 100%;
   }
   to {
     margin-left: 0%;
-    width: 100%;
   }
 }
 .playerContainer:nth-child(2) .displayPoke {
@@ -360,24 +379,42 @@ img {
 @-webkit-keyframes slideFromRight {
   from {
     margin-left: 150%;
-    width: 100%;
   }
   to {
     margin-left: 0%;
-    width: 100%;
   }
 }
 
 @keyframes slideFromRight {
   from {
     margin-left: 150%;
-    width: 100%;
   }
   to {
     margin-left: 0%;
-    width: 100%;
   }
 }
-.displayPoke img:hover {
-  transform: translateY(0);
+.displayPoke {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-around;
+  background-color: white;
+  border-radius: 2px;
+  line-height: 16px;
+  border: 1px solid white;
+  box-shadow: 0 1px 0 1px black, inset 0 1px 0 1px black, 0 0 0 1px black, inset 0 0 0 1px black;
+  margin: 0 auto;
+  margin-bottom: 25px;
+}
+.displayPoke img {
+  max-height: 30vh;
+}
+
+.playerScore {
+  background-color: white;
+  border-radius: 2px;
+  line-height: 16px;
+  border: 1px solid white;
+  box-shadow: 0 1px 0 1px black, inset 0 1px 0 1px black, 0 0 0 1px black, inset 0 0 0 1px black;
+  margin: 0 auto;
+  text-align: center;
 }/*# sourceMappingURL=App.css.map */
