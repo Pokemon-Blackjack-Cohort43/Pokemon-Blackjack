@@ -13,6 +13,7 @@ const Controller = ({ hitButton, stayButton, winner }) => {
       <li>
         <button onClick={stayButton} disabled={winner !== 'none'}>Stay</button>
       </li>
+      
     </ul>
   )
 }

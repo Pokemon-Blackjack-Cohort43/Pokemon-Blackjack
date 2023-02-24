@@ -115,8 +115,6 @@ const GameContainer = () => {
   }, [gameStart]);
 
 
-
-
   // API CALL TO GET THE DECK OF CARDS FOR THE HAND
   // state to track card draw and player hand
   const [deck, setDeck] = useState([]);
@@ -144,12 +142,21 @@ const GameContainer = () => {
         console.log("error", err.message);
       })
     })
-  }, []);
+  }, [gameStart]);
 
   // initalize current deck
   const currentDeck = deck;
   console.log(deck);
 
+  // function to clear game board
+  const clearGame = () => {
+    setPlayerOneHand([]);
+    setPlayerTwoHand([]);
+    setResult('Draw a card!');
+    setWinner('none');
+  }
+
+  // button to start game and generate initial pokemon/cards
   const startGameHandler = () => {
     setGameStart(!gameStart);
     setCurrentPlayer('player one');
@@ -272,47 +279,46 @@ const GameContainer = () => {
       const newOneFam = pokemonPlayerOneFam.slice(1);
       setPokemonPlayerOne(newOneFam[0]);
       setPokemonPlayerOneFam(newOneFam);
-      console.log('new1', newOneFam, pokemonPlayerOne);
     } else if (winner === 'player two' && pokemonPlayerTwoFam.length >= 1) {
       const newTwoFam = pokemonPlayerTwoFam.slice(1);
       setPokemonPlayerTwo(newTwoFam[0]);
       setPokemonPlayerTwoFam(newTwoFam);
-      console.log('new2', newTwoFam, pokemonPlayerTwo)
     } 
+
+    clearGame();
     setCurrentPlayer('player one');
-    setWinner('none');
-    setPlayerOneHand([]);
-    setPlayerTwoHand([]);
-    setResult('Draw a card!');
     const check = currentDeck.splice(0, 2);
     const check2 = currentDeck.splice(0, 2);
     setPlayerOneHand(hand => [...hand, check]);
     setPlayerTwoHand(hand => [...hand, check2]);    
   }
 
+  
   useEffect(() => {
     if (pokemonPlayerOneFam.length === 1) {
       setResult('player one has fully evolved!');
+      setWinner('player one');
     } else if (pokemonPlayerTwoFam.length === 1) {
       setResult('player two has fully evolved!');
+      setWinner('player two');
     }
   }, [pokemonPlayerOneFam, pokemonPlayerTwoFam]);
 
   // quit the current hand - resets player and game play states
   const quitHandler = () => {
-    setPlayerOneHand([]);
-    setPlayerTwoHand([]);
     setGameStart(false);
     setCurrentPlayer('none');
-    setResult('Draw a card!');
-    setWinner('none');
+    clearGame();
   }
   //
 
   return (
     <main>
       <Instructions gameState={gameStart} />
-      <Results result={result} winner={winner} playerOnePokemon={pokemonPlayerOne} playerTwoPokemon={pokemonPlayerTwo} currentPlayer={currentPlayer} />
+      {gameStart 
+        ? <Results result={result} winner={winner} playerOnePokemon={pokemonPlayerOne} playerTwoPokemon={pokemonPlayerTwo} currentPlayer={currentPlayer} gameStart={gameStart} quitHandler={quitHandler} evolve={evolve} />
+        : null
+      }
 
       {/* if game state is false, display 'start game'. else, display 'quit' */}
       <button
@@ -345,22 +351,11 @@ const GameContainer = () => {
         gameStart
           ? <section className="controller">
             <div className="wrapper">
-              <Controller hitButton={hitHandler} stayButton={stayHandler} winner={winner} />
+              <Controller hitButton={hitHandler} stayButton={stayHandler} winner={winner} result={result}/>
             </div>
           </section>
           : null
       }
-      {/* <button onClick={evolve}>evolve</button> */}
-      <button
-        onClick={(setResult === ('player one has fully evolved!')) || (setResult === ('player two has fully evolved!'))
-          ? quitHandler
-          : evolve}>
-        {
-          (setResult === ('player one has fully evolved!')) || (setResult === ('player two has fully evolved!'))
-            ? 'play again'
-            : 'evolve'
-        }
-      </button>
     </main>
   );
 }
