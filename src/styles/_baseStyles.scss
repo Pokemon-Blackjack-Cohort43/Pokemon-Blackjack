@@ -1,8 +1,8 @@
 html{
   background: url(../assets/pokemon_bg.png);
   background-size: cover;
-  height: 100vh;
   background-repeat: no-repeat;
+  height: 100vh;
   
 }
 header,
@@ -15,18 +15,26 @@ button {
   padding: 20px 30px;
   margin: 5px 10px;
   @include fontSize(20);
+  @include pokemonBorder;
   font-size: 1.5rem;
-  border: solid 3px transparent; 
+  
   &:hover,
   &:focus {
     border: solid 3px $blue;
   }
 }
 
+.howToPlayBtn {
+  position: relative;
+  top: 12vh;
+  right: 50%;
+}
+
 ul {
   list-style: none;
   display: flex;
   justify-content: space-between;
+  padding: 0;
 }
 
 ul.controls {
@@ -49,4 +57,11 @@ img {
   max-width: 1200px;
   width: 85%;
   margin: 0 auto;
+}
+
+
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
 }

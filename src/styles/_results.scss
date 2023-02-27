@@ -1,0 +1,10 @@
+.resultsWording {
+    @include pokemonBorder;
+    font-family: $tertiaryFont;
+    padding: 8px;
+    width: 40%;
+    height: 100%;
+    
+    margin: 0 auto
+
+}

@@ -314,25 +314,26 @@ const GameContainer = () => {
 
   return (
     <main>
-      <Instructions gameState={gameStart} />
+      <Instructions gameState={gameStart} quitHandler={quitHandler} startGameHandler={startGameHandler}/>
       {gameStart 
         ? <Results result={result} winner={winner} playerOnePokemon={pokemonPlayerOne} playerTwoPokemon={pokemonPlayerTwo} currentPlayer={currentPlayer} gameStart={gameStart} quitHandler={quitHandler} evolve={evolve} />
         : null
       }
 
-      {/* if game state is false, display 'start game'. else, display 'quit' */}
-      <button
-        onClick={gameStart ? quitHandler : startGameHandler}
-        className={gameStart ? 'howToPlayBtn' : null}
-      >
-        {
-          gameStart
-            ? 'quit'
-            : 'start game'
-        }
-      </button>
+  
 
       {/* display instructions on default. on game start, remove instructions display and display players*/}
+      {/* when game state is true, render Controller component*/}
+      {
+        gameStart
+          ? <section className="controller">
+            <div className="wrapper">
+              <Controller hitButton={hitHandler} stayButton={stayHandler} winner={winner} result={result} />
+            </div>
+          </section>
+          : null
+      }
+
       {
         gameStart
           ? <section className="players">
@@ -346,16 +347,7 @@ const GameContainer = () => {
           : <InstructionsContent />
       }
 
-      {/* when game state is true, render Controller component*/}
-      {
-        gameStart
-          ? <section className="controller">
-            <div className="wrapper">
-              <Controller hitButton={hitHandler} stayButton={stayHandler} winner={winner} result={result}/>
-            </div>
-          </section>
-          : null
-      }
+      
     </main>
   );
 }
