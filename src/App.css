@@ -326,6 +326,24 @@ footer {
   width: 100%;
 }
 
+.instructions {
+  background-color: white;
+  border-radius: 2px;
+  line-height: 16px;
+  border: 1px solid white;
+  box-shadow: 0 1px 0 1px black, inset 0 1px 0 1px black, 0 0 0 1px black, inset 0 0 0 1px black;
+  width: 50%;
+  padding: 2rem;
+}
+.instructions ul {
+  display: flex;
+  flex-direction: column;
+  font-family: "Pokemon GB", Arial, sans-serif;
+}
+.instructions ul li {
+  padding: 5px 0;
+}
+
 .resultsWording {
   background-color: white;
   border-radius: 2px;
@@ -343,19 +361,8 @@ footer {
   text-align: center;
 }
 .playerContainer:first-child .displayPoke img {
-  -webkit-animation-duration: 3s;
-          animation-duration: 3s;
-  -webkit-animation-name: slideFromLeft;
-          animation-name: slideFromLeft;
-}
-
-@-webkit-keyframes slideFromLeft {
-  from {
-    margin-left: -150%;
-  }
-  to {
-    margin-left: 0%;
-  }
+  animation-duration: 3s;
+  animation-name: slideFromLeft;
 }
 
 @keyframes slideFromLeft {
@@ -370,19 +377,8 @@ footer {
   text-align: center;
 }
 .playerContainer:nth-child(2) .displayPoke img {
-  -webkit-animation-duration: 3s;
-          animation-duration: 3s;
-  -webkit-animation-name: slideFromRight;
-          animation-name: slideFromRight;
-}
-
-@-webkit-keyframes slideFromRight {
-  from {
-    margin-left: 150%;
-  }
-  to {
-    margin-left: 0%;
-  }
+  animation-duration: 3s;
+  animation-name: slideFromRight;
 }
 
 @keyframes slideFromRight {

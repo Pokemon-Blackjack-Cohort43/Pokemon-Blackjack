@@ -24,6 +24,7 @@ const Player = ({ pokeData, cardData, cardScore }) => {
       <div className="displayPoke">
         <img src={pokeData.url} alt={`image of ${pokeData.name}`} />
         <h3>{pokeData.name}</h3>
+        <h4>{cardScore}</h4>
       </div> {/* /.displayPoke */}
       <div className="displayHand">
         {/* shows value of player's hand and images of their cards */}
@@ -40,9 +41,6 @@ const Player = ({ pokeData, cardData, cardScore }) => {
             }
           </ul>
         </div> {/* /.playerCards */}
-        <div className="playerScore">
-          <h4>{cardScore}</h4>
-        </div> {/* /.playerScore */}
       </div> {/* /.displayHand */}
     </li>
   )

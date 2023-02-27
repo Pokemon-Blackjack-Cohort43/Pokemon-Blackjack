@@ -1,0 +1,17 @@
+.instructions {
+  @include pokemonBorder;
+  width: 50%;
+  padding: 2rem;
+  // h2{
+  //   text-align: center;
+  // }
+  ul{
+    display: flex;
+    flex-direction: column;
+    font-family: $tertiaryFont;
+
+    li {
+      padding: 5px 0;
+    }
+  }
+}
