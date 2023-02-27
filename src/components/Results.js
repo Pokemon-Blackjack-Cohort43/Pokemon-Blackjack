@@ -11,11 +11,11 @@ const Results = ({ result, winner, playerOnePokemon, playerTwoPokemon, currentPl
             {
               (currentPlayer !== 'none') && (winner === 'none')
                 ? `${currentPlayer}'s turn!`
-                : ''}
+                : null}
           </p>
           <p>{gameStart
             ? result
-            : ''}</p>
+            : null}</p>
           <p>{winner !== 'none'
             ? (
               (winner === 'player one' && result !== 'player one has fully evolved!')
@@ -23,10 +23,10 @@ const Results = ({ result, winner, playerOnePokemon, playerTwoPokemon, currentPl
                 : (
                   (winner === 'player two' && result !== 'player two has fully evolved!')
                     ? `${playerTwoPokemon.name} is evolving!`
-                    : ''
+                    : null
                 )
             )
-            : ''
+            : null
           }
           </p>
         </div>

@@ -326,6 +326,27 @@ footer {
   width: 100%;
 }
 
+.instructions {
+  background-color: white;
+  border-radius: 2px;
+  line-height: 16px;
+  border: 1px solid white;
+  box-shadow: 0 1px 0 1px black, inset 0 1px 0 1px black, 0 0 0 1px black, inset 0 0 0 1px black;
+  font-family: "Pokemon GB", Arial, sans-serif;
+  width: 40%;
+  padding: 20px;
+}
+.instructions h2 {
+  text-align: center;
+}
+.instructions ul {
+  display: flex;
+  flex-direction: column;
+}
+.instructions ul h3 {
+  text-align: center;
+}
+
 .resultsWording {
   background-color: white;
   border-radius: 2px;
