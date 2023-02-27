@@ -4,7 +4,7 @@ const Results = ({ result, winner, playerOnePokemon, playerTwoPokemon, currentPl
 
   // call to pokemon api for the image of the evolved sprite of the winner is passed down via props from GameContainer and is rendered on the page
   return (
-    <>
+    <section>
       <p>
         {
         (currentPlayer !== 'none') && (winner === 'none')
@@ -37,7 +37,7 @@ const Results = ({ result, winner, playerOnePokemon, playerTwoPokemon, currentPl
           : 'evolve'
         }
       </button>
-    </>
+    </section>
   )
 }
 
