@@ -274,10 +274,6 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
   height: 100vh;
-  position: relative;
-  margin: 0;
-  padding: 0;
-  position: relative;
 }
 
 header,
@@ -378,6 +374,19 @@ footer {
   left: 0%;
   right: 0%;
   z-index: 20;
+  font-family: "Pokemon GB", Arial, sans-serif;
+  width: 40%;
+  padding: 20px;
+}
+.instructions h2 {
+  text-align: center;
+}
+.instructions ul {
+  display: flex;
+  flex-direction: column;
+}
+.instructions ul h3 {
+  text-align: center;
 }
 
 .instructionsButton {
@@ -466,20 +475,11 @@ footer {
   line-height: 16px;
   border: 1px solid white;
   box-shadow: 0 1px 0 1px black, inset 0 1px 0 1px black, 0 0 0 1px black, inset 0 0 0 1px black;
-  font-family: "Pokemon GB", Arial, sans-serif;
-  width: 40%;
-  padding: 20px;
+  position: absolute;
+  top: 25%;
+  left: 0%;
+  right: 0%;
   z-index: 20;
-}
-.instructions h2 {
-  text-align: center;
-}
-.instructions ul {
-  display: flex;
-  flex-direction: column;
-}
-.instructions ul h3 {
-  text-align: center;
 }
 
 .resultsWording {
