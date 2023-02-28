@@ -283,10 +283,10 @@ const GameContainer = () => {
 
   useEffect(() => {
     if (pokemonPlayerOneFam.length === 1) {
-      setResult('Player One has fully evolved!');
+      setResult('Player one has fully evolved!');
       setWinner('player one');
     } else if (pokemonPlayerTwoFam.length === 1) {
-      setResult('Player Two has fully evolved!');
+      setResult('Player two has fully evolved!');
       setWinner('player two');
     }
   }, [pokemonPlayerOneFam, pokemonPlayerTwoFam]);
@@ -326,11 +326,11 @@ const GameContainer = () => {
             <div className='wrapper'>
               <ul className='players'>
                 <li>
-                  <p>player one</p>
+                  <p className='playerLabel'>Player one</p>
                   <Player pokeData={pokemonPlayerOne} cardData={playerOneHand} cardScore={scoreValue} />
                 </li>
                 <li>
-                  <p>player two</p>
+                  <p className='playerLabel'>Player two</p>
                   <Player pokeData={pokemonPlayerTwo} cardData={playerTwoHand} cardScore={scoreTwoValue} />
                 </li>
               </ul>

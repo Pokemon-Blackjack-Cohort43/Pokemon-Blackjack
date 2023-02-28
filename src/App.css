@@ -528,6 +528,10 @@ footer {
   font-family: "Pokemon GB", Arial, sans-serif;
 }
 
+.playerLabel {
+  font-family: "Pokemon GB", Arial, sans-serif;
+}
+
 .controls {
   background-color: white;
   border-radius: 2px;
