@@ -1,16 +1,11 @@
-// contains instructions on how to play
 import InstructionsContent from "./InstructionsContent.js";
 
 const Instructions = ({ gameState, quitHandler, startGameHandler, setDisplayInstructions, displayInstructions }) => {
-
-  // default setting to display instructions modal
 
   // on click, change state from false/true  
   const handleClick = () => {
     setDisplayInstructions(!displayInstructions);
   }
-
-  console.log('gamestate', gameState);
 
   return (
     <section className="instructionsContainer wrapper">

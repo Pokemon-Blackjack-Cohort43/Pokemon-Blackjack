@@ -1,5 +1,5 @@
 const Footer = () => {
-  console.log('footer has mounted');
+  
   return (
     <footer>
       <div className="wrapper">

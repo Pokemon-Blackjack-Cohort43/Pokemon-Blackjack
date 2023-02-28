@@ -1,8 +1,5 @@
-const Header = (props) => {
+const Header = () => {
 
-  const gameHandleClick = () => {
-    props.setGameStart(!props.gameStart);
-  }
 
   return (
     <header>
