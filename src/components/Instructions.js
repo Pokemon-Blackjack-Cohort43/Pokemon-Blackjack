@@ -1,12 +1,9 @@
 // contains instructions on how to play
-import { useState } from "react";
 import InstructionsContent from "./InstructionsContent.js";
 
-const Instructions = ({ gameState, quitHandler, startGameHandler }) => {
+const Instructions = ({ gameState, quitHandler, startGameHandler, setDisplayInstructions, displayInstructions }) => {
 
-  // default setting to display an i card
-  // initialize state for displaying of instruactions set to false  
-  const [displayInstructions, setDisplayInstructions] = useState(false);
+  // default setting to display instructions modal
 
   // on click, change state from false/true  
   const handleClick = () => {
@@ -16,20 +13,22 @@ const Instructions = ({ gameState, quitHandler, startGameHandler }) => {
   console.log('gamestate', gameState);
 
   return (
-    <section>
-      {/* disable button access if game has not started yet */}
-      <button className="instructionsButton" onClick={() => { handleClick() }} disabled={!gameState}>{displayInstructions ? "x" : "?"}</button>
+    <section className="instructionsContainer wrapper">
 
       {/* instructions: displays when state is set to true */}
       {
         displayInstructions
-          ? <InstructionsContent displayInstructions={displayInstructions} />
+          ? <InstructionsContent displayInstructions={displayInstructions} setDisplayInstructions={setDisplayInstructions} />
           : null
       }
+
+      {/* disable button access if game has not started yet */}
+      <button className="instructionsButton" onClick={() => { handleClick() }} disabled={!gameState}>{displayInstructions ? "x" : "?"}</button>
+
       {/* if game state is false, display 'start game'. else, display 'quit' */}
       <button
-        onClick={gameState? quitHandler : startGameHandler}
-        className={gameState? 'howToPlayBtn' : null}
+        onClick={gameState ? quitHandler : startGameHandler}
+        className={gameState ? 'howToPlayBtn' : null}
         id='startButton'
       >
         {

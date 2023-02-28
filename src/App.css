@@ -406,6 +406,37 @@ footer {
     padding: 10px 0 0;
   }
 }
+.instructionsContainer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.instructionsContainer button {
+  z-index: 30;
+}
+
+.instructionsParent {
+  background: rgba(0, 0, 0, 0.4);
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+}
+
+.instructions {
+  background-color: white;
+  border-radius: 2px;
+  line-height: 16px;
+  border: 1px solid white;
+  box-shadow: 0 1px 0 1px black, inset 0 1px 0 1px black, 0 0 0 1px black, inset 0 0 0 1px black;
+  position: absolute;
+  top: 25%;
+  left: 0%;
+  right: 0%;
+  z-index: 20;
+}
+
 .resultsWording {
   background-color: white;
   border-radius: 2px;
