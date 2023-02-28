@@ -267,6 +267,7 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
   height: 100vh;
+  position: relative;
   margin: 0;
   padding: 0;
 }
@@ -330,7 +331,7 @@ img {
 
 footer {
   position: absolute;
-  bottom: 0;
+  bottom: 0%;
   width: 100%;
 }
 
@@ -430,8 +431,19 @@ footer {
   text-align: center;
 }
 .playerContainer:first-child .displayPoke img {
-  animation-duration: 3s;
-  animation-name: slideFromLeft;
+  -webkit-animation-duration: 3s;
+          animation-duration: 3s;
+  -webkit-animation-name: slideFromLeft;
+          animation-name: slideFromLeft;
+}
+
+@-webkit-keyframes slideFromLeft {
+  from {
+    margin-left: -150%;
+  }
+  to {
+    margin-left: 0%;
+  }
 }
 
 @keyframes slideFromLeft {
@@ -446,8 +458,19 @@ footer {
   text-align: center;
 }
 .playerContainer:nth-child(2) .displayPoke img {
-  animation-duration: 3s;
-  animation-name: slideFromRight;
+  -webkit-animation-duration: 3s;
+          animation-duration: 3s;
+  -webkit-animation-name: slideFromRight;
+          animation-name: slideFromRight;
+}
+
+@-webkit-keyframes slideFromRight {
+  from {
+    margin-left: 150%;
+  }
+  to {
+    margin-left: 0%;
+  }
 }
 
 @keyframes slideFromRight {
@@ -484,14 +507,59 @@ footer {
   text-align: center;
 }
 
-.pokeName {
-  text-transform: uppercase;
+.pokeInfo {
+  display: flex;
+  flex-direction: column;
 }
-
-.pokeScore {
+.pokeInfo .pokeName {
+  text-transform: uppercase;
+  margin-bottom: 0px;
+}
+.pokeInfo .pokeScore {
   font-family: "Pokemon GB", Arial, sans-serif;
 }
 
+.playerUl {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.playerCards ul {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+.playerCards img {
+  width: auto;
+}
+
+@media (min-width: 320px) {
+  .displayPoke {
+    width: 300px;
+  }
+  .playerContainer {
+    padding-bottom: 40px;
+  }
+  .playerUl {
+    flex-direction: column;
+  }
+}
+@media (min-width: 481px) {
+  .playerUl {
+    flex-direction: column;
+  }
+}
+@media (min-width: 769px) {
+  .playerUl {
+    flex-direction: row;
+  }
+}
+@media (min-width: 1025px) {
+  .playerUl {
+    flex-direction: row;
+  }
+}
 .controls {
   background-color: white;
   border-radius: 2px;
@@ -524,4 +592,8 @@ footer {
   border-top: 10px solid transparent;
   border-bottom: 10px solid transparent;
   border-left: 10px solid black;
+}
+
+.controller {
+  padding: 40px 0px;
 }/*# sourceMappingURL=App.css.map */

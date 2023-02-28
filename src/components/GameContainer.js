@@ -334,7 +334,7 @@ const GameContainer = () => {
         gameStart
           ? <section className='players'>
             <div className='wrapper'>
-              <ul className='players'>
+              <ul className='playerUl'>
                 <li>
                   <Player pokeData={pokemonPlayerOne} cardData={playerOneHand} cardScore={scoreValue} />
                 </li>

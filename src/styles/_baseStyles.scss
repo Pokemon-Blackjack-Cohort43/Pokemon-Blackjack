@@ -4,6 +4,7 @@ body{
   background-size: cover;
   background-repeat: no-repeat;
   height: 100vh;
+  position: relative;
   margin: 0;
   padding: 0;
 }
@@ -68,7 +69,7 @@ img {
 
 footer {
   position: absolute;
-  bottom: 0;
+  bottom: 0%;
   width: 100%;
 }
 
