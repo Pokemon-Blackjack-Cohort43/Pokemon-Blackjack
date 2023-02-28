@@ -1,4 +1,4 @@
-const Results = ({ result, winner, playerOnePokemon, playerTwoPokemon, currentPlayer, gameStart, quitHandler, evolve }) => {
+const Results = ({ result, winner, playerOnePokemon, playerTwoPokemon, currentPlayer, gameStart}) => {
 
   // rendered as a result of comparing the hands of both players and winner
 

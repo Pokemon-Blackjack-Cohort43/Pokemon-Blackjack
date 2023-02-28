@@ -48,17 +48,16 @@
 }
 
 .displayPoke {
-    display: flex;
-    flex-direction: row-reverse;
-    justify-content: space-around;
-    
-    @include pokemonBorder;
-    margin: 0 auto;
-    margin-bottom: 25px;
-    img {
-        max-height: 30vh;
-    }
-
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-around;
+  
+  @include pokemonBorder;
+  margin: 0 auto;
+  margin-bottom: 25px;
+  img {
+      max-height: 30vh;
+  }
 }
 
 .playerScore {
@@ -67,20 +66,86 @@
     text-align: center;
 }
 
-// .playerco{
-//     @include pokemonBorder;
-// }
+.pokeInfo {
+    display: flex;
+    flex-direction: column;
 
-.pokeName {
-  text-transform: uppercase;
-  // font-stretch: extra-expanded;
+    .pokeName {
+        text-transform: uppercase;
+        margin-bottom: 0px;
+        color: black;
+    }
+    
+    .pokeScore {
+        font-family: $tertiaryFont;
+    }
 }
 
-.pokeScore {
-  font-family: $tertiaryFont;
+
+.playerUl {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+
+  .playerOneUl,
+  .playerTwoUl {
+    width: 45%;
+    display: flex;
+    justify-content: center;
+    position: relative;
+  }
+
+  .playerLabel {
+    position: absolute;
+    top: -10%;
+  }
+
 }
 
-.playerLabel {
-  font-family: $tertiaryFont;
-  
+.playerCards {
+    ul {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    img {
+        width: auto;
+        margin-right: 2px;
+    }
+}
+
+@include devices (mobile) {
+
+    .displayPoke {
+        width: 300px;
+    }
+    .playerContainer {
+        padding-bottom: 40px;
+    }
+    .playerUl {
+        flex-direction: column;
+    }
+
+}
+
+@include devices (tablet) {
+    .playerUl {
+        flex-direction: column;
+    }
+
+
+}
+
+@include devices (laptop) {
+    .playerUl {
+        flex-direction: row;
+    }
+}
+
+@include devices (desktop) {
+    .playerUl {
+        flex-direction: row;
+    }
 }

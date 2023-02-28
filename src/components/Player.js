@@ -9,22 +9,17 @@ const Player = ({ pokeData, cardData, cardScore }) => {
   // {cardValue} is the result of a funtion that sums the playerCards array
   // console.log(pokeName);
 
-  // const [pokeName, setPokeName] = useState('');
-  // const [pokeId, setPokeId] = useState(0);
-  // const [pokeImage, setPokeImage] = useState('');
-
-  // setPokeName(pokeData.name);
-  // setPokeId(pokeData.id);
-  // setPokeImage(pokeData.sprites.front_default)
-
   const flattenedCardData = cardData.flatMap(card => card)
 
   return (
     <li className="playerContainer">
       <div className="displayPoke">
         <img src={pokeData.url} alt={`image of ${pokeData.name}`} />
-        <h3 className="pokeName" >{pokeData.name}</h3>
-        <h4 className="pokeScore">{cardScore}</h4>
+        <div className="pokeInfo">
+          <h3 className="pokeName" >{pokeData.name}</h3>
+          <h4 className="pokeScore">{cardScore}</h4>
+        </div>
+
       </div> {/* /.displayPoke */}
       <div className="displayHand">
         {/* shows value of player's hand and images of their cards */}

@@ -226,6 +226,7 @@ template {
 }
 h1,
 h2,
+h3,
 button {
   font-family: "VT323", monospace;
   color: rgb(204, 0, 0);
@@ -253,6 +254,12 @@ body {
   font-size: 1rem;
 }
 
+p {
+  font-size: 20px;
+  font-size: 1rem;
+  font-family: "Pokemon GB", Arial, sans-serif;
+}
+
 .wrapper .instructions li {
   font-family: "Pokemon GB", Arial, sans-serif;
 }
@@ -261,12 +268,13 @@ span {
   text-transform: uppercase;
 }
 
-html,
 body {
+  background-color: rgb(125, 173, 113);
   background: url(../assets/pokemon_bg.png);
   background-size: cover;
   background-repeat: no-repeat;
   height: 100vh;
+  position: relative;
   margin: 0;
   padding: 0;
   position: relative;
@@ -293,6 +301,8 @@ button {
   font-size: 20px;
   font-size: 1rem;
   font-size: 1.5rem;
+  border: solid 3px transparent;
+  transition: 300ms;
 }
 button:hover, button:focus {
   border: solid 3px rgb(59, 76, 202);
@@ -335,7 +345,25 @@ img {
 
 footer {
   position: absolute;
-  bottom: 0;
+  bottom: 0%;
+  width: 100%;
+}
+
+.instructionsContainer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.instructionsContainer button {
+  z-index: 30;
+}
+
+.instructionsParent {
+  background: rgba(0, 0, 0, 0.4);
+  position: absolute;
+  top: -30px;
+  left: 0;
+  height: 100vh;
   width: 100%;
 }
 
@@ -345,6 +373,11 @@ footer {
   line-height: 16px;
   border: 1px solid white;
   box-shadow: 0 1px 0 1px black, inset 0 1px 0 1px black, 0 0 0 1px black, inset 0 0 0 1px black;
+  position: absolute;
+  top: 25%;
+  left: 0%;
+  right: 0%;
+  z-index: 20;
 }
 
 .instructionsButton {
@@ -359,6 +392,7 @@ footer {
   background-color: rgb(204, 0, 0);
   color: black;
   text-transform: uppercase;
+  border: solid 3px transparent;
   box-shadow: 0 1px 0 1px grey, inset 0 1px 0 1px rgb(204, 0, 0), 0 0 0 1px grey, inset 0 0 0 1px rgb(204, 0, 0);
 }
 .instructionsButton button:hover,
@@ -383,6 +417,8 @@ footer {
   .instructions {
     padding: 15px 10px 0px;
     line-height: 25px;
+    font-family: "Pokemon GB", Arial, sans-serif;
+    color: black;
   }
 }
 @media (min-width: 320px) and (min-width: 481px) {
@@ -448,8 +484,11 @@ footer {
   width: 40%;
   height: 100%;
   margin: 0 auto;
+  color: black;
   padding: 15px 10px 0px;
   line-height: 25px;
+  font-family: "Pokemon GB", Arial, sans-serif;
+  color: black;
 }
 @media (min-width: 320px) {
   .resultsWording {
@@ -520,18 +559,73 @@ footer {
   text-align: center;
 }
 
-.pokeName {
+.pokeInfo {
+  display: flex;
+  flex-direction: column;
+}
+.pokeInfo .pokeName {
   text-transform: uppercase;
+  margin-bottom: 0px;
+  color: black;
 }
-
-.pokeScore {
+.pokeInfo .pokeScore {
   font-family: "Pokemon GB", Arial, sans-serif;
 }
 
-.playerLabel {
-  font-family: "Pokemon GB", Arial, sans-serif;
+.playerUl {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.playerUl .playerOneUl,
+.playerUl .playerTwoUl {
+  width: 45%;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+.playerUl .playerLabel {
+  position: absolute;
+  top: -10%;
 }
 
+.playerCards ul {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.playerCards img {
+  width: auto;
+  margin-right: 2px;
+}
+
+@media (min-width: 320px) {
+  .displayPoke {
+    width: 300px;
+  }
+  .playerContainer {
+    padding-bottom: 40px;
+  }
+  .playerUl {
+    flex-direction: column;
+  }
+}
+@media (min-width: 481px) {
+  .playerUl {
+    flex-direction: column;
+  }
+}
+@media (min-width: 769px) {
+  .playerUl {
+    flex-direction: row;
+  }
+}
+@media (min-width: 1025px) {
+  .playerUl {
+    flex-direction: row;
+  }
+}
 .controls {
   background-color: white;
   border-radius: 2px;
@@ -540,7 +634,7 @@ footer {
   box-shadow: 0 1px 0 1px black, inset 0 1px 0 1px black, 0 0 0 1px black, inset 0 0 0 1px black;
   font-size: 25px;
   font-size: 1.25rem;
-  width: 50%;
+  width: 30%;
   margin: 0 auto;
   padding: 10px 25px;
 }
@@ -564,4 +658,8 @@ footer {
   border-top: 10px solid transparent;
   border-bottom: 10px solid transparent;
   border-left: 10px solid black;
+}
+
+.controller {
+  padding: 40px 0px;
 }/*# sourceMappingURL=App.css.map */
