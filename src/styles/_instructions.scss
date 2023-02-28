@@ -10,41 +10,58 @@
 
 .instructionsParent {
   background: rgba(0, 0, 0, 0.4);
-  position: absolute;
+  position: fixed;
   top: -30px;
   left: 0;
-  height: 100vh;
+  height: 105vh;
   width: 100%;
   z-index: 20;
 }
 
 .instructions {
   @include pokemonBorder;
-  position: absolute; 
+  position: absolute;
   top: 25%;
   left: 0%;
   right: 0%;
   font-family: $tertiaryFont;
   width: 40%;
   padding: 20px;
+
   h2 {
-      text-align: center;
+    text-align: center;
   }
+
   ul {
-      display: flex;
-      flex-direction: column;
-      h3 {
-          text-align: center;
-      }
+    display: flex;
+    flex-direction: column;
+
+    h3 {
+      text-align: center;
+    }
+  }
+
+  li {
+    margin-bottom: 15px;
+
+    &:first-child {
+      margin-top: 30px;
+    }
+  }
+
+  .controlSpan {
+    font-weight: bold;
+    text-decoration: underline;
+    color: $blue;
   }
 }
+
 
 .instructionsButton {
   @include gameboyButtonRound
 }
 
-// .gameStart{
-// }
+
 
 #startButton {
   @include gameboyButtonPill
@@ -52,10 +69,11 @@
 
 @include devices (mobile) {
 
-  .instructions{
+  .instructions {
     @include dialogueBox;
-      
-    h2{
+    width: 95%;
+
+    h2 {
       margin: 15px 0 0;
     }
 
@@ -70,11 +88,7 @@
       }
     }
   }
-
-    // h2{
-    //   text-align: center;
-    // }
-  }
+}
 
 
 .instructionsContainer {
@@ -85,15 +99,6 @@
   button {
     z-index: 30;
   }
-}
-
-.instructionsParent {
-  background: rgba(0, 0, 0, 0.4);
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  width: 100%;
 }
 
 .instructions {

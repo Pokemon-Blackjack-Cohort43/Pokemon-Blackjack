@@ -359,10 +359,10 @@ footer {
 
 .instructionsParent {
   background: rgba(0, 0, 0, 0.4);
-  position: absolute;
+  position: fixed;
   top: -30px;
   left: 0;
-  height: 100vh;
+  height: 105vh;
   width: 100%;
   z-index: 20;
 }
@@ -390,6 +390,17 @@ footer {
 }
 .instructions ul h3 {
   text-align: center;
+}
+.instructions li {
+  margin-bottom: 15px;
+}
+.instructions li:first-child {
+  margin-top: 30px;
+}
+.instructions .controlSpan {
+  font-weight: bold;
+  text-decoration: underline;
+  color: rgb(59, 76, 202);
 }
 
 .instructionsButton {
@@ -431,6 +442,7 @@ footer {
     line-height: 25px;
     font-family: "Pokemon GB", Arial, sans-serif;
     color: black;
+    width: 95%;
   }
 }
 @media (min-width: 320px) and (min-width: 481px) {
@@ -461,15 +473,6 @@ footer {
 }
 .instructionsContainer button {
   z-index: 30;
-}
-
-.instructionsParent {
-  background: rgba(0, 0, 0, 0.4);
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  width: 100%;
 }
 
 .instructions {
@@ -517,8 +520,19 @@ footer {
   text-align: center;
 }
 .playerContainer:first-child .displayPoke img {
-  animation-duration: 3s;
-  animation-name: slideFromLeft;
+  -webkit-animation-duration: 3s;
+          animation-duration: 3s;
+  -webkit-animation-name: slideFromLeft;
+          animation-name: slideFromLeft;
+}
+
+@-webkit-keyframes slideFromLeft {
+  from {
+    margin-left: -150%;
+  }
+  to {
+    margin-left: 0%;
+  }
 }
 
 @keyframes slideFromLeft {
@@ -529,12 +543,28 @@ footer {
     margin-left: 0%;
   }
 }
+.playerLabel {
+  background: rgb(255, 222, 0);
+  border: 1px solid black;
+}
+
 .playerContainer:nth-child(2) .displayPoke {
   text-align: center;
 }
 .playerContainer:nth-child(2) .displayPoke img {
-  animation-duration: 3s;
-  animation-name: slideFromRight;
+  -webkit-animation-duration: 3s;
+          animation-duration: 3s;
+  -webkit-animation-name: slideFromRight;
+          animation-name: slideFromRight;
+}
+
+@-webkit-keyframes slideFromRight {
+  from {
+    margin-left: 150%;
+  }
+  to {
+    margin-left: 0%;
+  }
 }
 
 @keyframes slideFromRight {
@@ -597,6 +627,7 @@ footer {
 .playerUl .playerLabel {
   position: absolute;
   top: -10%;
+  padding: 5px 10px;
 }
 
 .playerCards ul {
@@ -613,6 +644,8 @@ footer {
 @media (min-width: 320px) {
   .playerUl .playerLabel {
     top: -10%;
+    font-size: 18px;
+    font-size: 0.9rem;
   }
   .players .wrapper {
     width: 100%;
@@ -622,10 +655,12 @@ footer {
     flex-direction: column;
     margin: 0 auto;
     margin-bottom: 10px;
-    max-width: 170px;
+    max-width: 145px;
   }
-  .players .displayPoke h3, .players .displayPoke h4 {
-    font-size: 0.4rem;
+  .players .displayPoke h3,
+.players .displayPoke h4 {
+    font-size: 15px;
+    font-size: 0.75rem;
   }
   .players .playerContainer {
     padding-bottom: 40px;
@@ -634,30 +669,20 @@ footer {
     flex-direction: row;
   }
   .players .playerOneUl,
-  .players .playerTwoUl {
+.players .playerTwoUl {
     width: 100%;
   }
   .players .playerCards .card {
     padding: 0;
   }
   .players .playerCards .card img {
-    height: 115px;
+    height: 100px;
     width: auto;
   }
 }
-@media (min-width: 481px) {
-  .playerUl {
-    flex-direction: column;
-  }
-}
 @media (min-width: 769px) {
-  .playerUl {
-    flex-direction: row;
-  }
-}
-@media (min-width: 1025px) {
-  .playerUl {
-    flex-direction: row;
+  .players .playerCards .card img {
+    height: 200px;
   }
 }
 .controls {
@@ -673,11 +698,15 @@ footer {
   padding: 10px 25px;
 }
 .controls button {
+  font-family: "Pokemon GB", Arial, sans-serif;
+  font-size: 20px;
+  font-size: 1rem;
   color: rgb(59, 76, 202);
   border: none;
   background: transparent;
   transition: 300ms;
   position: relative;
+  padding: 10px 15px;
 }
 .controls button:focus, .controls button:hover {
   color: rgb(204, 0, 0);
@@ -685,8 +714,8 @@ footer {
 .controls button:focus::before, .controls button:hover::before {
   content: "";
   position: absolute;
-  left: 10px;
-  top: 25px;
+  left: 0px;
+  top: 5px;
   height: 0;
   width: 0;
   border-top: 10px solid transparent;
@@ -704,25 +733,13 @@ footer {
     display: flex;
     color: black;
   }
-  .controls button {
-    padding: 10px 15px;
-  }
-  .controls button:focus, .controls button:hover {
-    color: rgb(204, 0, 0);
-  }
-  .controls button:focus::before, .controls button:hover::before {
-    content: "";
-    position: absolute;
-    left: 2px;
-    top: 15px;
-    height: 0;
-    width: 0;
-    border-top: 10px solid transparent;
-    border-bottom: 10px solid transparent;
-    border-left: 10px solid black;
-  }
   .controller ul {
     flex-direction: column;
     align-items: center;
+  }
+}
+@media (min-width: 1025px) {
+  .controller ul {
+    flex-direction: row;
   }
 }/*# sourceMappingURL=App.css.map */
