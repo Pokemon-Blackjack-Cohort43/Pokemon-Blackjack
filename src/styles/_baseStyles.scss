@@ -15,7 +15,6 @@ button {
   padding: 20px 30px;
   margin: 5px 10px;
   @include fontSize(20);
-  @include pokemonBorder;
   font-size: 1.5rem;
   
   &:hover,

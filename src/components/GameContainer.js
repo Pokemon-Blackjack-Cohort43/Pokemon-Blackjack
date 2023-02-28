@@ -218,20 +218,20 @@ const GameContainer = () => {
       if (scoreValue === 21) {
         setCurrentPlayer("player two");
         setWinner('none');
-        setResult('Player1 has blackjack. Player2 has a chance to draw to 21.');
+        setResult(`${pokemonPlayerOne.name} has blackjack. ${pokemonPlayerTwo.name} has a chance to draw to 21.`);
       } else if (scoreTwoValue === 21) {
         setCurrentPlayer("player one");
         setWinner('none')
-        setResult('Player2 has blackjack. Player1 has a chance to draw to 21.')
+        setResult(`${pokemonPlayerTwo.name} has blackjack. ${pokemonPlayerOne.name} has a chance to draw to 21.`)
       }
 
       if (scoreValue > 21) {
-        setResult(`Player 2 wins. Player 1 busted!`);
+        setResult(`${pokemonPlayerTwo.name} wins. ${pokemonPlayerOne.name}busted!`);
         setWinner('player two');
       }
 
       if (scoreTwoValue > 21) {
-        setResult(`Player 1 wins. Player 2 busted!`);
+        setResult(`${pokemonPlayerOne.name} wins. ${pokemonPlayerTwo.name} busted!`);
         setWinner('player one');
       }
     }
@@ -246,11 +246,11 @@ const GameContainer = () => {
       if (scoreValue < scoreTwoValue) {
         setCurrentPlayer('none');
         setWinner('player two');
-        setResult(`Player 2 wins. Their card score is closer to 21.`);
+        setResult(`${pokemonPlayerTwo.name} wins. Their card score is closer to 21.`);
       } else if (scoreValue > scoreTwoValue) {
         setCurrentPlayer('none');
         setWinner('player one');
-        setResult(`Player 1 wins. Their card score is closer to 21.`);
+        setResult(`${pokemonPlayerOne.name} wins. Their card score is closer to 21.`);
         console.log(pokemonPlayerTwo);
       }
       else if (scoreTwoValue === scoreValue) {
@@ -296,10 +296,10 @@ const GameContainer = () => {
   
   useEffect(() => {
     if (pokemonPlayerOneFam.length === 1) {
-      setResult('player one has fully evolved!');
+      setResult(`${pokemonPlayerOne.name} has fully evolved!`);
       setWinner('player one');
     } else if (pokemonPlayerTwoFam.length === 1) {
-      setResult('player two has fully evolved!');
+      setResult(`${pokemonPlayerTwo.name} two has fully evolved!`);
       setWinner('player two');
     }
   }, [pokemonPlayerOneFam, pokemonPlayerTwoFam]);
@@ -328,7 +328,7 @@ const GameContainer = () => {
         gameStart
           ? <section className="controller">
             <div className="wrapper">
-              <Controller hitButton={hitHandler} stayButton={stayHandler} winner={winner} result={result} />
+              <Controller hitButton={hitHandler} stayButton={stayHandler} winner={winner} result={result} currentPlayer={currentPlayer} />
             </div>
           </section>
           : null
@@ -339,8 +339,10 @@ const GameContainer = () => {
           ? <section className="players">
             <div className="wrapper">
               <ul className="players">
-                <Player pokeData={pokemonPlayerOne} cardData={playerOneHand} cardScore={scoreValue} />
-                <Player pokeData={pokemonPlayerTwo} cardData={playerTwoHand} cardScore={scoreTwoValue} />
+                <li>
+                <Player pokeData={pokemonPlayerOne} cardData={playerOneHand} cardScore={scoreValue} /></li>
+                <li>
+                <Player pokeData={pokemonPlayerTwo} cardData={playerTwoHand} cardScore={scoreTwoValue} /></li>
               </ul>
             </div>
           </section>

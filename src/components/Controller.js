@@ -1,4 +1,4 @@
-const Controller = ({ hitButton, stayButton, winner }) => {
+const Controller = ({ hitButton, stayButton, winner, currentPlayer }) => {
   // functions for onClick are located in GameContainer.js and passed down by props
 
   // when the user clicks the hit button 1 card is dealt
@@ -6,15 +6,16 @@ const Controller = ({ hitButton, stayButton, winner }) => {
   // when the user clicks the stay button no card is dealt and it is the next players turn
 
   return (
-    <ul className="controls">
-      <li>
-        <button onClick={hitButton} disabled={winner !== 'none'}>Hit</button>
-      </li>
-      <li>
-        <button onClick={stayButton} disabled={winner !== 'none'}>Stay</button>
-      </li>
-      
-    </ul>
+    <div className="wrapper">
+      <ul className="controls">
+        <li>
+          <button onClick={hitButton} disabled={winner !== 'none'}>Hit</button>
+        </li>
+        <li>
+          <button onClick={stayButton} disabled={winner !== 'none'}>Stay</button>
+        </li>
+      </ul>
+    </div>
   )
 }
 

@@ -227,7 +227,8 @@ template {
 h1,
 h2,
 h3,
-button {
+button,
+p {
   font-family: "VT323", monospace;
   color: rgb(204, 0, 0);
 }
@@ -274,11 +275,6 @@ button {
   margin: 5px 10px;
   font-size: 20px;
   font-size: 1rem;
-  background-color: white;
-  border-radius: 2px;
-  line-height: 16px;
-  border: 1px solid white;
-  box-shadow: 0 1px 0 1px black, inset 0 1px 0 1px black, 0 0 0 1px black, inset 0 0 0 1px black;
   font-size: 1.5rem;
 }
 button:hover, button:focus {
@@ -339,23 +335,46 @@ footer {
   margin: 0 auto;
 }
 
+.controls {
+  background-color: white;
+  border-radius: 2px;
+  line-height: 16px;
+  border: 1px solid white;
+  box-shadow: 0 1px 0 1px black, inset 0 1px 0 1px black, 0 0 0 1px black, inset 0 0 0 1px black;
+  font-size: 25px;
+  font-size: 1.25rem;
+  width: 50%;
+  margin: 0 auto;
+  padding: 10px 25px;
+}
+.controls button {
+  color: rgb(59, 76, 202);
+  border: none;
+  background: transparent;
+  transition: 300ms;
+  position: relative;
+}
+.controls button:focus, .controls button:hover {
+  color: black;
+}
+.controls button:focus::before, .controls button:hover::before {
+  content: "";
+  position: absolute;
+  left: 10px;
+  top: 25px;
+  height: 0;
+  width: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-left: 10px solid black;
+}
+
 .playerContainer:first-child .displayPoke {
   text-align: center;
 }
 .playerContainer:first-child .displayPoke img {
-  -webkit-animation-duration: 3s;
-          animation-duration: 3s;
-  -webkit-animation-name: slideFromLeft;
-          animation-name: slideFromLeft;
-}
-
-@-webkit-keyframes slideFromLeft {
-  from {
-    margin-left: -150%;
-  }
-  to {
-    margin-left: 0%;
-  }
+  animation-duration: 3s;
+  animation-name: slideFromLeft;
 }
 
 @keyframes slideFromLeft {
@@ -370,19 +389,8 @@ footer {
   text-align: center;
 }
 .playerContainer:nth-child(2) .displayPoke img {
-  -webkit-animation-duration: 3s;
-          animation-duration: 3s;
-  -webkit-animation-name: slideFromRight;
-          animation-name: slideFromRight;
-}
-
-@-webkit-keyframes slideFromRight {
-  from {
-    margin-left: 150%;
-  }
-  to {
-    margin-left: 0%;
-  }
+  animation-duration: 3s;
+  animation-name: slideFromRight;
 }
 
 @keyframes slideFromRight {

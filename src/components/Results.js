@@ -9,9 +9,13 @@ const Results = ({ result, winner, playerOnePokemon, playerTwoPokemon, currentPl
         <div className="resultsWording">
           <p>
             {
-              (currentPlayer !== 'none') && (winner === 'none')
-                ? `${currentPlayer}'s turn!`
-                : ''}
+              (currentPlayer === 'player one') && (winner === 'none')
+                ? `${playerOnePokemon.name}'s turn!`
+                : ((currentPlayer === 'player two') && (winner === 'none')
+                  ? `${playerTwoPokemon.name}'s turn!`
+                  : ''
+                  )
+            }
           </p>
           <p>{gameStart
             ? result
