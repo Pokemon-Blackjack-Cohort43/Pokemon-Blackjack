@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato&family=VT323&display=swap');
+
+@font-face {
+    font-family: "Pokemon GB";
+    src: url("../fonts/Pokemon_GB.ttf") format("truetype");
+        
+    font-weight: normal;
+    font-style: normal;
+}
+
+//fonts
+$primaryFont: 'VT323', monospace;
+$secondaryFont: 'Lato', sans-serif;
+$tertiaryFont: "Pokemon GB", Arial, sans-serif; 
+
+//colours
+$red: rgb(204, 0, 0);
+$blue: rgb(59, 76, 202);
+$yellow: rgb(255, 222, 0);
+

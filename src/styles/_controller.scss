@@ -1,0 +1,58 @@
+.controls {
+  @include pokemonBorder;
+  @include fontSize(25);
+  width: 30%;
+  margin: 0 auto;
+  padding: 10px 25px;
+
+  button {
+    font-family: $tertiaryFont;
+    @include fontSize(20);
+    color: $blue;
+    border: none;
+    background: transparent;
+    transition: 300ms;
+    position: relative;
+    padding: 10px 15px;
+
+    &:focus,
+    &:hover {
+      color: $red;
+
+      &::before {
+        content: '';
+        position: absolute;
+        left: 0px;
+        top: 5px;
+        height: 0;
+        width: 0;
+        border-top: 10px solid transparent;
+        border-bottom: 10px solid transparent;
+        border-left: 10px solid black;
+      }
+    }
+  }
+}
+
+.controller {
+  padding: 40px 0px;
+}
+
+@include devices(mobile) {
+    .controls {
+      padding: 10px 80px;
+      display: flex; 
+      color: black;
+    }
+
+    .controller ul {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+
+  @include devices (desktop) {
+    .controller ul {
+      flex-direction: row;
+    }
+  }

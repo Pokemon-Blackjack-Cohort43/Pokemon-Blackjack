@@ -1,38 +1,745 @@
-.App {
+@import url("https://fonts.googleapis.com/css2?family=Lato&family=VT323&display=swap");
+html {
+  line-height: 1.15;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+}
+
+article, aside, footer, header, nav, section {
+  display: block;
+}
+
+h1 {
+  font-size: 2em;
+  margin: 0.67em 0;
+}
+
+figcaption, figure, main {
+  display: block;
+}
+
+figure {
+  margin: 1em 40px;
+}
+
+hr {
+  box-sizing: content-box;
+  height: 0;
+  overflow: visible;
+}
+
+pre {
+  font-family: monospace, monospace;
+  font-size: 1em;
+}
+
+a {
+  background-color: transparent;
+  -webkit-text-decoration-skip: objects;
+}
+
+abbr[title] {
+  border-bottom: none;
+  text-decoration: underline;
+  -webkit-text-decoration: underline dotted;
+          text-decoration: underline dotted;
+}
+
+b, strong {
+  font-weight: inherit;
+}
+
+b, strong {
+  font-weight: bolder;
+}
+
+code, kbd, samp {
+  font-family: monospace, monospace;
+  font-size: 1em;
+}
+
+dfn {
+  font-style: italic;
+}
+
+mark {
+  background-color: #ff0;
+  color: #000;
+}
+
+small {
+  font-size: 80%;
+}
+
+sub, sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+sub {
+  bottom: -0.25em;
+}
+
+sup {
+  top: -0.5em;
+}
+
+audio, video {
+  display: inline-block;
+}
+
+audio:not([controls]) {
+  display: none;
+  height: 0;
+}
+
+img {
+  border-style: none;
+}
+
+svg:not(:root) {
+  overflow: hidden;
+}
+
+button, input, optgroup, select, textarea {
+  font-family: sans-serif;
+  font-size: 100%;
+  line-height: 1.15;
+  margin: 0;
+}
+
+button, input {
+  overflow: visible;
+}
+
+button, select {
+  text-transform: none;
+}
+
+button, html [type=button], [type=reset], [type=submit] {
+  -webkit-appearance: button;
+}
+
+button::-moz-focus-inner, [type=button]::-moz-focus-inner, [type=reset]::-moz-focus-inner, [type=submit]::-moz-focus-inner {
+  border-style: none;
+  padding: 0;
+}
+
+button:-moz-focusring, [type=button]:-moz-focusring, [type=reset]:-moz-focusring, [type=submit]:-moz-focusring {
+  outline: 1px dotted ButtonText;
+}
+
+fieldset {
+  padding: 0.35em 0.75em 0.625em;
+}
+
+legend {
+  box-sizing: border-box;
+  color: inherit;
+  display: table;
+  max-width: 100%;
+  padding: 0;
+  white-space: normal;
+}
+
+progress {
+  display: inline-block;
+  vertical-align: baseline;
+}
+
+textarea {
+  overflow: auto;
+}
+
+[type=checkbox], [type=radio] {
+  box-sizing: border-box;
+  padding: 0;
+}
+
+[type=number]::-webkit-inner-spin-button, [type=number]::-webkit-outer-spin-button {
+  height: auto;
+}
+
+[type=search] {
+  -webkit-appearance: textfield;
+  outline-offset: -2px;
+}
+
+[type=search]::-webkit-search-cancel-button, [type=search]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+::-webkit-file-upload-button {
+  -webkit-appearance: button;
+  font: inherit;
+}
+
+details, menu {
+  display: block;
+}
+
+summary {
+  display: list-item;
+}
+
+canvas {
+  display: inline-block;
+}
+
+template {
+  display: none;
+}
+
+[hidden] {
+  display: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  white-space: nowrap;
+  -webkit-clip-path: inset(100%);
+          clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+}
+
+@font-face {
+  font-family: "Pokemon GB";
+  src: url("../fonts/Pokemon_GB.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+h1,
+h2,
+h3,
+button {
+  font-family: "VT323", monospace;
+  color: rgb(204, 0, 0);
+}
+
+h1 {
+  font-size: 50px;
+  font-size: 2.5rem;
+}
+
+h2 {
+  font-size: 40px;
+  font-size: 2rem;
+  color: black;
+}
+
+h3 {
+  font-size: 20px;
+  font-size: 1rem;
+  font-family: "Pokemon GB", Arial, sans-serif;
+}
+
+body {
+  font-size: 20px;
+  font-size: 1rem;
+}
+
+p {
+  font-size: 20px;
+  font-size: 1rem;
+  font-family: "Pokemon GB", Arial, sans-serif;
+}
+
+.wrapper .instructions li {
+  font-family: "Pokemon GB", Arial, sans-serif;
+}
+
+span {
+  text-transform: uppercase;
+}
+
+body {
+  background: url(../assets/pokemon_bg.png);
+  background-color: rgb(125, 173, 113);
+  background-size: cover;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  position: relative;
+}
+
+header,
+footer {
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+footer {
+  position: absolute;
+  bottom: 0;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+p {
+  margin: 0;
+  padding: 5px 0 0;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+button {
+  cursor: pointer;
+  padding: 20px 30px;
+  margin: 5px 10px;
+  font-size: 20px;
+  font-size: 1rem;
+  font-size: 1.5rem;
+  border: solid 3px transparent;
+  transition: 300ms;
+}
+button:hover, button:focus {
+  border: solid 3px rgb(59, 76, 202);
+}
+
+ul {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  padding: 0;
+}
+
+ul.controls {
+  justify-content: center;
+}
+
+ul.instructionsCopy {
+  flex-direction: column;
+}
+
+img {
+  width: 100%;
+  display: block;
+}
+
+.hidden {
+  display: hidden;
+}
+
+.wrapper {
+  max-width: 1200px;
+  width: 85%;
+  margin: 0 auto;
+}
+
+.dialogueBoxWrapper {
+  max-width: 1200px;
+  width: 95%;
+  margin: 0 auto;
+}
+
+footer {
+  position: absolute;
+  bottom: 0%;
+  width: 100%;
+}
+
+.instructionsContainer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.instructionsContainer button {
+  z-index: 30;
+}
+
+.instructionsParent {
+  background: rgba(0, 0, 0, 0.4);
+  position: fixed;
+  top: -30px;
+  left: 0;
+  height: 105vh;
+  width: 100%;
+  z-index: 20;
+}
+
+.instructions {
+  background-color: white;
+  border-radius: 2px;
+  line-height: 16px;
+  border: 1px solid white;
+  box-shadow: 0 1px 0 1px black, inset 0 1px 0 1px black, 0 0 0 1px black, inset 0 0 0 1px black;
+  position: absolute;
+  top: 25%;
+  left: 0%;
+  right: 0%;
+  font-family: "Pokemon GB", Arial, sans-serif;
+  width: 40%;
+  padding: 20px;
+}
+.instructions h2 {
+  text-align: center;
+}
+.instructions ul {
   display: flex;
   flex-direction: column;
-  align-items: center;
+}
+.instructions ul h3 {
+  text-align: center;
+}
+.instructions li {
+  margin-bottom: 15px;
+}
+.instructions li:first-child {
+  margin-top: 30px;
+}
+.instructions .controlSpan {
+  font-weight: bold;
+  text-decoration: underline;
+  color: rgb(59, 76, 202);
+}
+
+.instructionsButton {
+  border: rgb(204, 0, 0);
+  border-radius: 50%;
+  height: 20px;
+  width: 20px;
+  display: flex;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
+  padding: 15px;
+  background-color: rgb(204, 0, 0);
+  color: black;
+  text-transform: uppercase;
+  border: solid 3px transparent;
+  box-shadow: 0 1px 0 1px grey, inset 0 1px 0 1px rgb(204, 0, 0), 0 0 0 1px grey, inset 0 0 0 1px rgb(204, 0, 0);
+}
+.instructionsButton button:hover,
+.instructionsButton button:focus {
+  border: solid 3px rgb(59, 76, 202);
 }
 
-.App-link {
-  color: #61dafb;
+#startButton {
+  text-transform: uppercase;
+  color: darkblue;
+  padding: 10px;
+  background-color: grey;
+  border-radius: 16px;
+  box-shadow: 0 1px 0 1px black, inset 0 1px 0 1px gray, 0 0 0 1px grey, inset 0 0 0 1px black;
+}
+#startButton button:hover,
+#startButton button:focus {
+  border: solid 3px rgb(59, 76, 202);
 }
 
-@keyframes App-logo-spin {
+@media (min-width: 320px) {
+  .instructions {
+    padding: 15px 10px 0px;
+    line-height: 25px;
+    font-family: "Pokemon GB", Arial, sans-serif;
+    color: black;
+    width: 95%;
+  }
+}
+@media (min-width: 320px) and (min-width: 481px) {
+  .instructions {
+    max-width: 550px;
+  }
+}
+@media (min-width: 320px) {
+  .instructions h2 {
+    margin: 15px 0 0;
+  }
+}
+@media (min-width: 320px) {
+  .instructions ul {
+    display: flex;
+    flex-direction: column;
+    font-family: "Pokemon GB", Arial, sans-serif;
+    margin: 5px 0;
+  }
+  .instructions ul li {
+    padding: 10px 0 0;
+  }
+}
+.instructionsContainer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.instructionsContainer button {
+  z-index: 30;
+}
+
+.instructions {
+  background-color: white;
+  border-radius: 2px;
+  line-height: 16px;
+  border: 1px solid white;
+  box-shadow: 0 1px 0 1px black, inset 0 1px 0 1px black, 0 0 0 1px black, inset 0 0 0 1px black;
+  position: absolute;
+  top: 25%;
+  left: 0%;
+  right: 0%;
+  z-index: 20;
+}
+
+.resultsWording {
+  background-color: white;
+  border-radius: 2px;
+  line-height: 16px;
+  border: 1px solid white;
+  box-shadow: 0 1px 0 1px black, inset 0 1px 0 1px black, 0 0 0 1px black, inset 0 0 0 1px black;
+  font-family: "Pokemon GB", Arial, sans-serif;
+  padding: 8px 5px 0;
+  width: 40%;
+  height: 100%;
+  margin: 0 auto;
+  color: black;
+  padding: 15px 10px 0px;
+  line-height: 25px;
+  font-family: "Pokemon GB", Arial, sans-serif;
+  color: black;
+}
+@media (min-width: 320px) {
+  .resultsWording {
+    width: 100%;
+  }
+}
+@media (min-width: 481px) {
+  .resultsWording {
+    max-width: 550px;
+  }
+}
+
+.playerContainer:first-child .displayPoke {
+  text-align: center;
+}
+.playerContainer:first-child .displayPoke img {
+  -webkit-animation-duration: 3s;
+          animation-duration: 3s;
+  -webkit-animation-name: slideFromLeft;
+          animation-name: slideFromLeft;
+}
+
+@-webkit-keyframes slideFromLeft {
   from {
-    transform: rotate(0deg);
+    margin-left: -150%;
   }
   to {
-    transform: rotate(360deg);
+    margin-left: 0%;
   }
 }
+
+@keyframes slideFromLeft {
+  from {
+    margin-left: -150%;
+  }
+  to {
+    margin-left: 0%;
+  }
+}
+.playerLabel {
+  background: rgb(255, 222, 0);
+  border: 1px solid black;
+}
+
+.playerContainer:nth-child(2) .displayPoke {
+  text-align: center;
+}
+.playerContainer:nth-child(2) .displayPoke img {
+  -webkit-animation-duration: 3s;
+          animation-duration: 3s;
+  -webkit-animation-name: slideFromRight;
+          animation-name: slideFromRight;
+}
+
+@-webkit-keyframes slideFromRight {
+  from {
+    margin-left: 150%;
+  }
+  to {
+    margin-left: 0%;
+  }
+}
+
+@keyframes slideFromRight {
+  from {
+    margin-left: 150%;
+  }
+  to {
+    margin-left: 0%;
+  }
+}
+.displayPoke {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-around;
+  background-color: white;
+  border-radius: 2px;
+  line-height: 16px;
+  border: 1px solid white;
+  box-shadow: 0 1px 0 1px black, inset 0 1px 0 1px black, 0 0 0 1px black, inset 0 0 0 1px black;
+  margin: 0 auto;
+  margin-bottom: 25px;
+}
+
+.playerScore {
+  background-color: white;
+  border-radius: 2px;
+  line-height: 16px;
+  border: 1px solid white;
+  box-shadow: 0 1px 0 1px black, inset 0 1px 0 1px black, 0 0 0 1px black, inset 0 0 0 1px black;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.pokeInfo {
+  display: flex;
+  flex-direction: column;
+}
+.pokeInfo .pokeName {
+  text-transform: uppercase;
+  margin-bottom: 0px;
+  color: black;
+}
+.pokeInfo .pokeScore {
+  font-family: "Pokemon GB", Arial, sans-serif;
+}
+
+.playerUl {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding-bottom: 50px;
+}
+.playerUl .playerOneUl,
+.playerUl .playerTwoUl {
+  width: 45%;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+.playerUl .playerLabel {
+  position: absolute;
+  top: -10%;
+  padding: 5px 10px;
+}
+
+.playerCards ul {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.playerCards img {
+  width: auto;
+  margin-right: 2px;
+}
+
+@media (min-width: 320px) {
+  .playerUl .playerLabel {
+    top: -10%;
+    font-size: 18px;
+    font-size: 0.9rem;
+  }
+  .players .wrapper {
+    width: 100%;
+  }
+  .players .displayPoke {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    margin-bottom: 10px;
+    max-width: 145px;
+  }
+  .players .displayPoke h3,
+.players .displayPoke h4 {
+    font-size: 15px;
+    font-size: 0.75rem;
+  }
+  .players .playerContainer {
+    padding-bottom: 40px;
+  }
+  .players .playerUl {
+    flex-direction: row;
+  }
+  .players .playerOneUl,
+.players .playerTwoUl {
+    width: 100%;
+  }
+  .players .playerCards .card {
+    padding: 0;
+  }
+  .players .playerCards .card img {
+    height: 100px;
+    width: auto;
+  }
+}
+@media (min-width: 769px) {
+  .players .playerCards .card img {
+    height: 200px;
+  }
+}
+.controls {
+  background-color: white;
+  border-radius: 2px;
+  line-height: 16px;
+  border: 1px solid white;
+  box-shadow: 0 1px 0 1px black, inset 0 1px 0 1px black, 0 0 0 1px black, inset 0 0 0 1px black;
+  font-size: 25px;
+  font-size: 1.25rem;
+  width: 30%;
+  margin: 0 auto;
+  padding: 10px 25px;
+}
+.controls button {
+  font-family: "Pokemon GB", Arial, sans-serif;
+  font-size: 20px;
+  font-size: 1rem;
+  color: rgb(59, 76, 202);
+  border: none;
+  background: transparent;
+  transition: 300ms;
+  position: relative;
+  padding: 10px 15px;
+}
+.controls button:focus, .controls button:hover {
+  color: rgb(204, 0, 0);
+}
+.controls button:focus::before, .controls button:hover::before {
+  content: "";
+  position: absolute;
+  left: 0px;
+  top: 5px;
+  height: 0;
+  width: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-left: 10px solid black;
+}
+
+.controller {
+  padding: 40px 0px;
+}
+
+@media (min-width: 320px) {
+  .controls {
+    padding: 10px 80px;
+    display: flex;
+    color: black;
+  }
+  .controller ul {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+@media (min-width: 1025px) {
+  .controller ul {
+    flex-direction: row;
+  }
+}/*# sourceMappingURL=App.css.map */
