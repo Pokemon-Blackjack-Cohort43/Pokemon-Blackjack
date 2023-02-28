@@ -1,5 +1,29 @@
+.instructionsContainer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  button {
+    z-index: 30;
+  }
+}
+
+.instructionsParent {
+  background: rgba(0, 0, 0, 0.4);
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+}
+
 .instructions {
   @include pokemonBorder;
+  position: absolute; 
+  top: 25%;
+  left: 0%;
+  right: 0%;
+  z-index: 20;
 }
 
 .instructionsButton {

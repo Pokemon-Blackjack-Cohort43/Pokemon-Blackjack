@@ -10,6 +10,9 @@ import { useState, useEffect } from 'react';
 const GameContainer = () => {
   // state to track game start
   const [gameStart, setGameStart] = useState(false);
+
+  // initialize state for displaying of instructions set to false  
+  const [displayInstructions, setDisplayInstructions] = useState(false);
   //
 
   // PUESDDO CODE:
@@ -157,7 +160,7 @@ const GameContainer = () => {
   // button to start game and generate initial pokemon/cards
   const startGameHandler = () => {
     setGameStart(!gameStart);
-    setCurrentPlayer('player one');
+    setCurrentPlayer('Player one');
 
     const check = currentDeck.splice(0, 2);
     const check2 = currentDeck.splice(0, 2);
@@ -211,44 +214,44 @@ const GameContainer = () => {
   // if player1/player2 get 21, pass turn to other player
   // if score is above 21, that player busts and the other player wins
   useEffect(() => {
-    const test = () => {
+    const checkScore = () => {
 
       if (scoreValue === 21) {
-        setCurrentPlayer('player two');
+        setCurrentPlayer('Player two');
         setWinner('none');
-        setResult(<><span>{pokemonPlayerOne.name}</span> has blackjack! <span>Player two</span> has a chance to draw to 21.</>);
+        setResult('Player one has blackjack. Player two has a chance to draw to 21.');
       } else if (scoreTwoValue === 21) {
-        setCurrentPlayer('player one');
+        setCurrentPlayer('Player one');
         setWinner('none')
-        setResult(<><span>Player two</span> has blackjack! <span>{pokemonPlayerOne.name}</span> has a chance to draw to 21.</>)
+        setResult('Player two has blackjack. Player one has a chance to draw to 21.')
       }
 
       if (scoreValue > 21) {
-        setResult(<><span>Player two</span> wins! <span>{pokemonPlayerOne.name}</span> busted!</>);
+        setResult(`Player two wins. Player one busted!`);
         setWinner('player two');
       }
 
       if (scoreTwoValue > 21) {
-        setResult(<><span>{pokemonPlayerOne.name}</span> wins! <span>Player two</span> busted!</>);
+        setResult(`Player one wins. Player two busted!`);
         setWinner('player one');
       }
     }
-    test();
+    checkScore();
   }, [playerOneHand, playerTwoHand]);
 
   // stay handler
   const stayHandler = () => {
     //if pressed by playerTwo, compare player scores and pass winner to results for results to display the evolving pokemon
     //if pressed by playerOne, setCurrentPlayer(playerTwo)
-    if (currentPlayer === 'player two') {
+    if (currentPlayer === 'Player two') {
       if (scoreValue < scoreTwoValue) {
         setCurrentPlayer('none');
         setWinner('player two');
-        setResult(<><span>Player two</span> wins! Their card score is closer to 21.</>);
+        setResult(`Player two wins. Their card score is closer to 21.`);
       } else if (scoreValue > scoreTwoValue) {
         setCurrentPlayer('none');
         setWinner('player one');
-        setResult(<><span>Player one</span> wins! Their card score is closer to 21.</>);
+        setResult(`Player one wins. Their card score is closer to 21.`);
         console.log(pokemonPlayerTwo);
       }
       else if (scoreTwoValue === scoreValue) {
@@ -256,7 +259,7 @@ const GameContainer = () => {
         setWinner('tie');
         setResult(`It's a tie!`);
       }
-    } else { setCurrentPlayer(currentPlayer === 'player one' ? 'player two' : 'player one'); }
+    } else { setCurrentPlayer(currentPlayer === 'Player one' ? 'Player two' : 'Player one'); }
   }
   //
 
@@ -265,9 +268,9 @@ const GameContainer = () => {
   const hitHandler = () => {
     const check = currentDeck.splice(0, 1);
 
-    if (currentPlayer === 'player one') {
+    if (currentPlayer === 'Player one') {
       setPlayerOneHand(hand => [...hand, check]);
-    } else if (currentPlayer === 'player two') {
+    } else if (currentPlayer === 'Player two') {
       setPlayerTwoHand(hand => [...hand, check]);
     }
   }
@@ -284,7 +287,7 @@ const GameContainer = () => {
     } 
 
     clearGame();
-    setCurrentPlayer('player one');
+    setCurrentPlayer('Player one');
     const check = currentDeck.splice(0, 2);
     const check2 = currentDeck.splice(0, 2);
     setPlayerOneHand(hand => [...hand, check]);
@@ -294,10 +297,10 @@ const GameContainer = () => {
   
   useEffect(() => {
     if (pokemonPlayerOneFam.length === 1) {
-      setResult(<><span>Player one</span> has fully evolved!</>);
+      setResult('Player one has fully evolved!');
       setWinner('player one');
     } else if (pokemonPlayerTwoFam.length === 1) {
-      setResult(<><span>Player two</span> has fully evolved!</>);
+      setResult('Player two has fully evolved!');
       setWinner('player two');
     }
   }, [pokemonPlayerOneFam, pokemonPlayerTwoFam]);
@@ -305,6 +308,7 @@ const GameContainer = () => {
   // quit the current hand - resets player and game play states
   const quitHandler = () => {
     setGameStart(false);
+    setDisplayInstructions(false);
     setCurrentPlayer('none');
     clearGame();
   }
@@ -312,7 +316,7 @@ const GameContainer = () => {
 
   return (
     <main>
-      <Instructions gameState={gameStart} quitHandler={quitHandler} startGameHandler={startGameHandler}/>
+      <Instructions gameState={gameStart} quitHandler={quitHandler} startGameHandler={startGameHandler} setDisplayInstructions={setDisplayInstructions} displayInstructions={displayInstructions} />
       {gameStart 
         ? <Results result={result} winner={winner} playerOnePokemon={pokemonPlayerOne} playerTwoPokemon={pokemonPlayerTwo} currentPlayer={currentPlayer} gameStart={gameStart} quitHandler={quitHandler} evolve={evolve} />
         : null
@@ -324,7 +328,7 @@ const GameContainer = () => {
         gameStart
           ? <section className='controller'>
             <div className='wrapper'>
-              <Controller hitButton={hitHandler} stayButton={stayHandler} winner={winner} result={result} />
+              <Controller hitButton={hitHandler} stayButton={stayHandler} winner={winner} result={result} quitHandler={quitHandler} evolve={evolve} />
             </div>
           </section>
           : null
@@ -336,9 +340,11 @@ const GameContainer = () => {
             <div className='wrapper'>
               <ul className='players'>
                 <li>
+                  <p>player one</p>
                   <Player pokeData={pokemonPlayerOne} cardData={playerOneHand} cardScore={scoreValue} />
                 </li>
                 <li>
+                  <p>player two</p>
                   <Player pokeData={pokemonPlayerTwo} cardData={playerTwoHand} cardScore={scoreTwoValue} />
                 </li>
               </ul>
