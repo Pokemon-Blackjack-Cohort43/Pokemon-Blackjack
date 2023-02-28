@@ -14,7 +14,7 @@ const Instructions = ({ gameState, quitHandler, startGameHandler, setDisplayInst
 
   return (
     <section className="instructionsContainer wrapper">
-      
+
       {/* instructions: displays when state is set to true */}
       {
         displayInstructions
@@ -27,8 +27,8 @@ const Instructions = ({ gameState, quitHandler, startGameHandler, setDisplayInst
 
       {/* if game state is false, display 'start game'. else, display 'quit' */}
       <button
-        onClick={gameState? quitHandler : startGameHandler}
-        className={gameState? 'howToPlayBtn' : null}
+        onClick={gameState ? quitHandler : startGameHandler}
+        className={gameState ? 'howToPlayBtn' : null}
         id='startButton'
       >
         {

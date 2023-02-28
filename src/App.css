@@ -227,8 +227,7 @@ template {
 h1,
 h2,
 h3,
-button,
-p {
+button {
   font-family: "VT323", monospace;
   color: rgb(204, 0, 0);
 }
@@ -256,8 +255,9 @@ body {
 }
 
 p {
-  font-size: 25px;
-  font-size: 1.25rem;
+  font-size: 20px;
+  font-size: 1rem;
+  font-family: "Pokemon GB", Arial, sans-serif;
 }
 
 .wrapper .instructions li {
@@ -269,6 +269,7 @@ span {
 }
 
 body {
+  background-color: rgb(125, 173, 113);
   background: url(../assets/pokemon_bg.png);
   background-size: cover;
   background-repeat: no-repeat;
@@ -276,11 +277,16 @@ body {
   position: relative;
   margin: 0;
   padding: 0;
+  position: relative;
 }
 
 header,
 footer {
   text-align: center;
+}
+
+footer {
+  position: absolute;
 }
 
 p {
@@ -411,6 +417,8 @@ footer {
   .instructions {
     padding: 15px 10px 0px;
     line-height: 25px;
+    font-family: "Pokemon GB", Arial, sans-serif;
+    color: black;
   }
 }
 @media (min-width: 320px) and (min-width: 481px) {
@@ -434,6 +442,37 @@ footer {
     padding: 10px 0 0;
   }
 }
+.instructionsContainer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.instructionsContainer button {
+  z-index: 30;
+}
+
+.instructionsParent {
+  background: rgba(0, 0, 0, 0.4);
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+}
+
+.instructions {
+  background-color: white;
+  border-radius: 2px;
+  line-height: 16px;
+  border: 1px solid white;
+  box-shadow: 0 1px 0 1px black, inset 0 1px 0 1px black, 0 0 0 1px black, inset 0 0 0 1px black;
+  position: absolute;
+  top: 25%;
+  left: 0%;
+  right: 0%;
+  z-index: 20;
+}
+
 .resultsWording {
   background-color: white;
   border-radius: 2px;
@@ -445,8 +484,11 @@ footer {
   width: 40%;
   height: 100%;
   margin: 0 auto;
+  color: black;
   padding: 15px 10px 0px;
   line-height: 25px;
+  font-family: "Pokemon GB", Arial, sans-serif;
+  color: black;
 }
 @media (min-width: 320px) {
   .resultsWording {
@@ -524,6 +566,7 @@ footer {
 .pokeInfo .pokeName {
   text-transform: uppercase;
   margin-bottom: 0px;
+  color: black;
 }
 .pokeInfo .pokeScore {
   font-family: "Pokemon GB", Arial, sans-serif;
@@ -531,17 +574,30 @@ footer {
 
 .playerUl {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
+  width: 100%;
+}
+.playerUl .playerOneUl,
+.playerUl .playerTwoUl {
+  width: 45%;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+.playerUl .playerLabel {
+  position: absolute;
+  top: -10%;
 }
 
 .playerCards ul {
   width: 100%;
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   flex-wrap: wrap;
 }
 .playerCards img {
   width: auto;
+  margin-right: 2px;
 }
 
 @media (min-width: 320px) {
@@ -578,7 +634,7 @@ footer {
   box-shadow: 0 1px 0 1px black, inset 0 1px 0 1px black, 0 0 0 1px black, inset 0 0 0 1px black;
   font-size: 25px;
   font-size: 1.25rem;
-  width: 50%;
+  width: 30%;
   margin: 0 auto;
   padding: 10px 25px;
 }

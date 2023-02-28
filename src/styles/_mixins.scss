@@ -63,6 +63,9 @@
 @mixin dialogueBox {
   padding: 15px 10px 0px;
   line-height: 25px;
+  font-family: $tertiaryFont;
+  color: black;
+
 
   @include devices (tablet) {
     max-width: 550px;

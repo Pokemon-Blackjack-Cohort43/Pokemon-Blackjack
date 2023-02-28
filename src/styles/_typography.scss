@@ -1,8 +1,7 @@
 h1, 
 h2, 
 h3,
-button,
-p {
+button {
   font-family: $primaryFont;
   color: $red;
 }
@@ -26,7 +25,8 @@ body {
 }
 
 p {
-  @include fontSize(25);
+  @include fontSize(20);
+  font-family: $tertiaryFont;
 }
 
 .wrapper {

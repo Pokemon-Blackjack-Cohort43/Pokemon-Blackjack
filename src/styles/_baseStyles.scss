@@ -1,4 +1,5 @@
 body{
+  background-color: rgb(125, 173, 113);
   background: url(../assets/pokemon_bg.png);
   background-size: cover;
   background-repeat: no-repeat;
@@ -6,11 +7,18 @@ body{
   position: relative;
   margin: 0;
   padding: 0;
+  position: relative;
+
 }
 
 header,
 footer {
   text-align: center;
+}
+
+footer {
+  position: absolute;
+  // bottom: -10;
 }
 
 p{
