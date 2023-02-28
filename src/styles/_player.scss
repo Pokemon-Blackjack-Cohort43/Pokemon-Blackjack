@@ -1,28 +1,32 @@
-
 //Player 1 Pokemon
-.playerContainer:first-child
-    .displayPoke {
-        img {
-            animation-duration: 3s;
-            animation-name: slideFromLeft;
-        }
-        text-align: center;
-
-        
+.playerContainer:first-child .displayPoke {
+    img {
+        animation-duration: 3s;
+        animation-name: slideFromLeft;
     }
-    //Slide in from outside VP
+
+    text-align: center;
+
+
+}
+
+//Slide in from outside VP
 @keyframes slideFromLeft {
     from {
         margin-left: -150%;
-        
+
     }
 
     to {
         margin-left: 0%;
-        
+
     }
 }
 
+.playerLabel {
+    background: $yellow;
+    border: 1px solid black;
+}
 
 //Player 2 Pokemon
 .playerContainer:nth-child(2) {
@@ -31,30 +35,33 @@
             animation-duration: 3s;
             animation-name: slideFromRight;
         }
+
         text-align: center;
 
     }
 }
-    //Slide in from outside VP
+
+//Slide in from outside VP
 @keyframes slideFromRight {
     from {
         margin-left: 150%;
-        
+
     }
+
     to {
         margin-left: 0%;
-        
+
     }
 }
 
 .displayPoke {
-  display: flex;
-  flex-direction: row-reverse;
-  justify-content: space-around;
-  
-  @include pokemonBorder;
-  margin: 0 auto;
-  margin-bottom: 25px;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-around;
+
+    @include pokemonBorder;
+    margin: 0 auto;
+    margin-bottom: 25px;
 }
 
 .playerScore {
@@ -72,7 +79,7 @@
         margin-bottom: 0px;
         color: black;
     }
-    
+
     .pokeScore {
         font-family: $tertiaryFont;
     }
@@ -80,23 +87,25 @@
 
 
 .playerUl {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  padding-bottom: 50px;
-
-  .playerOneUl,
-  .playerTwoUl {
-    width: 45%;
     display: flex;
-    justify-content: center;
-    position: relative;
-  }
+    justify-content: space-between;
+    width: 100%;
+    padding-bottom: 50px;
 
-  .playerLabel {
-    position: absolute;
-    top: -10%;
-  }
+    .playerOneUl,
+    .playerTwoUl {
+        width: 45%;
+        display: flex;
+        justify-content: center;
+        position: relative;
+        
+    }
+
+    .playerLabel {
+        position: absolute;
+        top: -10%;
+        padding: 5px 10px;
+    }
 
 }
 
@@ -118,6 +127,7 @@
 
     .playerUl .playerLabel {
         top: -10%;
+        @include fontSize(18);
     }
 
     .players {
@@ -130,18 +140,22 @@
             flex-direction: column;
             margin: 0 auto;
             margin-bottom: 10px;
-            max-width: 170px;
+            max-width: 145px;
 
-            h3, h4{
-                font-size: .4rem;
+            h3,
+            h4 {
+                @include fontSize(15);
             }
         }
+
         .playerContainer {
             padding-bottom: 40px;
         }
+
         .playerUl {
             flex-direction: row;
         }
+
         .playerOneUl,
         .playerTwoUl {
             width: 100%;
@@ -150,9 +164,9 @@
         .playerCards {
             .card {
                 padding: 0;
-    
+
                 img {
-                    height: 115px;
+                    height: 100px;
                     width: auto;
                 }
             }
@@ -160,20 +174,18 @@
     }
 }
 
-@include devices (tablet) {
-    .playerUl {
-        flex-direction: column;
-    }
-}
-
 @include devices (laptop) {
-    .playerUl {
-        flex-direction: row;
+
+    .players {
+        .playerCards {
+            .card {
+                img {
+                    height: 200px;
+        
+                }
+            }
     }
+    
+}
 }
 
-@include devices (desktop) {
-    .playerUl {
-        flex-direction: row;
-    }
-}
