@@ -34,3 +34,37 @@
 .controller {
   padding: 40px 0px;
 }
+
+@include devices(mobile) {
+    .controls {
+      padding: 10px 80px;
+      display: flex; 
+      color: black;
+
+      button {
+        padding: 10px 15px;
+
+        &:focus,
+        &:hover {
+          color: $red;
+
+          &::before {
+            content: '';
+            position: absolute;
+            left: 2px;
+            top: 15px;
+            height: 0;
+            width: 0;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            border-left: 10px solid black;
+          }
+        }
+      }
+    }
+
+    .controller ul {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
