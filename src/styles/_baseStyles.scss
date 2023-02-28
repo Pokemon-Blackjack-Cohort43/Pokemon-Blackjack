@@ -6,10 +6,17 @@ body{
   height: 100vh;
   margin: 0;
   padding: 0;
+  position: relative;
 }
+
 header,
 footer {
   text-align: center;
+}
+
+footer {
+  position: absolute;
+  // bottom: -10;
 }
 
 p{

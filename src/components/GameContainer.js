@@ -58,6 +58,8 @@ const GameContainer = () => {
   const [pokemonPlayerTwoFam, setPokemonPlayerTwoFam] = useState([]);
   const [pokemonPlayerOne, setPokemonPlayerOne] = useState([]);
   const [pokemonPlayerTwo, setPokemonPlayerTwo] = useState([]);
+  const [playerOne, setPlayerOne] = useState('');
+  const [playerTwo, setPlayerTwo] = useState('');
 
 
   useEffect(() => {
@@ -79,6 +81,7 @@ const GameContainer = () => {
 
       setPokemonPlayerOneFam(pokemonPlayerOneFam);
       setPokemonPlayerOne(pokemonPlayerOneFam[0]);
+      setPlayerOne(`${pokemonPlayerOne.name}`);
 
     }).catch((error) => {
       console.log(error, 'error fetching data')
@@ -103,6 +106,7 @@ const GameContainer = () => {
 
       setPokemonPlayerTwoFam(pokemonPlayerTwoFam);
       setPokemonPlayerTwo(pokemonPlayerTwoFam[0]);
+      setPlayerTwo(`${pokemonPlayerTwo.name}`);
 
 
     }).catch((error) => {
@@ -144,7 +148,6 @@ const GameContainer = () => {
 
   // initalize current deck
   const currentDeck = deck;
-  console.log(deck);
 
   // function to clear game board
   const clearGame = () => {
@@ -167,15 +170,6 @@ const GameContainer = () => {
   }
   //
 
-
-  // console.log('PLAYERHAND ONE', playerOneHand);
-  // console.log('PLAYERHAND TWO', playerTwoHand);
-
-
-  // flatten array by one level
-  // const cardsInHand = playerOneHand.flatMap(item => item);
-  // console.log(cardsInHand);
-
   // function to calculate score of cards in hand
   const cardScore = (cardSum) => {
     let score = 0;
@@ -185,7 +179,6 @@ const GameContainer = () => {
 
     // provided numerical values to face cards
     for (let cards of updatedDeck) {
-      console.log('cards', cards.value);
       const cardsInt = parseInt(cards.value);
 
       if (faceCards.includes(cards.value)) {
@@ -205,8 +198,6 @@ const GameContainer = () => {
   // tally the score of each player and pass to player components in the return as props
   const scoreValue = cardScore(playerOneHand);
   const scoreTwoValue = cardScore(playerTwoHand)
-  console.log('score ONE', scoreValue);
-  console.log('score TWO', scoreTwoValue);
 
   // if player1/player2 get 21, pass turn to other player
   // if score is above 21, that player busts and the other player wins
@@ -216,20 +207,20 @@ const GameContainer = () => {
       if (scoreValue === 21) {
         setCurrentPlayer('player two');
         setWinner('none');
-        setResult(<><span>{pokemonPlayerOne.name}</span> has blackjack! <span>Player two</span> has a chance to draw to 21.</>);
+        setResult('Player One has blackjack! Player Two has a chance to draw to 21.');
       } else if (scoreTwoValue === 21) {
         setCurrentPlayer('player one');
         setWinner('none')
-        setResult(<><span>Player two</span> has blackjack! <span>{pokemonPlayerOne.name}</span> has a chance to draw to 21.</>)
+        setResult('Player Two has blackjack! Player One has a chance to draw to 21.')
       }
 
       if (scoreValue > 21) {
-        setResult(<><span>Player two</span> wins! <span>{pokemonPlayerOne.name}</span> busted!</>);
+        setResult('Player Two wins! Player One busted!');
         setWinner('player two');
       }
 
       if (scoreTwoValue > 21) {
-        setResult(<><span>{pokemonPlayerOne.name}</span> wins! <span>Player two</span> busted!</>);
+        setResult('Player One wins! Player Two busted!');
         setWinner('player one');
       }
     }
@@ -244,12 +235,11 @@ const GameContainer = () => {
       if (scoreValue < scoreTwoValue) {
         setCurrentPlayer('none');
         setWinner('player two');
-        setResult(<><span>Player two</span> wins! Their card score is closer to 21.</>);
+        setResult('Player Two wins! Their card score is closer to 21.');
       } else if (scoreValue > scoreTwoValue) {
         setCurrentPlayer('none');
         setWinner('player one');
-        setResult(<><span>Player one</span> wins! Their card score is closer to 21.</>);
-        console.log(pokemonPlayerTwo);
+        setResult('Player One wins! Their card score is closer to 21.');
       }
       else if (scoreTwoValue === scoreValue) {
         setCurrentPlayer('none');
@@ -294,10 +284,10 @@ const GameContainer = () => {
   
   useEffect(() => {
     if (pokemonPlayerOneFam.length === 1) {
-      setResult(<><span>Player one</span> has fully evolved!</>);
+      setResult('Player One has fully evolved!');
       setWinner('player one');
     } else if (pokemonPlayerTwoFam.length === 1) {
-      setResult(<><span>Player two</span> has fully evolved!</>);
+      setResult('Player Two has fully evolved!');
       setWinner('player two');
     }
   }, [pokemonPlayerOneFam, pokemonPlayerTwoFam]);
