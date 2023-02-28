@@ -338,10 +338,10 @@ const GameContainer = () => {
         gameStart
           ? <section className="players">
             <div className="wrapper">
-              <ul className="players">
+              <div className="players">
                 <Player pokeData={pokemonPlayerOne} cardData={playerOneHand} cardScore={scoreValue} />
                 <Player pokeData={pokemonPlayerTwo} cardData={playerTwoHand} cardScore={scoreTwoValue} />
-              </ul>
+              </>
             </div>
           </section>
           : <InstructionsContent />
