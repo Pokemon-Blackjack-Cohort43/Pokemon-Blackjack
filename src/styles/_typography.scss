@@ -12,14 +12,21 @@ h1{
 
 h2 {
   @include fontSize(40);
+  color: black;
 }
 
 h3 {
-  @include fontSize(30);
+  @include fontSize(20);
+  font-family: $tertiaryFont;
 }
 
 body {
   @include fontSize(20);
+}
+
+p {
+  @include fontSize(20);
+  font-family: $tertiaryFont;
 }
 
 .wrapper {
@@ -28,4 +35,8 @@ body {
       font-family: $tertiaryFont;
     }
   }
+}
+
+span {
+  text-transform: uppercase;
 }

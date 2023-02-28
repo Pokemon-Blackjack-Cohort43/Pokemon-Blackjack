@@ -1,14 +1,24 @@
-html{
+body{
+  background-color: rgb(125, 173, 113);
   background: url(../assets/pokemon_bg.png);
   background-size: cover;
   background-repeat: no-repeat;
   height: 100vh;
-  
-  
 }
+
 header,
 footer {
   text-align: center;
+}
+
+footer {
+  position: absolute;
+  // bottom: -10;
+}
+
+p{
+  margin: 0;
+  padding: 5px 0 0;
 }
 
 button {
@@ -16,19 +26,14 @@ button {
   padding: 20px 30px;
   margin: 5px 10px;
   @include fontSize(20);
-  @include pokemonBorder;
   font-size: 1.5rem;
-  
+  border: solid 3px transparent;
+  transition: 300ms;
+
   &:hover,
   &:focus {
     border: solid 3px $blue;
   }
-}
-
-.howToPlayBtn {
-  position: relative;
-  top: 12vh;
-  right: 50%;
 }
 
 ul {
@@ -60,9 +65,19 @@ img {
   margin: 0 auto;
 }
 
+.dialogueBoxWrapper {
+  max-width: 1200px;
+  width: 95%;
+  margin: 0 auto;
+}
+
 
 footer {
   position: absolute;
-  bottom: 0;
+  bottom: 0%;
   width: 100%;
 }
+
+// .disabled {
+//   display:none;
+// }

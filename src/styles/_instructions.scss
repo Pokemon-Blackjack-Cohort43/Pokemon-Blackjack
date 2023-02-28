@@ -1,16 +1,107 @@
+.instructionsContainer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  button {
+    z-index: 30;
+  }
+}
+
+.instructionsParent {
+  background: rgba(0, 0, 0, 0.4);
+  position: absolute;
+  top: -30px;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+}
+
 .instructions {
-    @include pokemonBorder;
-    font-family: $tertiaryFont;
-    width: 40%;
-    padding: 20px;
-    h2 {
-        text-align: center;
+  @include pokemonBorder;
+  position: absolute; 
+  top: 25%;
+  left: 0%;
+  right: 0%;
+  z-index: 20;
+  font-family: $tertiaryFont;
+  width: 40%;
+  padding: 20px;
+  h2 {
+      text-align: center;
+  }
+  ul {
+      display: flex;
+      flex-direction: column;
+      h3 {
+          text-align: center;
+      }
+  }
+}
+}
+
+.instructionsButton {
+  @include gameboyButtonRound
+}
+
+// .gameStart{
+// }
+
+#startButton {
+  @include gameboyButtonPill
+}
+
+@include devices (mobile) {
+
+  .instructions{
+    @include dialogueBox;
+      
+    h2{
+      margin: 15px 0 0;
     }
+
     ul {
-        display: flex;
-        flex-direction: column;
-        h3 {
-            text-align: center;
-        }
+      display: flex;
+      flex-direction: column;
+      font-family: $tertiaryFont;
+      margin: 5px 0;
+
+      li {
+        padding: 10px 0 0;
+      }
     }
+  }
+
+    // h2{
+    //   text-align: center;
+    // }
+  }
+
+
+.instructionsContainer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  button {
+    z-index: 30;
+  }
+}
+
+.instructionsParent {
+  background: rgba(0, 0, 0, 0.4);
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+}
+
+.instructions {
+  @include pokemonBorder;
+  position: absolute;
+  top: 25%;
+  left: 0%;
+  right: 0%;
+  z-index: 20;
 }
