@@ -65,9 +65,17 @@
     @include pokemonBorder;
     margin: 0 auto;
     text-align: center;
-    
 }
 
 // .playerco{
 //     @include pokemonBorder;
 // }
+
+.pokeName {
+  text-transform: uppercase;
+  // font-stretch: extra-expanded;
+}
+
+.pokeScore {
+  font-family: $tertiaryFont;
+}

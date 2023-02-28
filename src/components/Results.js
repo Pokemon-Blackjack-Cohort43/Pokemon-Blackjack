@@ -5,12 +5,12 @@ const Results = ({ result, winner, playerOnePokemon, playerTwoPokemon, currentPl
   // call to pokemon api for the image of the evolved sprite of the winner is passed down via props from GameContainer and is rendered on the page
   return (
     <section className="results">
-      <div className="wrapper">
+      <div className="dialogueBoxWrapper">
         <div className="resultsWording">
           <p>
             {
               (currentPlayer !== 'none') && (winner === 'none')
-                ? `${currentPlayer}'s turn!`
+                ? <><span>{currentPlayer}'s</span> turn!</>
                 : ''}
           </p>
           <p>{gameStart
@@ -19,10 +19,10 @@ const Results = ({ result, winner, playerOnePokemon, playerTwoPokemon, currentPl
           <p>{winner !== 'none'
             ? (
               (winner === 'player one' && result !== 'player one has fully evolved!')
-                ? `${playerOnePokemon.name} is evolving!`
+                ? <><span>{playerOnePokemon.name}</span> is evolving!</>
                 : (
                   (winner === 'player two' && result !== 'player two has fully evolved!')
-                    ? `${playerTwoPokemon.name} is evolving!`
+                    ? <><span>{playerTwoPokemon.name}</span> is evolving!</>
                     : ''
                 )
             )

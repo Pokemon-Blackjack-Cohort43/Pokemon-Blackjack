@@ -2,7 +2,7 @@
 import { useState } from "react";
 import InstructionsContent from "./InstructionsContent.js";
 
-const Instructions = ({ gameState, quitHandler, startGameHandler, gameStart }) => {
+const Instructions = ({ gameState, quitHandler, startGameHandler }) => {
 
   // default setting to display an i card
   // initialize state for displaying of instruactions set to false  
@@ -18,7 +18,7 @@ const Instructions = ({ gameState, quitHandler, startGameHandler, gameStart }) =
   return (
     <section>
       {/* disable button access if game has not started yet */}
-      <button onClick={() => { handleClick() }} disabled={!gameState}>{displayInstructions ? "x" : "?"}</button>
+      <button className="instructionsButton" onClick={() => { handleClick() }} disabled={!gameState}>{displayInstructions ? "x" : "?"}</button>
 
       {/* instructions: displays when state is set to true */}
       {
@@ -28,13 +28,14 @@ const Instructions = ({ gameState, quitHandler, startGameHandler, gameStart }) =
       }
       {/* if game state is false, display 'start game'. else, display 'quit' */}
       <button
-        onClick={gameStart ? quitHandler : startGameHandler}
-        className={gameStart ? 'howToPlayBtn' : null}
+        onClick={gameState? quitHandler : startGameHandler}
+        className={gameState? 'howToPlayBtn' : null}
+        id='startButton'
       >
         {
-          gameStart
+          gameState
             ? 'quit'
-            : 'start game'
+            : 'start'
         }
       </button>
     </section>

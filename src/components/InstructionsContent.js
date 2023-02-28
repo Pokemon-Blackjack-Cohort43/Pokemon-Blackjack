@@ -1,6 +1,6 @@
 const InstructionsContent = () => {
   return (
-    <div className="wrapper instructions">
+    <div className="dialogueBoxWrapper instructions">
       <h2>How to play:</h2>
       <ul>
         <li>Winner will be the player who has the closest sum of cards to 21 without going over</li>
