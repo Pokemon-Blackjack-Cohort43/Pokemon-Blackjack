@@ -226,7 +226,6 @@ template {
 }
 h1,
 h2,
-h3,
 button,
 p {
   font-family: "VT323", monospace;
@@ -241,11 +240,13 @@ h1 {
 h2 {
   font-size: 40px;
   font-size: 2rem;
+  color: black;
 }
 
 h3 {
-  font-size: 30px;
-  font-size: 1.5rem;
+  font-size: 20px;
+  font-size: 1rem;
+  font-family: "Pokemon GB", Arial, sans-serif;
 }
 
 body {
@@ -253,20 +254,37 @@ body {
   font-size: 1rem;
 }
 
+p {
+  font-size: 25px;
+  font-size: 1.25rem;
+}
+
 .wrapper .instructions li {
   font-family: "Pokemon GB", Arial, sans-serif;
 }
 
-html {
+span {
+  text-transform: uppercase;
+}
+
+html,
+body {
   background: url(../assets/pokemon_bg.png);
   background-size: cover;
   background-repeat: no-repeat;
   height: 100vh;
+  margin: 0;
+  padding: 0;
 }
 
 header,
 footer {
   text-align: center;
+}
+
+p {
+  margin: 0;
+  padding: 5px 0 0;
 }
 
 button {
@@ -276,15 +294,11 @@ button {
   font-size: 20px;
   font-size: 1rem;
   font-size: 1.5rem;
+  border: solid 3px transparent;
+  transition: 300ms;
 }
 button:hover, button:focus {
   border: solid 3px rgb(59, 76, 202);
-}
-
-.howToPlayBtn {
-  position: relative;
-  top: 12vh;
-  right: 50%;
 }
 
 ul {
@@ -316,12 +330,109 @@ img {
   margin: 0 auto;
 }
 
+.dialogueBoxWrapper {
+  max-width: 1200px;
+  width: 95%;
+  margin: 0 auto;
+}
+
 footer {
   position: absolute;
   bottom: 0;
   width: 100%;
 }
 
+.instructionsContainer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.instructionsContainer button {
+  z-index: 30;
+}
+
+.instructionsParent {
+  background: rgba(0, 0, 0, 0.4);
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+}
+
+.instructions {
+  background-color: white;
+  border-radius: 2px;
+  line-height: 16px;
+  border: 1px solid white;
+  box-shadow: 0 1px 0 1px black, inset 0 1px 0 1px black, 0 0 0 1px black, inset 0 0 0 1px black;
+  position: absolute;
+  top: 25%;
+  left: 0%;
+  right: 0%;
+  z-index: 20;
+}
+
+.instructionsButton {
+  border: rgb(204, 0, 0);
+  border-radius: 50%;
+  height: 20px;
+  width: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+  background-color: rgb(204, 0, 0);
+  color: black;
+  text-transform: uppercase;
+  border: solid 3px transparent;
+  box-shadow: 0 1px 0 1px grey, inset 0 1px 0 1px rgb(204, 0, 0), 0 0 0 1px grey, inset 0 0 0 1px rgb(204, 0, 0);
+}
+.instructionsButton button:hover,
+.instructionsButton button:focus {
+  border: solid 3px rgb(59, 76, 202);
+}
+
+#startButton {
+  text-transform: uppercase;
+  color: darkblue;
+  padding: 10px;
+  background-color: grey;
+  border-radius: 16px;
+  box-shadow: 0 1px 0 1px black, inset 0 1px 0 1px gray, 0 0 0 1px grey, inset 0 0 0 1px black;
+}
+#startButton button:hover,
+#startButton button:focus {
+  border: solid 3px rgb(59, 76, 202);
+}
+
+@media (min-width: 320px) {
+  .instructions {
+    padding: 15px 10px 0px;
+    line-height: 25px;
+  }
+}
+@media (min-width: 320px) and (min-width: 481px) {
+  .instructions {
+    max-width: 550px;
+  }
+}
+@media (min-width: 320px) {
+  .instructions h2 {
+    margin: 15px 0 0;
+  }
+}
+@media (min-width: 320px) {
+  .instructions ul {
+    display: flex;
+    flex-direction: column;
+    font-family: "Pokemon GB", Arial, sans-serif;
+    margin: 5px 0;
+  }
+  .instructions ul li {
+    padding: 10px 0 0;
+  }
+}
 .resultsWording {
   background-color: white;
   border-radius: 2px;
@@ -329,44 +440,22 @@ footer {
   border: 1px solid white;
   box-shadow: 0 1px 0 1px black, inset 0 1px 0 1px black, 0 0 0 1px black, inset 0 0 0 1px black;
   font-family: "Pokemon GB", Arial, sans-serif;
-  padding: 8px;
+  padding: 8px 5px 0;
   width: 40%;
   height: 100%;
   margin: 0 auto;
+  padding: 15px 10px 0px;
+  line-height: 25px;
 }
-
-.controls {
-  background-color: white;
-  border-radius: 2px;
-  line-height: 16px;
-  border: 1px solid white;
-  box-shadow: 0 1px 0 1px black, inset 0 1px 0 1px black, 0 0 0 1px black, inset 0 0 0 1px black;
-  font-size: 25px;
-  font-size: 1.25rem;
-  width: 50%;
-  margin: 0 auto;
-  padding: 10px 25px;
+@media (min-width: 320px) {
+  .resultsWording {
+    width: 100%;
+  }
 }
-.controls button {
-  color: rgb(59, 76, 202);
-  border: none;
-  background: transparent;
-  transition: 300ms;
-  position: relative;
-}
-.controls button:focus, .controls button:hover {
-  color: black;
-}
-.controls button:focus::before, .controls button:hover::before {
-  content: "";
-  position: absolute;
-  left: 10px;
-  top: 25px;
-  height: 0;
-  width: 0;
-  border-top: 10px solid transparent;
-  border-bottom: 10px solid transparent;
-  border-left: 10px solid black;
+@media (min-width: 481px) {
+  .resultsWording {
+    max-width: 550px;
+  }
 }
 
 .playerContainer:first-child .displayPoke {
@@ -425,4 +514,46 @@ footer {
   box-shadow: 0 1px 0 1px black, inset 0 1px 0 1px black, 0 0 0 1px black, inset 0 0 0 1px black;
   margin: 0 auto;
   text-align: center;
+}
+
+.pokeName {
+  text-transform: uppercase;
+}
+
+.pokeScore {
+  font-family: "Pokemon GB", Arial, sans-serif;
+}
+
+.controls {
+  background-color: white;
+  border-radius: 2px;
+  line-height: 16px;
+  border: 1px solid white;
+  box-shadow: 0 1px 0 1px black, inset 0 1px 0 1px black, 0 0 0 1px black, inset 0 0 0 1px black;
+  font-size: 25px;
+  font-size: 1.25rem;
+  width: 50%;
+  margin: 0 auto;
+  padding: 10px 25px;
+}
+.controls button {
+  color: rgb(59, 76, 202);
+  border: none;
+  background: transparent;
+  transition: 300ms;
+  position: relative;
+}
+.controls button:focus, .controls button:hover {
+  color: rgb(204, 0, 0);
+}
+.controls button:focus::before, .controls button:hover::before {
+  content: "";
+  position: absolute;
+  left: 10px;
+  top: 25px;
+  height: 0;
+  width: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-left: 10px solid black;
 }/*# sourceMappingURL=App.css.map */
