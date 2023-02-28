@@ -1,0 +1,32 @@
+.controls {
+  @include pokemonBorder;
+  @include fontSize(25);
+  width: 50%;
+  margin: 0 auto;
+  padding: 10px 25px;
+
+  button {
+    color: $blue;
+    border: none;
+    background: transparent;
+    transition: 300ms;
+    position: relative;
+
+    &:focus,
+    &:hover {
+      color: $red;
+
+      &::before {
+        content: '';
+        position: absolute;
+        left: 10px;
+        top: 25px;
+        height: 0;
+        width: 0;
+        border-top: 10px solid transparent;
+        border-bottom: 10px solid transparent;
+        border-left: 10px solid black;
+      }
+    }
+  }
+}

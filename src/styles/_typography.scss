@@ -1,6 +1,5 @@
 h1, 
 h2, 
-h3,
 button {
   font-family: $primaryFont;
   color: $red;
@@ -12,10 +11,12 @@ h1{
 
 h2 {
   @include fontSize(40);
+  color: black;
 }
 
 h3 {
-  @include fontSize(30);
+  @include fontSize(20);
+  font-family: $tertiaryFont;
 }
 
 body {
@@ -28,4 +29,8 @@ body {
       font-family: $tertiaryFont;
     }
   }
+}
+
+span {
+  text-transform: uppercase;
 }

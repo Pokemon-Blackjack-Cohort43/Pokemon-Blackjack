@@ -1,0 +1,43 @@
+.instructions {
+  @include pokemonBorder;
+}
+
+.instructionsButton {
+  @include gameboyButtonRound
+}
+
+// .gameStart{
+// }
+
+#startButton {
+  @include gameboyButtonPill
+}
+
+@include devices (mobile) {
+
+  .instructions{
+    @include dialogueBox;
+      
+    h2{
+      margin: 15px 0 0;
+    }
+
+    ul {
+      display: flex;
+      flex-direction: column;
+      font-family: $tertiaryFont;
+      margin: 5px 0;
+
+      li {
+        padding: 10px 0 0;
+      }
+    }
+  }
+
+    // h2{
+    //   text-align: center;
+    // }
+  }
+
+
+

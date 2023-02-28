@@ -1,15 +1,13 @@
-import axios from "axios";
-import Player from "./Player";
-import Controller from "./Controller";
-import Instructions from "./Instructions";
-import InstructionsContent from "./InstructionsContent";
-import Results from "./Results";
+import axios from 'axios';
+import Player from './Player';
+import Controller from './Controller';
+import Instructions from './Instructions';
+import InstructionsContent from './InstructionsContent';
+import Results from './Results';
 import { useState, useEffect } from 'react';
 
 
 const GameContainer = () => {
-  console.log('GameContainer has mounted');
-
   // state to track game start
   const [gameStart, setGameStart] = useState(false);
   //
@@ -139,7 +137,7 @@ const GameContainer = () => {
       }).then((response) => {
         setDeck(response.data.cards);
       }).catch((err) => {
-        console.log("error", err.message);
+        console.log('error', err.message);
       })
     })
   }, [gameStart]);
@@ -216,22 +214,22 @@ const GameContainer = () => {
     const test = () => {
 
       if (scoreValue === 21) {
-        setCurrentPlayer("player two");
+        setCurrentPlayer('player two');
         setWinner('none');
-        setResult('Player1 has blackjack. Player2 has a chance to draw to 21.');
+        setResult(<><span>{pokemonPlayerOne.name}</span> has blackjack! <span>Player two</span> has a chance to draw to 21.</>);
       } else if (scoreTwoValue === 21) {
-        setCurrentPlayer("player one");
+        setCurrentPlayer('player one');
         setWinner('none')
-        setResult('Player2 has blackjack. Player1 has a chance to draw to 21.')
+        setResult(<><span>Player two</span> has blackjack! <span>{pokemonPlayerOne.name}</span> has a chance to draw to 21.</>)
       }
 
       if (scoreValue > 21) {
-        setResult(`Player 2 wins. Player 1 busted!`);
+        setResult(<><span>Player two</span> wins! <span>{pokemonPlayerOne.name}</span> busted!</>);
         setWinner('player two');
       }
 
       if (scoreTwoValue > 21) {
-        setResult(`Player 1 wins. Player 2 busted!`);
+        setResult(<><span>{pokemonPlayerOne.name}</span> wins! <span>Player two</span> busted!</>);
         setWinner('player one');
       }
     }
@@ -242,15 +240,15 @@ const GameContainer = () => {
   const stayHandler = () => {
     //if pressed by playerTwo, compare player scores and pass winner to results for results to display the evolving pokemon
     //if pressed by playerOne, setCurrentPlayer(playerTwo)
-    if (currentPlayer === "player two") {
+    if (currentPlayer === 'player two') {
       if (scoreValue < scoreTwoValue) {
         setCurrentPlayer('none');
         setWinner('player two');
-        setResult(`Player 2 wins. Their card score is closer to 21.`);
+        setResult(<><span>Player two</span> wins! Their card score is closer to 21.</>);
       } else if (scoreValue > scoreTwoValue) {
         setCurrentPlayer('none');
         setWinner('player one');
-        setResult(`Player 1 wins. Their card score is closer to 21.`);
+        setResult(<><span>Player one</span> wins! Their card score is closer to 21.</>);
         console.log(pokemonPlayerTwo);
       }
       else if (scoreTwoValue === scoreValue) {
@@ -258,7 +256,7 @@ const GameContainer = () => {
         setWinner('tie');
         setResult(`It's a tie!`);
       }
-    } else { setCurrentPlayer(currentPlayer === "player one" ? "player two" : "player one"); }
+    } else { setCurrentPlayer(currentPlayer === 'player one' ? 'player two' : 'player one'); }
   }
   //
 
@@ -267,9 +265,9 @@ const GameContainer = () => {
   const hitHandler = () => {
     const check = currentDeck.splice(0, 1);
 
-    if (currentPlayer === "player one") {
+    if (currentPlayer === 'player one') {
       setPlayerOneHand(hand => [...hand, check]);
-    } else if (currentPlayer === "player two") {
+    } else if (currentPlayer === 'player two') {
       setPlayerTwoHand(hand => [...hand, check]);
     }
   }
@@ -296,10 +294,10 @@ const GameContainer = () => {
   
   useEffect(() => {
     if (pokemonPlayerOneFam.length === 1) {
-      setResult('player one has fully evolved!');
+      setResult(<><span>Player one</span> has fully evolved!</>);
       setWinner('player one');
     } else if (pokemonPlayerTwoFam.length === 1) {
-      setResult('player two has fully evolved!');
+      setResult(<><span>Player two</span> has fully evolved!</>);
       setWinner('player two');
     }
   }, [pokemonPlayerOneFam, pokemonPlayerTwoFam]);
@@ -320,14 +318,12 @@ const GameContainer = () => {
         : null
       }
 
-  
-
       {/* display instructions on default. on game start, remove instructions display and display players*/}
       {/* when game state is true, render Controller component*/}
       {
         gameStart
-          ? <section className="controller">
-            <div className="wrapper">
+          ? <section className='controller'>
+            <div className='wrapper'>
               <Controller hitButton={hitHandler} stayButton={stayHandler} winner={winner} result={result} />
             </div>
           </section>
@@ -336,17 +332,20 @@ const GameContainer = () => {
 
       {
         gameStart
-          ? <section className="players">
-            <div className="wrapper">
-              <ul className="players">
-                <Player pokeData={pokemonPlayerOne} cardData={playerOneHand} cardScore={scoreValue} />
-                <Player pokeData={pokemonPlayerTwo} cardData={playerTwoHand} cardScore={scoreTwoValue} />
+          ? <section className='players'>
+            <div className='wrapper'>
+              <ul className='players'>
+                <li>
+                  <Player pokeData={pokemonPlayerOne} cardData={playerOneHand} cardScore={scoreValue} />
+                </li>
+                <li>
+                  <Player pokeData={pokemonPlayerTwo} cardData={playerTwoHand} cardScore={scoreTwoValue} />
+                </li>
               </ul>
             </div>
           </section>
           : <InstructionsContent />
       }
-
       
     </main>
   );
