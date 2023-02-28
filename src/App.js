@@ -8,7 +8,7 @@ function App() {
     <>
       <Header/>
       <GameContainer />
-      <Footer/>
+      <Footer />
     </>
   );
 }

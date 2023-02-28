@@ -1,9 +1,10 @@
 body{
-  background-color: rgb(125, 173, 113);
   background: url(../assets/pokemon_bg.png);
+  background-color: rgb(125, 173, 113);
   background-size: cover;
   background-repeat: no-repeat;
-  height: 100vh;
+  min-height: 100vh;
+  position: relative;
 }
 
 header,
@@ -13,7 +14,7 @@ footer {
 
 footer {
   position: absolute;
-  // bottom: -10;
+  bottom: 0;
 }
 
 p{
@@ -52,7 +53,8 @@ ul.instructionsCopy {
 }
 
 img {
-  max-height: 200px;
+  width: 100%;
+  display: block;
 }
 
 .hidden {

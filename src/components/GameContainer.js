@@ -230,7 +230,6 @@ const GameContainer = () => {
     //if pressed by playerTwo, compare player scores and pass winner to results for results to display the evolving pokemon
     //if pressed by playerOne, setCurrentPlayer(playerTwo)
     if (currentPlayer === 'Player two') {
-    if (currentPlayer === 'Player two') {
       if (scoreValue < scoreTwoValue) {
         setCurrentPlayer('none');
         setWinner('player two');
@@ -246,7 +245,6 @@ const GameContainer = () => {
         setResult(`It's a tie!`);
       }
     } else { setCurrentPlayer(currentPlayer === 'Player one' ? 'Player two' : 'Player one'); }
-    } else { setCurrentPlayer(currentPlayer === 'Player one' ? 'Player two' : 'Player one'); }
   }
   //
 
@@ -257,7 +255,6 @@ const GameContainer = () => {
 
     if (currentPlayer === 'Player one') {
       setPlayerOneHand(hand => [...hand, check]);
-    } else if (currentPlayer === 'Player two') {
     } else if (currentPlayer === 'Player two') {
       setPlayerTwoHand(hand => [...hand, check]);
     }
@@ -276,7 +273,6 @@ const GameContainer = () => {
 
     clearGame();
     setCurrentPlayer('Player one');
-    setCurrentPlayer('Player one');
     const check = currentDeck.splice(0, 2);
     const check2 = currentDeck.splice(0, 2);
     setPlayerOneHand(hand => [...hand, check]);
@@ -287,10 +283,8 @@ const GameContainer = () => {
   useEffect(() => {
     if (pokemonPlayerOneFam.length === 1) {
       setResult('Player one has fully evolved!');
-      setResult('Player one has fully evolved!');
       setWinner('player one');
     } else if (pokemonPlayerTwoFam.length === 1) {
-      setResult('Player two has fully evolved!');
       setResult('Player two has fully evolved!');
       setWinner('player two');
     }
@@ -299,7 +293,6 @@ const GameContainer = () => {
   // quit the current hand - resets player and game play states
   const quitHandler = () => {
     setGameStart(false);
-    setDisplayInstructions(false);
     setDisplayInstructions(false);
     setCurrentPlayer('none');
     clearGame();

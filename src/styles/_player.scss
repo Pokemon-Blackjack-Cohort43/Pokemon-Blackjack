@@ -55,9 +55,6 @@
   @include pokemonBorder;
   margin: 0 auto;
   margin-bottom: 25px;
-  img {
-      max-height: 30vh;
-  }
 }
 
 .playerScore {
@@ -86,6 +83,7 @@
   display: flex;
   justify-content: space-between;
   width: 100%;
+  padding-bottom: 50px;
 
   .playerOneUl,
   .playerTwoUl {
@@ -118,24 +116,54 @@
 
 @include devices (mobile) {
 
-    .displayPoke {
-        width: 300px;
-    }
-    .playerContainer {
-        padding-bottom: 40px;
-    }
-    .playerUl {
-        flex-direction: column;
+    .playerUl .playerLabel {
+        top: -10%;
     }
 
+    .players {
+        .wrapper {
+            width: 100%;
+        }
+
+        .displayPoke {
+            display: flex;
+            flex-direction: column;
+            margin: 0 auto;
+            margin-bottom: 10px;
+            max-width: 170px;
+
+            h3, h4{
+                font-size: .4rem;
+            }
+        }
+        .playerContainer {
+            padding-bottom: 40px;
+        }
+        .playerUl {
+            flex-direction: row;
+        }
+        .playerOneUl,
+        .playerTwoUl {
+            width: 100%;
+        }
+
+        .playerCards {
+            .card {
+                padding: 0;
+    
+                img {
+                    height: 115px;
+                    width: auto;
+                }
+            }
+        }
+    }
 }
 
 @include devices (tablet) {
     .playerUl {
         flex-direction: column;
     }
-
-
 }
 
 @include devices (laptop) {
